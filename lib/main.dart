@@ -1,39 +1,86 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    title: 'Your App Title',
+    home: MyApp(),
+  ));
 }
+
+
+class MyData {
+  final int id;
+  final String name;
+  final String status;
+  final String species;
+
+  MyData({
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.species,
+  });
+}
+
+
+
+Future<MyData> fetchData() async {
+  final response = await http.get(Uri.parse('https://rickandmortyapi.com/api/character/2'));
+
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> jsonResponse = json.decode(response.body);
+    final MyData myData = MyData(
+      id: jsonResponse['id'],
+      name: jsonResponse['name'],
+      status: jsonResponse['status'],
+      species: jsonResponse['species'],
+    );
+    return myData;
+  } else {
+    throw Exception('Error al cargar los datos desde la API');
+  }
+}
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("hola"),
+    ),
+    body: FutureBuilder<MyData>(
+      future: fetchData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Show a loading indicator while waiting for data.
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.data == null) { // Check if the data is null
+          return Text('No data available'); // Handle the case where data is null
+        } else {
+          final data = snapshot.data!;
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(data.name),
+                subtitle: Text('ID: ${data.id}'),
+              );
+            },
+          );
+        }
+      },
+    )
+  );
+}
 }
 
 class MyHomePage extends StatefulWidget {
