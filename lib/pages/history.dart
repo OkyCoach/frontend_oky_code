@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomeState();
+  State<HistoryPage> createState() => _HistoryState();
 }
 
-class _HomeState extends State<HomePage> {
+class _HistoryState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -15,7 +15,7 @@ class _HomeState extends State<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('OKY CODE'),
+            Text('History'),
           ],
         ),
       ),

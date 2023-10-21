@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class NutricoachPage extends StatefulWidget {
+  const NutricoachPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomeState();
+  State<NutricoachPage> createState() => _NutricoachState();
 }
 
-class _HomeState extends State<HomePage> {
+class _NutricoachState extends State<NutricoachPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -15,7 +15,7 @@ class _HomeState extends State<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('OKY CODE'),
+            Text('Nutricoach'),
           ],
         ),
       ),
