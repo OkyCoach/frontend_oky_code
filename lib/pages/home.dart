@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/range_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,14 +11,15 @@ class HomePage extends StatefulWidget {
 class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('OKY CODE'),
-          ],
-        ),
+        child: RangeBar(valor: 3, intervalos: const [
+          0,
+          1,
+          3,
+          7,
+          14
+        ]), // Puedes cambiar el valor aquí
       ),
     );
   }
