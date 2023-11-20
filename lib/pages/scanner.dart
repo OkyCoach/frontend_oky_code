@@ -16,6 +16,7 @@ class _ScannerState extends State<ScannerPage> {
   // String? barcodeData; // Aquí se almacenarán los datos obtenidos
   String? imageUrl;
   String? description;
+  String? allData;
   bool isLoading = false;
 
   Future<void> fetchBarcodeData() async {
@@ -29,9 +30,10 @@ class _ScannerState extends State<ScannerPage> {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       setState(() {
-        imageUrl = data['photoUrl'];
-        description = data['description'];
+        imageUrl = data['basicInformation']['photoUrl'];
+        description = data['basicInformation']['description'];
         isLoading = false;
+        allData = data.toString();
       });
     } else {
       isLoading = false;
@@ -82,6 +84,33 @@ class _ScannerState extends State<ScannerPage> {
                   description!,
                   style: TextStyle(fontSize: 18.0),
                 ), // Muestra la descripción
+              ),
+            // desplegable de información
+            if (allData != null && isLoading == false)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Text(
+                                  allData!,
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Text('Mostrar información completa'),
+                ),
               ),
           ],
         ),
