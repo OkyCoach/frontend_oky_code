@@ -16,6 +16,7 @@ class _ScannerState extends State<ScannerPage> {
   String result = '';
   String? imageUrl;
   String? description;
+  String? allData;
   bool isLoading = false;
 
   @override
@@ -79,6 +80,7 @@ class _ScannerState extends State<ScannerPage> {
       print('Error fetching data: $error');
       setState(() {
         isLoading = false;
+        allData = data.toString();
       });
     }
   }
@@ -113,6 +115,33 @@ class _ScannerState extends State<ScannerPage> {
                 child: Text(
                   description!,
                   style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+            // desplegable de información
+            if (allData != null && isLoading == false)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Text(
+                                  allData!,
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Text('Mostrar información completa'),
                 ),
               ),
           ],
