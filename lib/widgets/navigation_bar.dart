@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatefulWidget {
-  final int currentIndex; // Agrega esta variable
-  final Function(int) onUpdateIndex; // Agrega esta variable
+  final int currentIndex;
+  final Function(int) onUpdateIndex;
 
   CustomNavigationBar({
     Key? key,
@@ -15,36 +15,59 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  
   @override
   Widget build(BuildContext context) {
+    
     return NavigationBar(
-      height: 60,
-      selectedIndex: widget.currentIndex, // Usa el currentIndex pasado como propiedad
+      height: 70,
+      backgroundColor: const Color(0xFF201547),
+      selectedIndex: widget.currentIndex,
       onDestinationSelected: (index) {
-        widget.onUpdateIndex(index); // Llama a la función de callback para actualizar el _currentIndex
+        widget.onUpdateIndex(index);
       },
-      destinations: const [
+      destinations: [
         NavigationDestination(
-            icon: Icon(Icons.home),
-            selectedIcon: Icon(Icons.home_outlined),
-            label: "Home"),
+          icon: Container(
+            margin: const EdgeInsets.fromLTRB(
+                0, 12, 0, 0), // Ajusta el margen según sea necesario
+            height: 60,
+            child: Image.asset('lib/assets/Logo-blanco.png'),
+          ),
+          label: "",
+        ),
         NavigationDestination(
-            icon: Icon(Icons.update),
-            selectedIcon: Icon(Icons.update_outlined),
-            label: "Recs"),
+          icon: SizedBox(
+            width: 40,
+            height: 40,
+            child: Image.asset('lib/assets/Perfil.png'),
+          ),
+          label: "PERFIL",
+        ),
         NavigationDestination(
-            icon: Icon(Icons.photo_camera),
-            selectedIcon: Icon(Icons.photo_camera_outlined),
-            label: "Scan"),
+          icon: SizedBox(
+            width: 40,
+            height: 40,
+            child: Image.asset('lib/assets/Scanner.png'),
+          ),
+          label: "SCANNER",
+        ),
         NavigationDestination(
-            icon: Icon(Icons.pie_chart),
-            selectedIcon: Icon(Icons.pie_chart_outline),
-            label: "Overview"),
+          icon: SizedBox(
+            width: 40,
+            height: 40,
+            child: Image.asset('lib/assets/Preguntas.png'),
+          ),
+          label: "NUTRICOACH",
+        ),
         NavigationDestination(
-            icon: Icon(Icons.help),
-            selectedIcon: Icon(Icons.help_outline),
-            label: "Nutricoach")
+          icon: SizedBox(
+            width: 40,
+            height: 40,
+            child: Image.asset('lib/assets/Lupa.png'),
+          ),
+          label: "BUSCAR",
+          
+        ),
       ],
     );
   }

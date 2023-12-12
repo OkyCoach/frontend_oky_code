@@ -6,6 +6,7 @@ import 'package:frontend_oky_code/pages/scanner.dart';
 import 'package:frontend_oky_code/pages/overview.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,10 +54,18 @@ class _MainState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_currentIndex],
-      bottomNavigationBar: CustomNavigationBar(
-        currentIndex: _currentIndex,
-        onUpdateIndex: updateIndex, // Pasa la función de callback
-      ),
-    );
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: const Color(0xFF201547),
+          labelTextStyle: MaterialStateProperty.all(
+            const TextStyle(color: Colors.white, fontSize: 10.0),
+          ),
+        ),
+        child: CustomNavigationBar(
+            currentIndex: _currentIndex,
+            onUpdateIndex: updateIndex, // Pasa la función de callback
+          ),
+        )
+      );
   }
 }
