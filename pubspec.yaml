@@ -67,6 +67,9 @@ flutter:
     - lib/assets/Perfil.png
     - lib/assets/Preguntas.png
     - lib/assets/Scanner.png
+    - lib/assets/botones/Ver_producto.png
+    - lib/assets/Favorito.png
+    - lib/assets/Estrella_completa.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

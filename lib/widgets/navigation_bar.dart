@@ -4,7 +4,7 @@ class CustomNavigationBar extends StatefulWidget {
   final int currentIndex;
   final Function(int) onUpdateIndex;
 
-  CustomNavigationBar({
+  const CustomNavigationBar({
     Key? key,
     required this.currentIndex,
     required this.onUpdateIndex,

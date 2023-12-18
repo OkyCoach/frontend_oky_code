@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/pages/home.dart';
+import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,9 +24,24 @@ class _ScannerState extends State<ScannerPage> {
     super.initState();
 
     // Llamada a la función que deseas ejecutar al cargar la vista
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadScannerPage();
     });
+  }
+
+  void _mostrarPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const ProductPopup(
+          data: {
+            'Atributo1': 'Valor1',
+            'Atributo2': 'Valor2',
+            // Puedes agregar más atributos según tus necesidades
+          },
+        );
+      },
+    );
   }
 
   Future<void> _loadScannerPage() async {
@@ -36,117 +51,45 @@ class _ScannerState extends State<ScannerPage> {
         builder: (context) => const SimpleBarcodeScannerPage(),
       ),
     );
-
-    setState(() {
-      if (res == "-1") {
-        print("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        print(res);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ),
-        );
-      } else if (res is String) {
-        result = res;
-        fetchBarcodeData(); // Llama a la función después de escanear el código de barras
-      }
-    });
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MainPage(),
+      ),
+      (route) => false, // Remove all existing routes from the stack
+    );
+    if (res == "-1") {
+      result = res;
+      var data = await fetchBarcodeData(); // Llama a la función después de escanear el código de barras
+    }
+    
   }
 
-  Future<void> fetchBarcodeData() async {
-    setState(() {
-      isLoading = true;
-    });
+  
 
-    final url =
-        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/$result';
+  Future<Map<String, dynamic>> fetchBarcodeData() async {
+    setState(() { isLoading = true; });
+
+    const url = 'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/7802910008052';
     try {
       final response = await http.get(Uri.parse(url));
-
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        setState(() {
-          imageUrl = data['photoUrl'];
-          description = data['description'];
-          isLoading = false;
-        });
+        return data;
       } else {
-        setState(() {
-          isLoading = false;
-        });
+        setState(() { isLoading = false; });
       }
     } catch (error) {
-      print('Error fetching data: $error');
-      setState(() {
-        isLoading = false;
-        allData = data.toString();
-      });
+      setState(() { isLoading = false; });
+      return {"error": "Ocurrio un error al buscar los datos"};
     }
+    return {"error": "Ocurrio un error al buscar los datos"};
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () => _loadScannerPage(),
-              child: const Text('Open Scanner'),
-            ),
-            if (isLoading)
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CircularProgressIndicator(),
-              ),
-            if (imageUrl != null && !isLoading)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.network(
-                  imageUrl!,
-                  height: 400,
-                ),
-              ),
-            if (description != null && !isLoading)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  description!,
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-            // desplegable de información
-            if (allData != null && isLoading == false)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Text(
-                                  allData!,
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: const Text('Mostrar información completa'),
-                ),
-              ),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      
     );
   }
 }
