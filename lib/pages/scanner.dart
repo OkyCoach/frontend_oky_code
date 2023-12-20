@@ -29,21 +29,6 @@ class _ScannerState extends State<ScannerPage> {
     });
   }
 
-  void _mostrarPopup() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const ProductPopup(
-          data: {
-            'Atributo1': 'Valor1',
-            'Atributo2': 'Valor2',
-            // Puedes agregar más atributos según tus necesidades
-          },
-        );
-      },
-    );
-  }
-
   Future<void> _loadScannerPage() async {
     var res = await Navigator.push(
       context,
@@ -51,16 +36,21 @@ class _ScannerState extends State<ScannerPage> {
         builder: (context) => const SimpleBarcodeScannerPage(),
       ),
     );
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MainPage(),
-      ),
-      (route) => false, // Remove all existing routes from the stack
-    );
+    
     if (res == "-1") {
       result = res;
-      var data = await fetchBarcodeData(); // Llama a la función después de escanear el código de barras
+      var data = await fetchBarcodeData();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainPage(
+            showPopup: true,
+            popUpData: data,
+          ),
+        ),
+        (route) => false, // Remove all existing routes from the stack
+      );
+      
     }
     
   }

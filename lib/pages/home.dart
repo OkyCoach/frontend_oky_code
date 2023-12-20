@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final bool showPopup;
+  final Map<String, dynamic> popUpData;
+  const HomePage({Key? key, required this.showPopup, required this.popUpData}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomeState();
@@ -10,16 +12,12 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   // Método para mostrar el popup
-  void _mostrarPopup() {
+  void _displayPopup(data) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const ProductPopup(
-          data: {
-            'Atributo1': 'Valor1',
-            'Atributo2': 'Valor2',
-            // Puedes agregar más atributos según tus necesidades
-          },
+        return ProductPopup(
+          data: data,
         );
       },
     );
@@ -27,14 +25,19 @@ class _HomeState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if (widget.showPopup) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _displayPopup(widget.popUpData);
+      });
+    }
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              onPressed: _mostrarPopup,
-              child: const Text('Mostrar Popup'),
+              onPressed: null,
+              child: Text('Mostrar Popup'),
             ),
           ],
         ),

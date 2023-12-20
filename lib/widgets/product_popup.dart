@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/product_detail.dart';
 
 class ProductPopup extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
@@ -7,6 +8,17 @@ class ProductPopup extends StatelessWidget {
     super.key, 
     required this.data,
   });
+
+  void _showProductDetails(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ProductDetail(
+          data: data,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +40,10 @@ class ProductPopup extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/Lupa.png',
-                    height: 40,
-                    width: 40,
+                  Image.network(
+                    data["basicInformation"]["photoUrl"],
+                    height: 60,
+                    width: 60,
                   ),
                   Expanded(
                     child: Padding(
@@ -40,18 +52,18 @@ class ProductPopup extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Puff Manzana Arándano',
-                            style: TextStyle(
+                          Text(
+                            data["basicInformation"]["description"],
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
-                          const Text(
-                            'PUFF FOODS',
-                            style: TextStyle(
+                          Text(
+                            data["basicInformation"]["brands"][0]["name"],
+                            style: const TextStyle(
                               fontSize: 12,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -92,8 +104,8 @@ class ProductPopup extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
+                      onTap: (){
+                        _showProductDetails(context);
                       },
                       child: Image.asset(
                         "lib/assets/botones/Ver_producto.png",

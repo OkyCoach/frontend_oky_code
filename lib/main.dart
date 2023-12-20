@@ -21,13 +21,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(),
+      home: const MainPage(
+              showPopup: false,
+              popUpData: {},
+            ),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final bool showPopup;
+  final Map<String, dynamic> popUpData;
+  const MainPage({Key? key, required this.showPopup, required this.popUpData}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainState();
@@ -35,13 +40,7 @@ class MainPage extends StatefulWidget {
 
 class _MainState extends State<MainPage> {
   int _currentIndex = 0;
-  final pages = [
-    const HomePage(), 
-    const HistoryPage(),
-    const ScannerPage(),
-    const OverviewPage(),
-    const NutricoachPage()
-  ];
+  
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -51,6 +50,17 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool showPopup = widget.showPopup;
+    final pages = [
+      HomePage(
+        showPopup: showPopup,
+        popUpData: widget.popUpData,
+      ), 
+      const HistoryPage(),
+      const ScannerPage(),
+      const OverviewPage(),
+      const NutricoachPage()
+    ];
     return Scaffold(
       body: pages[_currentIndex],
       bottomNavigationBar: NavigationBarTheme(
@@ -63,8 +73,9 @@ class _MainState extends State<MainPage> {
         child: CustomNavigationBar(
             currentIndex: _currentIndex,
             onUpdateIndex: updateIndex, // Pasa la función de callback
-          ),
-        )
-      );
+        ),
+      )
+    );
+    
   }
 }
