@@ -72,22 +72,22 @@ class ProductPopup extends StatelessWidget {
                           Row(
                             children: [
                               Image.asset(
-                                'lib/assets/Estrella_completa.png',
+                                'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
                               Image.asset(
-                                'lib/assets/Estrella_completa.png',
+                                'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
                               Image.asset(
-                                'lib/assets/Estrella_completa.png',
+                                'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
                               Image.asset(
-                                'lib/assets/Estrella_completa.png',
+                                'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
@@ -108,7 +108,7 @@ class ProductPopup extends StatelessWidget {
                         _showProductDetails(context);
                       },
                       child: Image.asset(
-                        "lib/assets/botones/Ver_producto.png",
+                        "lib/assets/botones/ver_producto.png",
                         height: 40, // Ajusta la altura según tus necesidades
                         width: 40, // Ajusta el ancho según tus necesidades
                       ),
@@ -119,7 +119,7 @@ class ProductPopup extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child: Image.asset(
-                      "lib/assets/Favorito.png",
+                      "lib/assets/favorito.png",
                       height: 40, // Ajusta la altura según tus necesidades
                       width: 40, // Ajusta el ancho según tus necesidades
                     ),

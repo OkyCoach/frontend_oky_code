@@ -31,7 +31,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             margin: const EdgeInsets.fromLTRB(
                 0, 12, 0, 0), // Ajusta el margen según sea necesario
             height: 60,
-            child: Image.asset('lib/assets/Logo-blanco.png'),
+            child: Image.asset('lib/assets/logo_blanco.png'),
           ),
           label: "",
         ),
@@ -39,7 +39,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           icon: SizedBox(
             width: 40,
             height: 40,
-            child: Image.asset('lib/assets/Perfil.png'),
+            child: Image.asset('lib/assets/perfil.png'),
           ),
           label: "PERFIL",
         ),
@@ -47,7 +47,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           icon: SizedBox(
             width: 40,
             height: 40,
-            child: Image.asset('lib/assets/Scanner.png'),
+            child: Image.asset('lib/assets/scanner.png'),
           ),
           label: "SCANNER",
         ),
@@ -55,7 +55,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           icon: SizedBox(
             width: 40,
             height: 40,
-            child: Image.asset('lib/assets/Preguntas.png'),
+            child: Image.asset('lib/assets/preguntas.png'),
           ),
           label: "NUTRICOACH",
         ),
@@ -63,7 +63,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           icon: SizedBox(
             width: 40,
             height: 40,
-            child: Image.asset('lib/assets/Lupa.png'),
+            child: Image.asset('lib/assets/lupa.png'),
           ),
           label: "BUSCAR",
           

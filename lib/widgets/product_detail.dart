@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/nutricionist_evaluation.dart';
 
 class ProductDetail extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
@@ -70,22 +71,22 @@ class ProductDetail extends StatelessWidget {
                                   Row(
                                     children: [
                                       Image.asset(
-                                        'lib/assets/Estrella_completa.png',
+                                        'lib/assets/estrella_completa.png',
                                         height: 20,
                                         width: 20,
                                       ),
                                       Image.asset(
-                                        'lib/assets/Estrella_completa.png',
+                                        'lib/assets/estrella_completa.png',
                                         height: 20,
                                         width: 20,
                                       ),
                                       Image.asset(
-                                        'lib/assets/Estrella_completa.png',
+                                        'lib/assets/estrella_completa.png',
                                         height: 20,
                                         width: 20,
                                       ),
                                       Image.asset(
-                                        'lib/assets/Estrella_completa.png',
+                                        'lib/assets/estrella_completa.png',
                                         height: 20,
                                         width: 20,
                                       ),
@@ -145,16 +146,16 @@ class ProductDetail extends StatelessWidget {
                 ),
 
                 // Contenido de las pestañas
-                const Expanded(
+                Expanded(
                   child: TabBarView(
                     children: [
                       // Contenido de la pestaña Nutricionistas
                       Center(
-                        child: Text("Contenido Nutricionistas"),
+                        child: NutricionistEvaluation(data: data),
                       ),
 
                       // Contenido de la pestaña Tabla Nutricional
-                      Center(
+                      const Center(
                         child: Text("Contenido Tabla Nutricional"),
                       ),
                     ],

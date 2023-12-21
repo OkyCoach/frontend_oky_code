@@ -62,14 +62,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/Logo-blanco.png
-    - lib/assets/Lupa.png
-    - lib/assets/Perfil.png
-    - lib/assets/Preguntas.png
-    - lib/assets/Scanner.png
-    - lib/assets/botones/Ver_producto.png
-    - lib/assets/Favorito.png
-    - lib/assets/Estrella_completa.png
+    - lib/assets/logo_blanco.png
+    - lib/assets/lupa.png
+    - lib/assets/perfil.png
+    - lib/assets/preguntas.png
+    - lib/assets/scanner.png
+    - lib/assets/botones/ver_producto.png
+    - lib/assets/favorito.png
+    - lib/assets/estrella_completa.png
+    - lib/assets/estrella_vacia.png
+    - lib/assets/azucar.png
+    - lib/assets/calidad_ingredientes.png
+    - lib/assets/naturalidad.png
+    - lib/assets/numero_ingredientes.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -4,135 +4,301 @@ class NutricionistEvaluation extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
 
   const NutricionistEvaluation({
-    super.key, 
+    Key? key,
     required this.data,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      insetPadding: const EdgeInsets.all(20),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-      ),
-      elevation: 10,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.9,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
+    return Container(
+      color: const Color(0xFF7448ED),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0), // Espacio de padding para el Row
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey, // Color del borde inferior
+                    width: 1.0, // Ancho del borde inferior
+                  ),
+                ),
+              ),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.network(
-                    data["basicInformation"]["photoUrl"],
-                    height: 80,
-                    width: 80,
+                  Image.asset(
+                    'lib/assets/azucar.png',
+                    height: 50,
+                    width: 50,
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            data["basicInformation"]["description"],
-                            style: const TextStyle(
-                              fontSize: 15,
+                          const Text(
+                            'Azucares totales',
+                            style: TextStyle(
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
                           ),
-                          Text(
-                            data["basicInformation"]["brands"][0]["name"],
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'lib/assets/Estrella_completa.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Image.asset(
-                                    'lib/assets/Estrella_completa.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Image.asset(
-                                    'lib/assets/Estrella_completa.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Image.asset(
-                                    'lib/assets/Estrella_completa.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                ],
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
                               ),
-                              const Text(
-                                "Evaluado por 7 nutricionistas",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
                               ),
-                            ]
-                          ) 
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_vacia.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 25,
-              ),
-              const Text(
-                "Evaluación Nutricional",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0), // Espacio de padding para el Row
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey, // Color del borde inferior
+                    width: 1.0, // Ancho del borde inferior
+                  ),
                 ),
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Nutricionistas",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                  Image.asset(
+                    'lib/assets/numero_ingredientes.png',
+                    height: 50,
+                    width: 50,
                   ),
-                  Text(
-                    "Tabla Nutricional",
-                    style: TextStyle(
-                      fontSize: 18,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Numero de Ingredientes',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_vacia.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0), // Espacio de padding para el Row
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey, // Color del borde inferior
+                    width: 1.0, // Ancho del borde inferior
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'lib/assets/calidad_ingredientes.png',
+                    height: 50,
+                    width: 50,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Calidad de Ingredientes',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_vacia.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0), // Espacio de padding para el Row
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey, // Color del borde inferior
+                    width: 1.0, // Ancho del borde inferior
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'lib/assets/naturalidad.png',
+                    height: 50,
+                    width: 50,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Naturalidad del producto',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_vacia.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
