@@ -20,7 +20,7 @@ class NutricionistEvaluation extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey, // Color del borde inferior
+                    color: Color(0xFF201547), // Color del borde inferior
                     width: 1.0, // Ancho del borde inferior
                   ),
                 ),
@@ -28,10 +28,18 @@ class NutricionistEvaluation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/azucar.png',
-                    height: 50,
-                    width: 50,
+                  ClipOval(
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFE8E4F4),
+                        BlendMode.color,
+                      ),
+                      child: Image.asset(
+                        'lib/assets/azucar.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -55,20 +63,32 @@ class NutricionistEvaluation extends StatelessWidget {
                                 height: 20,
                                 width: 20,
                               ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_vacia.png',
@@ -91,7 +111,7 @@ class NutricionistEvaluation extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey, // Color del borde inferior
+                    color: Color(0xFF201547), // Color del borde inferior
                     width: 1.0, // Ancho del borde inferior
                   ),
                 ),
@@ -99,10 +119,18 @@ class NutricionistEvaluation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/numero_ingredientes.png',
-                    height: 50,
-                    width: 50,
+                  ClipOval(
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFE8E4F4),
+                        BlendMode.color,
+                      ),
+                      child: Image.asset(
+                        'lib/assets/numero_ingredientes.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -126,20 +154,32 @@ class NutricionistEvaluation extends StatelessWidget {
                                 height: 20,
                                 width: 20,
                               ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_vacia.png',
@@ -162,7 +202,7 @@ class NutricionistEvaluation extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey, // Color del borde inferior
+                    color: Color(0xFF201547), // Color del borde inferior
                     width: 1.0, // Ancho del borde inferior
                   ),
                 ),
@@ -170,10 +210,18 @@ class NutricionistEvaluation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/calidad_ingredientes.png',
-                    height: 50,
-                    width: 50,
+                  ClipOval(
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFE8E4F4),
+                        BlendMode.color,
+                      ),
+                      child: Image.asset(
+                        'lib/assets/calidad_ingredientes.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -197,20 +245,32 @@ class NutricionistEvaluation extends StatelessWidget {
                                 height: 20,
                                 width: 20,
                               ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_vacia.png',
@@ -233,7 +293,7 @@ class NutricionistEvaluation extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey, // Color del borde inferior
+                    color: Color(0xFF201547), // Color del borde inferior
                     width: 1.0, // Ancho del borde inferior
                   ),
                 ),
@@ -241,10 +301,18 @@ class NutricionistEvaluation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/naturalidad.png',
-                    height: 50,
-                    width: 50,
+                  ClipOval(
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFE8E4F4),
+                        BlendMode.color,
+                      ),
+                      child: Image.asset(
+                        'lib/assets/naturalidad.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -268,20 +336,32 @@ class NutricionistEvaluation extends StatelessWidget {
                                 height: 20,
                                 width: 20,
                               ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
                               ),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Image.asset(
                                 'lib/assets/estrella_completa.png',
                                 height: 20,
                                 width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Image.asset(
+                                'lib/assets/estrella_completa.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 2,
                               ),
                               Image.asset(
                                 'lib/assets/estrella_vacia.png',

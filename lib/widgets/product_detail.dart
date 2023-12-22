@@ -130,7 +130,7 @@ class ProductDetail extends StatelessWidget {
                       child: Text(
                         "Nutricionistas",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                         ),
                       ),
                     ),
@@ -138,7 +138,7 @@ class ProductDetail extends StatelessWidget {
                       child: Text(
                         "Tabla Nutricional",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                         ),
                       ),
                     ),
