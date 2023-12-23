@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MainPage(
-              showPopup: false,
-              popUpData: {},
-            ),
+        showPopup: false,
+        popUpData: {},
+      ),
     );
   }
 }
@@ -35,8 +35,8 @@ class MainPage extends StatefulWidget {
   const MainPage({
     Key? key, 
     required this.showPopup, 
-    required this.popUpData
-  }) : super(key: key);
+    required this.popUpData, 
+  }): super(key: key);
 
   @override
   State<MainPage> createState() => _MainState();
@@ -44,7 +44,6 @@ class MainPage extends StatefulWidget {
 
 class _MainState extends State<MainPage> {
   int _currentIndex = 0;
-  
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -59,27 +58,25 @@ class _MainState extends State<MainPage> {
       HomePage(
         showPopup: showPopup,
         popUpData: widget.popUpData,
-      ), 
+      ),
       const HistoryPage(),
       const ScannerPage(),
       const OverviewPage(),
       const NutricoachPage()
     ];
     return Scaffold(
-      body: pages[_currentIndex],
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          indicatorColor: const Color(0x8028144C),
-          labelTextStyle: MaterialStateProperty.all(
-            const TextStyle(color: Colors.white, fontSize: 10.0),
+        body: pages[_currentIndex],
+        bottomNavigationBar: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            indicatorColor: const Color(0x8028144C),
+            labelTextStyle: MaterialStateProperty.all(
+              const TextStyle(color: Colors.white, fontSize: 10.0),
+            ),
           ),
-        ),
-        child: CustomNavigationBar(
+          child: CustomNavigationBar(
             currentIndex: _currentIndex,
             onUpdateIndex: updateIndex, // Pasa la función de callback
-        ),
-      )
-    );
-    
+          ),
+        ));
   }
 }

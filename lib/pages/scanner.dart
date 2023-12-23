@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/main.dart';
-import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,12 +36,13 @@ class _ScannerState extends State<ScannerPage> {
       ),
     );
     if (res == "-1") {
+      var data = await fetchBarcodeData("7802910008052");
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => MainPage(
-            showPopup: false,
-            popUpData: {},
+            showPopup: true,
+            popUpData: data,
           ),
         ),
         (route) => false, // Remove all existing routes from the stack
@@ -53,7 +53,7 @@ class _ScannerState extends State<ScannerPage> {
         context,
         MaterialPageRoute(
           builder: (context) => MainPage(
-            showPopup: true,
+            showPopup: data["barcode"] != null,
             popUpData: data,
           ),
         ),

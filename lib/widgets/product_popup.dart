@@ -58,6 +58,7 @@ class ProductPopup extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.bold,
+                              color: Color(0xFF7448ED)
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,

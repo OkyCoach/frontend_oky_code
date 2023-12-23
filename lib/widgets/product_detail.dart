@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/nutricionist_evaluation.dart';
+import 'package:frontend_oky_code/widgets/table_evaluation.dart';
 
 class ProductDetail extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
@@ -137,15 +138,17 @@ class ProductDetail extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       // Contenido de la pestaña Nutricionistas
-                      SingleChildScrollView(
-                        child: Center(
-                          child: NutricionistEvaluation(data: data),
-                        ),
+                      ListView(
+                        children: [
+                          NutricionistEvaluation(data: data),  
+                        ]
                       ),
 
                       // Contenido de la pestaña Tabla Nutricional
-                      const Center(
-                        child: Text("Contenido Tabla Nutricional"),
+                      ListView(
+                        children: [
+                          TableEvaluation(data: data),  
+                        ]
                       ),
                     ],
                   ),
