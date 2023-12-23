@@ -32,7 +32,11 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatefulWidget {
   final bool showPopup;
   final Map<String, dynamic> popUpData;
-  const MainPage({Key? key, required this.showPopup, required this.popUpData}) : super(key: key);
+  const MainPage({
+    Key? key, 
+    required this.showPopup, 
+    required this.popUpData
+  }) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainState();

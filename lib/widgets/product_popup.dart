@@ -5,9 +5,9 @@ class ProductPopup extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
 
   const ProductPopup({
-    super.key, 
+    Key? key,
     required this.data,
-  });
+  }) : super(key: key);
 
   void _showProductDetails(context) {
     showDialog(
@@ -22,15 +22,16 @@ class ProductPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double popupHeight = screenHeight * 0.2;
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
       elevation: 10,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.2,
-        ),
+      child: SizedBox(
+        height: popupHeight,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -42,12 +43,12 @@ class ProductPopup extends StatelessWidget {
                 children: [
                   Image.network(
                     data["basicInformation"]["photoUrl"],
-                    height: 60,
-                    width: 60,
+                    height: popupHeight * 0.4, // Ajusta según tus necesidades
+                    width: popupHeight * 0.4, // Ajusta según tus necesidades
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 10.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,7 @@ class ProductPopup extends StatelessWidget {
                           Text(
                             data["basicInformation"]["description"],
                             style: const TextStyle(
-                              fontSize: 15,
+                              fontSize: 11,
                               fontWeight: FontWeight.bold,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -64,35 +65,29 @@ class ProductPopup extends StatelessWidget {
                           Text(
                             data["basicInformation"]["brands"][0]["name"],
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             children: [
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
+                              for (int i = 0; i < 4; i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 3),
+                                  child: Image.asset(
+                                    'lib/assets/estrella_completa.png',
+                                    height: popupHeight *
+                                        0.1, // Ajusta según tus necesidades
+                                    width: popupHeight *
+                                        0.1, // Ajusta según tus necesidades
+                                  ),
+                                ),
                             ],
-                          ) 
+                          )
                         ],
                       ),
                     ),
@@ -100,28 +95,33 @@ class ProductPopup extends StatelessWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: (){
-                        _showProductDetails(context);
-                      },
-                      child: Image.asset(
-                        "lib/assets/botones/ver_producto.png",
-                        height: 40, // Ajusta la altura según tus necesidades
-                        width: 40, // Ajusta el ancho según tus necesidades
-                      ),
+                  InkWell(
+                    onTap: () {
+                      _showProductDetails(context);
+                    },
+                    child: Image.asset(
+                      "lib/assets/botones/ver_producto.png",
+                      height:
+                          popupHeight * 0.22, // Ajusta según tus necesidades,
                     ),
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Image.asset(
-                      "lib/assets/favorito.png",
-                      height: 40, // Ajusta la altura según tus necesidades
-                      width: 40, // Ajusta el ancho según tus necesidades
+                    child: ClipOval(
+                      child: ColorFiltered(
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFFE8E4F4),
+                          BlendMode.color,
+                        ),
+                        child: Image.asset(
+                          'lib/assets/favorito.png',
+                          height: popupHeight * 0.22,
+                        ),
+                      ),
                     ),
                   ),
                 ],

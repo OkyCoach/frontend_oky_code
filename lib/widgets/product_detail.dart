@@ -70,26 +70,15 @@ class ProductDetail extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.asset(
-                                        'lib/assets/estrella_completa.png',
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      Image.asset(
-                                        'lib/assets/estrella_completa.png',
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      Image.asset(
-                                        'lib/assets/estrella_completa.png',
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      Image.asset(
-                                        'lib/assets/estrella_completa.png',
-                                        height: 20,
-                                        width: 20,
-                                      ),
+                                      for (int i = 0; i < 4; i++)
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 3),
+                                          child: Image.asset(
+                                            'lib/assets/estrella_completa.png',
+                                            height: 20,     
+                                            width: 20
+                                          ),
+                                        ),
                                     ],
                                   ),
                                   const Text(
@@ -107,13 +96,11 @@ class ProductDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
+                
                 const Text(
                   "Evaluación Nutricional",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -130,7 +117,7 @@ class ProductDetail extends StatelessWidget {
                       child: Text(
                         "Nutricionistas",
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -138,7 +125,7 @@ class ProductDetail extends StatelessWidget {
                       child: Text(
                         "Tabla Nutricional",
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -150,8 +137,10 @@ class ProductDetail extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       // Contenido de la pestaña Nutricionistas
-                      Center(
-                        child: NutricionistEvaluation(data: data),
+                      SingleChildScrollView(
+                        child: Center(
+                          child: NutricionistEvaluation(data: data),
+                        ),
                       ),
 
                       // Contenido de la pestaña Tabla Nutricional

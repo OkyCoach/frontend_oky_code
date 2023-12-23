@@ -36,10 +36,19 @@ class _ScannerState extends State<ScannerPage> {
         builder: (context) => const SimpleBarcodeScannerPage(),
       ),
     );
-    
     if (res == "-1") {
-      result = res;
-      var data = await fetchBarcodeData();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainPage(
+            showPopup: false,
+            popUpData: {},
+          ),
+        ),
+        (route) => false, // Remove all existing routes from the stack
+      ); 
+    } else {
+      var data = await fetchBarcodeData(res);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -50,31 +59,31 @@ class _ScannerState extends State<ScannerPage> {
         ),
         (route) => false, // Remove all existing routes from the stack
       );
-      
     }
     
   }
 
   
 
-  Future<Map<String, dynamic>> fetchBarcodeData() async {
-    setState(() { isLoading = true; });
+  Future<Map<String, dynamic>> fetchBarcodeData(String code) async {
+  setState(() { isLoading = true; });
 
-    const url = 'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/7802910008052';
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        return data;
-      } else {
-        setState(() { isLoading = false; });
-      }
-    } catch (error) {
+  const url = 'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/';
+  try {
+    final response = await http.get(Uri.parse('$url$code'));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
       setState(() { isLoading = false; });
-      return {"error": "Ocurrio un error al buscar los datos"};
+      return {"error": "Error en la solicitud HTTP"};
     }
-    return {"error": "Ocurrio un error al buscar los datos"};
+  } catch (error) {
+    setState(() { isLoading = false; });
+    return {"error": "Ocurrió un error al buscar los datos"};
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
