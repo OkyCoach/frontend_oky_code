@@ -42,7 +42,7 @@ class TableEvaluation extends StatelessWidget {
   }
 
   Widget buildRow({required String imagePath, required String title}) {
-    const double padding = 30.0;
+    const double padding = 15.0;
     return Padding(
         padding: const EdgeInsets.only(left: padding),
         child: Column(children: [
@@ -72,7 +72,7 @@ class TableEvaluation extends StatelessWidget {
                       const Text(
                         "Según la dosis diaria recomendada",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 11,
                           fontWeight: FontWeight.normal,
                           color: Color(0xFF201547),
                         ),
@@ -84,7 +84,7 @@ class TableEvaluation extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 15, right: 30.0),
+            padding: const EdgeInsets.only(top: 15, right: padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -105,7 +105,7 @@ class TableEvaluation extends StatelessWidget {
 
 Widget buildRange(List<String> rangeValues) {
   return Padding(
-    padding: const EdgeInsets.only(top: 5, right: 30.0),
+    padding: const EdgeInsets.only(top: 5, right: 15.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -113,7 +113,7 @@ Widget buildRange(List<String> rangeValues) {
           Text(
             rangeValues[i],
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 8,
               fontWeight: FontWeight.normal,
               color: Color(0xFF201547),
             ),
