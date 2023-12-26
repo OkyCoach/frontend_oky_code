@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
+import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class HomePage extends StatefulWidget {
   final bool showPopup;
@@ -55,6 +56,7 @@ class _HomeState extends State<HomePage> {
               onPressed: null,
               child: Text('Mostrar Popup'),
             ),
+            Recommended(data: {})
           ],
         ),
       ),
