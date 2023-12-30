@@ -4,9 +4,14 @@ import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class HomePage extends StatefulWidget {
-  final bool showPopup;
+  final bool showProductPopup;
+  final bool showNotFoundPopup;
   final Map<String, dynamic> popUpData;
-  const HomePage({Key? key, required this.showPopup, required this.popUpData})
+  const HomePage({
+    Key? key, 
+    required this.showProductPopup, 
+    required this.showNotFoundPopup,
+    required this.popUpData})
       : super(key: key);
 
   @override
@@ -37,28 +42,42 @@ class _HomeState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.showPopup) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    if (widget.showProductPopup) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _displayPopup(widget.popUpData);
       });
-    } else {
+    }
+    if(widget.showNotFoundPopup){
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _displayNotFound();
       });
     }
 
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: null,
-              child: Text('Mostrar Popup'),
-            ),
-            Recommended(data: {})
-          ],
+    return Scaffold(
+      body: Container(
+        width: screenWidth,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFF201547),
+              Color(0xFF7448ED),
+            ],
+          ),
         ),
+        child: const Center(
+          child: Text(
+            "Pagina principal",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        )
       ),
     );
   }

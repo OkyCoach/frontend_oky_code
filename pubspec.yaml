@@ -64,13 +64,12 @@ flutter:
   assets:
     - lib/assets/logos/logo_blanco.png
     - lib/assets/logos/logo_degrade.png
+    - lib/assets/logos/full_logo.png
     
     - lib/assets/lupa.png
     - lib/assets/perfil.png
     - lib/assets/preguntas.png
     - lib/assets/scanner.png
-    - lib/assets/botones/ver_producto.png
-    - lib/assets/botones/agregar.png
     - lib/assets/favorito.png
     - lib/assets/estrella_completa.png
     - lib/assets/estrella_vacia.png
@@ -81,6 +80,12 @@ flutter:
     - lib/assets/calorias.png
     - lib/assets/grasas.png
     - lib/assets/proteinas.png
+    - lib/assets/nutria_1.png
+    - lib/assets/scanner_tutorial.png
+
+    - lib/assets/botones/ver_producto.png
+    - lib/assets/botones/agregar.png
+    - lib/assets/botones/continuar.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png

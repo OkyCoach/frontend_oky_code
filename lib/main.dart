@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
-import 'package:frontend_oky_code/pages/history.dart';
+import 'package:frontend_oky_code/pages/profile.dart';
 import 'package:frontend_oky_code/pages/scanner.dart';
-import 'package:frontend_oky_code/pages/overview.dart';
+import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
+import 'package:frontend_oky_code/pages/tutorial_1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,20 +22,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(
-        showPopup: false,
-        popUpData: {},
-      ),
+      home: const FirstTutorialPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  final bool showPopup;
+  final bool showProductPopup;
+  final bool showNotFoundPopup;
   final Map<String, dynamic> popUpData;
+
   const MainPage({
     Key? key, 
-    required this.showPopup, 
+    required this.showProductPopup, 
+    required this.showNotFoundPopup, 
     required this.popUpData, 
   }): super(key: key);
 
@@ -53,30 +54,34 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool showPopup = widget.showPopup;
+    bool showProductPopup = widget.showProductPopup;
+    bool showNotFoundPopup = widget.showNotFoundPopup;
+
     final pages = [
       HomePage(
-        showPopup: showPopup,
+        showProductPopup: showProductPopup,
+        showNotFoundPopup: showNotFoundPopup,
         popUpData: widget.popUpData,
       ),
-      const HistoryPage(),
+      const ProfilePage(),
       const ScannerPage(),
-      const OverviewPage(),
-      const NutricoachPage()
+      const NutricoachPage(),
+      const SearchPage(),
+      
     ];
     return Scaffold(
         body: pages[_currentIndex],
-        bottomNavigationBar: NavigationBarTheme(
-          data: NavigationBarThemeData(
-            indicatorColor: const Color(0x8028144C),
-            labelTextStyle: MaterialStateProperty.all(
-              const TextStyle(color: Colors.white, fontSize: 10.0),
-            ),
-          ),
-          child: CustomNavigationBar(
-            currentIndex: _currentIndex,
-            onUpdateIndex: updateIndex, // Pasa la función de callback
-          ),
-        ));
+        bottomNavigationBar:  NavigationBarTheme(
+              data: NavigationBarThemeData(
+                indicatorColor: const Color(0x8028144C),
+                labelTextStyle: MaterialStateProperty.all(
+                  const TextStyle(color: Colors.white, fontSize: 10.0),
+                ),
+              ),
+              child: CustomNavigationBar(
+                currentIndex: _currentIndex,
+                onUpdateIndex: updateIndex, // Pasa la función de callback
+              ),
+            ));
   }
 }

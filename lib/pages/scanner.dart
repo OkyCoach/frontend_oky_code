@@ -36,13 +36,13 @@ class _ScannerState extends State<ScannerPage> {
       ),
     );
     if (res == "-1") {
-      var data = await fetchBarcodeData("7802910008052");
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => MainPage(
-            showPopup: true,
-            popUpData: data,
+            showProductPopup: false,
+            showNotFoundPopup: false,
+            popUpData: {},
           ),
         ),
         (route) => false, // Remove all existing routes from the stack
@@ -53,7 +53,8 @@ class _ScannerState extends State<ScannerPage> {
         context,
         MaterialPageRoute(
           builder: (context) => MainPage(
-            showPopup: data["barcode"] != null,
+            showProductPopup: data["barcode"] != null,
+            showNotFoundPopup: !(data["barcode"] != null),
             popUpData: data,
           ),
         ),
