@@ -9,8 +9,6 @@ class FirstTutorialPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double imageWidth = screenWidth / 2;
-    double nutriaWidth = imageWidth * 0.8;
-    double textWidth = screenWidth * 0.75;
 
     return Scaffold(
       body: Stack(
@@ -54,7 +52,7 @@ class FirstTutorialPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
-                    width: textWidth,
+                    width: screenWidth * 0.75,
                     child: const Text(
                       "Estamos Oky Life para comenzar tu revolución nutricional. Desliza para conocer más.",
                       textAlign: TextAlign.center,
@@ -80,17 +78,33 @@ class FirstTutorialPage extends StatelessWidget {
             bottom: screenHeight / 8,
             child: InkWell(
               onTap: () {
+                // Use PageRouteBuilder for custom page transition
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SecondTutorialPage()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const SecondTutorialPage(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0); // starting offset from right
+                      const end = Offset.zero;
+                      const curve = Curves.easeInOutQuart;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+
+                      var offsetAnimation = animation.drive(tween);
+
+                      return SlideTransition(position: offsetAnimation, child: child);
+                    },
+                  ),
                 );
               },
               child: Image.asset(
                 'lib/assets/botones/continuar.png',
-                width: nutriaWidth,
+                width: imageWidth,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

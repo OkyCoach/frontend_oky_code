@@ -9,21 +9,25 @@ class NotFoundPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double popupHeight = screenHeight * 0.35;
+    double popupHeight = screenHeight * 0.46;
 
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
-      elevation: 10,
+      elevation: 1,
       child: SizedBox(
         height: popupHeight,
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Image.asset(
+                "lib/assets/logos/logo_degrade.png",
+                width: 60,
+              ),
               const Padding(
                 padding: EdgeInsets.only(bottom: 10),
                 child: Text(
@@ -54,8 +58,7 @@ class NotFoundPopup extends StatelessWidget {
               InkWell(   
                 child: Image.asset(
                   "lib/assets/botones/agregar.png",
-                  height:
-                      popupHeight * 0.15, // Ajusta según tus necesidades,
+                  width: popupHeight * 0.5, // Ajusta según tus necesidades,
                 ),
               ),
               const Padding(

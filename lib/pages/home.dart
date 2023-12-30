@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
-import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class HomePage extends StatefulWidget {
   final bool showProductPopup;
@@ -11,8 +10,8 @@ class HomePage extends StatefulWidget {
     Key? key, 
     required this.showProductPopup, 
     required this.showNotFoundPopup,
-    required this.popUpData})
-      : super(key: key);
+    required this.popUpData
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomeState();

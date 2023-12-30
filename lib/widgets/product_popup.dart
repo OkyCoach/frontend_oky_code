@@ -29,7 +29,7 @@ class ProductPopup extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
-      elevation: 10,
+      elevation: 1,
       child: SizedBox(
         height: popupHeight,
         child: Padding(

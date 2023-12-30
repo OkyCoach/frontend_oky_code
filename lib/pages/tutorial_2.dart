@@ -75,17 +75,31 @@ class SecondTutorialPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const MainPage(
-                                                  showProductPopup: false, 
-                                                  popUpData: {},
-                                                  showNotFoundPopup: false,
-                                                  )),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const MainPage(
+                                        showProductPopup: false, 
+                                        popUpData: {},
+                                        showNotFoundPopup: false,
+                                        ),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0); // starting offset from right
+                      const end = Offset.zero;
+                      const curve = Curves.easeInOutQuart;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+
+                      var offsetAnimation = animation.drive(tween);
+
+                      return SlideTransition(position: offsetAnimation, child: child);
+                    },
+                  ),
                 );
               },
               child: Image.asset(
                 'lib/assets/botones/continuar.png',
-                width: nutriaWidth,
+                width: imageWidth,
               ),
             ),
           )
