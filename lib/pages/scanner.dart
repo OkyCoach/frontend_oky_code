@@ -41,7 +41,7 @@ class _ScannerState extends State<ScannerPage> {
         MaterialPageRoute(
           builder: (context) => MainPage(
             showProductPopup: false,
-            showNotFoundPopup: false,
+            showNotFoundPopup: true,
             popUpData: {},
           ),
         ),
