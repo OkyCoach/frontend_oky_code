@@ -52,7 +52,7 @@ class FirstTutorialPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: SizedBox(
-                    width: screenWidth * 0.75,
+                    width: screenWidth * 0.9,
                     child: Text(
                       "Estamos Oky Life para comenzar tu revolución nutricional. Desliza para conocer más.",
                       textAlign: TextAlign.center,

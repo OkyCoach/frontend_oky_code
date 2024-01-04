@@ -6,8 +6,11 @@ import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  ScanditFlutterDataCaptureBarcode.initialize();
   runApp(const MyApp());
 }
 

@@ -4,6 +4,8 @@ import 'package:frontend_oky_code/main.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
+
 class ScannerPage extends StatefulWidget {
   const ScannerPage({Key? key}) : super(key: key);
 
@@ -32,7 +34,7 @@ class _ScannerState extends State<ScannerPage> {
     var res = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SimpleBarcodeScannerPage(),
+        builder: (context) => BarcodeScannerScreen(),
       ),
     );
     if (res == "-1") {
