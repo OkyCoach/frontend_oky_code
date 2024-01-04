@@ -38,32 +38,63 @@ class FirstTutorialPage extends StatelessWidget {
                     width: imageWidth,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "¡Bienvenid@!",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: screenHeight * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: SizedBox(
                     width: screenWidth * 0.75,
-                    child: const Text(
+                    child: Text(
                       "Estamos Oky Life para comenzar tu revolución nutricional. Desliza para conocer más.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.normal,
                         color: Colors.white,
                       ),
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: InkWell(
+                    onTap: () {
+                      // Use PageRouteBuilder for custom page transition
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              const SecondTutorialPage(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0); // starting offset from right
+                            const end = Offset.zero;
+                            const curve = Curves.easeInOutQuart;
+
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
+
+                            var offsetAnimation = animation.drive(tween);
+
+                            return SlideTransition(position: offsetAnimation, child: child);
+                          },
+                        ),
+                      );
+                    },
+                    child: Image.asset(
+                      'lib/assets/botones/comenzar.png',
+                      width: imageWidth,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -74,37 +105,7 @@ class FirstTutorialPage extends StatelessWidget {
               width: screenWidth,
             ),
           ),
-          Positioned(
-            bottom: screenHeight / 8,
-            child: InkWell(
-              onTap: () {
-                // Use PageRouteBuilder for custom page transition
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const SecondTutorialPage(),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(1.0, 0.0); // starting offset from right
-                      const end = Offset.zero;
-                      const curve = Curves.easeInOutQuart;
-
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-
-                      var offsetAnimation = animation.drive(tween);
-
-                      return SlideTransition(position: offsetAnimation, child: child);
-                    },
-                  ),
-                );
-              },
-              child: Image.asset(
-                'lib/assets/botones/continuar.png',
-                width: imageWidth,
-              ),
-            ),
-          ),
+          
         ],
       ),
     );

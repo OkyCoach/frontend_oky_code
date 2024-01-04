@@ -23,15 +23,14 @@ class ProductPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double popupHeight = screenHeight * 0.2;
 
     return Dialog(
+      insetPadding: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
       elevation: 1,
-      child: SizedBox(
-        height: popupHeight,
+      child: IntrinsicHeight(
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -43,8 +42,8 @@ class ProductPopup extends StatelessWidget {
                 children: [
                   Image.network(
                     data["basicInformation"]["photoUrl"],
-                    height: popupHeight * 0.4, // Ajusta según tus necesidades
-                    width: popupHeight * 0.4, // Ajusta según tus necesidades
+                    height: screenHeight * 0.1,
+                    width: screenHeight * 0.1,
                   ),
                   Expanded(
                     child: Padding(
@@ -55,39 +54,36 @@ class ProductPopup extends StatelessWidget {
                         children: [
                           Text(
                             data["basicInformation"]["description"],
-                            style: const TextStyle(
-                              fontSize: 11,
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.02,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF7448ED)
+                              color: const Color(0xFF7448ED),
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
                           Text(
                             data["basicInformation"]["brands"][0]["name"],
-                            style: const TextStyle(
-                              fontSize: 10,
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.02,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              for (int i = 0; i < 4; i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 3),
-                                  child: Image.asset(
-                                    'lib/assets/estrella_completa.png',
-                                    height: popupHeight *
-                                        0.1, // Ajusta según tus necesidades
-                                    width: popupHeight *
-                                        0.1, // Ajusta según tus necesidades
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Row(
+                              children: [
+                                for (int i = 0; i < 4; i++)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: Image.asset(
+                                      'lib/assets/estrella_completa.png',
+                                      width: screenHeight * 0.03,
+                                    ),
                                   ),
-                                ),
-                            ],
+                              ],
+                            )
                           )
                         ],
                       ),
@@ -95,37 +91,39 @@ class ProductPopup extends StatelessWidget {
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      _showProductDetails(context);
-                    },
-                    child: Image.asset(
-                      "lib/assets/botones/ver_producto.png",
-                      height:
-                          popupHeight * 0.22, // Ajusta según tus necesidades,
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        _showProductDetails(context);
+                      },
+                      child: Image.asset(
+                        "lib/assets/botones/ver_producto.png",
+                        height: screenHeight * 0.05,
+                      ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: ClipOval(
-                      child: ColorFiltered(
-                        colorFilter: const ColorFilter.mode(
-                          Color(0xFFE8E4F4),
-                          BlendMode.color,
-                        ),
-                        child: Image.asset(
-                          'lib/assets/favorito.png',
-                          height: popupHeight * 0.22,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: ClipOval(
+                        child: ColorFiltered(
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFFE8E4F4),
+                            BlendMode.color,
+                          ),
+                          child: Image.asset(
+                            'lib/assets/favorito.png',
+                            height: screenHeight * 0.05,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                )
               )
             ],
           ),

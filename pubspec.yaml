@@ -65,6 +65,8 @@ flutter:
     - lib/assets/logos/logo_blanco.png
     - lib/assets/logos/logo_degrade.png
     - lib/assets/logos/full_logo.png
+    - lib/assets/logos/logo_borde_morado.png
+    
     
     - lib/assets/lupa.png
     - lib/assets/perfil.png
@@ -86,6 +88,7 @@ flutter:
     - lib/assets/botones/ver_producto.png
     - lib/assets/botones/agregar.png
     - lib/assets/botones/continuar.png
+    - lib/assets/botones/comenzar.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png

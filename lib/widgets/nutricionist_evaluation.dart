@@ -10,6 +10,8 @@ class NutricionistEvaluation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
       color: const Color(0xFF7448ED),
       child: Padding(
@@ -19,6 +21,7 @@ class NutricionistEvaluation extends StatelessWidget {
             buildRow(
               imagePath: 'lib/assets/azucar.png',
               title: 'Azucares totales',
+              screenHeight: screenHeight
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -27,6 +30,7 @@ class NutricionistEvaluation extends StatelessWidget {
             buildRow(
               imagePath: 'lib/assets/numero_ingredientes.png',
               title: 'Numero de Ingredientes',
+              screenHeight: screenHeight
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -35,6 +39,7 @@ class NutricionistEvaluation extends StatelessWidget {
             buildRow(
               imagePath: 'lib/assets/calidad_ingredientes.png',
               title: 'Calidad de Ingredientes',
+              screenHeight: screenHeight
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -43,6 +48,7 @@ class NutricionistEvaluation extends StatelessWidget {
             buildRow(
               imagePath: 'lib/assets/naturalidad.png',
               title: 'Naturalidad del producto',
+              screenHeight: screenHeight
             ),
           ],
         ),
@@ -50,7 +56,8 @@ class NutricionistEvaluation extends StatelessWidget {
     );
   }
 
-  Widget buildRow({required String imagePath, required String title}) {
+  Widget buildRow({required String imagePath, required String title, required double screenHeight}) {
+    
     return Padding(
       padding: const EdgeInsets.only(left: 20.0),
       child: Row(
@@ -78,8 +85,8 @@ class NutricionistEvaluation extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -91,8 +98,7 @@ class NutricionistEvaluation extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 3),
                             child: Image.asset(
                               'lib/assets/estrella_completa.png',
-                              height: 20,
-                              width: 20,
+                              height: screenHeight * 0.03,
                             ),
                           ),
                       ],

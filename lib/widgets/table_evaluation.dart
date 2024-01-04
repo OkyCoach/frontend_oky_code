@@ -10,6 +10,8 @@ class TableEvaluation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
         color: const Color(0xFFFFFFFF),
         child: Padding(
@@ -19,6 +21,7 @@ class TableEvaluation extends StatelessWidget {
               buildRow(
                 imagePath: 'lib/assets/calorias.png',
                 title: 'Calorías',
+                screenHeight: screenHeight
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -27,6 +30,7 @@ class TableEvaluation extends StatelessWidget {
               buildRow(
                 imagePath: 'lib/assets/grasas.png',
                 title: 'Grasas',
+                screenHeight: screenHeight
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -35,13 +39,14 @@ class TableEvaluation extends StatelessWidget {
               buildRow(
                 imagePath: 'lib/assets/proteinas.png',
                 title: 'Proteínas',
+                screenHeight: screenHeight
               ),
             ],
           ),
         ));
   }
 
-  Widget buildRow({required String imagePath, required String title}) {
+  Widget buildRow({required String imagePath, required String title, required double screenHeight}) {
     const double padding = 15.0;
     return Padding(
         padding: const EdgeInsets.only(left: padding),
@@ -63,18 +68,18 @@ class TableEvaluation extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 16,
+                        style: TextStyle(
+                          fontSize: screenHeight * 0.022,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF201547),
+                          color: const Color(0xFF201547),
                         ),
                       ),
-                      const Text(
+                      Text(
                         "Según la dosis diaria recomendada",
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: screenHeight * 0.015,
                           fontWeight: FontWeight.normal,
-                          color: Color(0xFF201547),
+                          color: const Color(0xFF201547),
                         ),
                       ),
                     ],
@@ -91,19 +96,18 @@ class TableEvaluation extends StatelessWidget {
                 for (int i = 0; i < 12; i++)
                   Image.asset(
                     'lib/assets/puntos/punto_$i.png',
-                    height: 10,
-                    width: 10,
+                    height: screenHeight * 0.015,
                   ),
               ],
             ),
           ),
-          buildRange(['ALTO', 'MODERADO', 'ADECUADO', 'BAJO']),
-          buildRange(['>8 gr', '4-7 gr', '1-3 gr', '<1 gr'])
+          buildRange(['ALTO', 'MODERADO', 'ADECUADO', 'BAJO'], screenHeight),
+          buildRange(['>8 gr', '4-7 gr', '1-3 gr', '<1 gr'], screenHeight)
         ]));
   }
 }
 
-Widget buildRange(List<String> rangeValues) {
+Widget buildRange(List<String> rangeValues, double screenHeight) {
   return Padding(
     padding: const EdgeInsets.only(top: 5, right: 15.0),
     child: Row(
@@ -112,10 +116,10 @@ Widget buildRange(List<String> rangeValues) {
         for (int i = 0; i < rangeValues.length; i++)
           Text(
             rangeValues[i],
-            style: const TextStyle(
-              fontSize: 8,
+            style: TextStyle(
+              fontSize: screenHeight * 0.012,
               fontWeight: FontWeight.normal,
-              color: Color(0xFF201547),
+              color: const Color(0xFF201547),
             ),
           ),
       ],

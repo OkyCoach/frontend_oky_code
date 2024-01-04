@@ -40,12 +40,12 @@ class SecondTutorialPage extends StatelessWidget {
                     width: imageWidth,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "Escanea",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: screenHeight * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -55,11 +55,11 @@ class SecondTutorialPage extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
                     width: textWidth,
-                    child: const Text(
+                    child: Text(
                       "Escanea el código de barras y obtén la información nutricional de tus productos.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.normal,
                         color: Colors.white,
                       ),

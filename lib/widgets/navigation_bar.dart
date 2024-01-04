@@ -32,7 +32,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             margin: const EdgeInsets.fromLTRB(
                 0, 14, 0, 0), // Ajusta el margen según sea necesario
             height: 60,
-            child: Image.asset('lib/assets/logos/logo_blanco.png'),
+            child: Image.asset('lib/assets/logos/logo_borde_morado.png'),
           ),
           label: "",
         ),
