@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NutricoachPage extends StatefulWidget {
-  const NutricoachPage({Key? key}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  State<NutricoachPage> createState() => _NutricoachState();
+  State<SearchPage> createState() => _ProfileState();
 }
 
-class _NutricoachState extends State<NutricoachPage> {
+class _ProfileState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -26,7 +26,7 @@ class _NutricoachState extends State<NutricoachPage> {
         ),
         child: const Center(
           child: Text(
-            "NutriCoach",
+            "Buscar",
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,

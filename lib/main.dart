@@ -1,47 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
-import 'package:frontend_oky_code/pages/history.dart';
-import 'package:frontend_oky_code/pages/scanner.dart';
-import 'package:frontend_oky_code/pages/overview.dart';
+import 'package:frontend_oky_code/pages/profile.dart';
+import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
+import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
+import 'package:frontend_oky_code/pages/tutorial_1.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ScanditFlutterDataCaptureBarcode.initialize();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+  runApp(MyApp(isFirstTime: isFirstTime));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool isFirstTime;
+
+  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Codigo Oky',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(),
+      home: isFirstTime ? const FirstTutorialPage() : const MainPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  
+  const MainPage({
+    Key? key, 
+  }): super(key: key);
 
   @override
   State<MainPage> createState() => _MainState();
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 0;
-  final pages = [
-    const HomePage(), 
-    const HistoryPage(),
-    const ScannerPage(),
-    const OverviewPage(),
-    const NutricoachPage()
-  ];
+  int _currentIndex = 2;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -51,20 +58,28 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final pages = [
+      const HomePage(),
+      const ProfilePage(),
+      BarcodeScannerScreen(),
+      const NutricoachPage(),
+      const SearchPage(), 
+    ];
+
     return Scaffold(
-      body: pages[_currentIndex],
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          indicatorColor: const Color(0x8028144C),
-          labelTextStyle: MaterialStateProperty.all(
-            const TextStyle(color: Colors.white, fontSize: 10.0),
-          ),
-        ),
-        child: CustomNavigationBar(
-            currentIndex: _currentIndex,
-            onUpdateIndex: updateIndex, // Pasa la función de callback
-          ),
-        )
-      );
+        body: pages[_currentIndex],
+        bottomNavigationBar:  NavigationBarTheme(
+              data: NavigationBarThemeData(
+                indicatorColor: const Color(0x8028144C),
+                labelTextStyle: MaterialStateProperty.all(
+                  const TextStyle(color: Colors.white, fontSize: 10.0),
+                ),
+              ),
+              child: CustomNavigationBar(
+                currentIndex: _currentIndex,
+                onUpdateIndex: updateIndex, // Pasa la función de callback
+              ),
+            ));
   }
 }

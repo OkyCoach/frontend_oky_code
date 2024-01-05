@@ -17,9 +17,10 @@ class CustomNavigationBar extends StatefulWidget {
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return NavigationBar(
-      height: 70,
+      height: screenHeight * 0.08,
       backgroundColor: const Color(0xFF201547),
       selectedIndex: widget.currentIndex,
       onDestinationSelected: (index) {
@@ -29,44 +30,39 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         NavigationDestination(
           icon: Container(
             margin: const EdgeInsets.fromLTRB(
-                0, 12, 0, 0), // Ajusta el margen según sea necesario
+                0, 14, 0, 0), // Ajusta el margen según sea necesario
             height: 60,
-            child: Image.asset('lib/assets/Logo-blanco.png'),
+            child: Image.asset('lib/assets/logos/logo_borde_morado.png'),
           ),
           label: "",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: 40,
-            height: 40,
-            child: Image.asset('lib/assets/Perfil.png'),
+            width: screenHeight * 0.04,
+            child: Image.asset('lib/assets/perfil.png'),
           ),
-          label: "PERFIL",
+          label: "Perfil",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: 40,
-            height: 40,
-            child: Image.asset('lib/assets/Scanner.png'),
+            width: screenHeight * 0.04,
+            child: Image.asset('lib/assets/scanner.png'),
           ),
-          label: "SCANNER",
+          label: "Scanner",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: 40,
-            height: 40,
-            child: Image.asset('lib/assets/Preguntas.png'),
+            width: screenHeight * 0.04,
+            child: Image.asset('lib/assets/preguntas.png'),
           ),
-          label: "NUTRICOACH",
+          label: "Nutricoach",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: 40,
-            height: 40,
-            child: Image.asset('lib/assets/Lupa.png'),
+            width: screenHeight * 0.04,
+            child: Image.asset('lib/assets/lupa.png'),
           ),
-          label: "BUSCAR",
-          
+          label: "Buscar", 
         ),
       ],
     );

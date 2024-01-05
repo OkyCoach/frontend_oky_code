@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/product_detail.dart';
 
 class ProductPopup extends StatelessWidget {
   final dynamic data; // Objeto con atributos variables
 
   const ProductPopup({
-    super.key, 
+    Key? key,
     required this.data,
-  });
+  }) : super(key: key);
+
+  void _showProductDetails(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ProductDetail(
+          data: data,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Dialog(
+      insetPadding: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
-      elevation: 10,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.2,
-        ),
+      elevation: 1,
+      child: IntrinsicHeight(
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -28,91 +40,90 @@ class ProductPopup extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    'lib/assets/Lupa.png',
-                    height: 40,
-                    width: 40,
+                  Image.network(
+                    data["photoUrl"],
+                    height: screenHeight * 0.1,
+                    width: screenHeight * 0.1,
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 10.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Puff Manzana Arándano',
+                          Text(
+                            data["name"],
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: screenHeight * 0.02,
                               fontWeight: FontWeight.bold,
+                              color: const Color(0xFF7448ED),
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
-                          const Text(
-                            'PUFF FOODS',
+                          Text(
+                            data["brand"],
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: screenHeight * 0.02,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                           ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                'lib/assets/Estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/Estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/Estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              Image.asset(
-                                'lib/assets/Estrella_completa.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ) 
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Row(
+                              children: [
+                                for (int i = 0; i < 4; i++)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: Image.asset(
+                                      'lib/assets/estrella_completa.png',
+                                      width: screenHeight * 0.03,
+                                    ),
+                                  ),
+                              ],
+                            )
+                          )
                         ],
                       ),
                     ),
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: InkWell(
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        _showProductDetails(context);
+                      },
+                      child: Image.asset(
+                        "lib/assets/botones/ver_producto.png",
+                        height: screenHeight * 0.05,
+                      ),
+                    ),
+                    InkWell(
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Image.asset(
-                        "lib/assets/botones/Ver_producto.png",
-                        height: 40, // Ajusta la altura según tus necesidades
-                        width: 40, // Ajusta el ancho según tus necesidades
+                      child: ClipOval(
+                        child: ColorFiltered(
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFFE8E4F4),
+                            BlendMode.color,
+                          ),
+                          child: Image.asset(
+                            'lib/assets/favorito.png',
+                            height: screenHeight * 0.05,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Image.asset(
-                      "lib/assets/Favorito.png",
-                      height: 40, // Ajusta la altura según tus necesidades
-                      width: 40, // Ajusta el ancho según tus necesidades
-                    ),
-                  ),
-                ],
+                  ],
+                )
               )
             ],
           ),

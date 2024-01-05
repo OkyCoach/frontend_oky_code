@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   simple_barcode_scanner: ^0.0.8
+  scandit_flutter_datacapture_barcode: ^6.21.1
+  permission_handler: "10.2.0"
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -62,14 +65,46 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/Logo-blanco.png
-    - lib/assets/Lupa.png
-    - lib/assets/Perfil.png
-    - lib/assets/Preguntas.png
-    - lib/assets/Scanner.png
-    - lib/assets/botones/Ver_producto.png
-    - lib/assets/Favorito.png
-    - lib/assets/Estrella_completa.png
+    - lib/assets/logos/logo_blanco.png
+    - lib/assets/logos/logo_degrade.png
+    - lib/assets/logos/full_logo.png
+    - lib/assets/logos/logo_borde_morado.png
+    
+    
+    - lib/assets/lupa.png
+    - lib/assets/perfil.png
+    - lib/assets/preguntas.png
+    - lib/assets/scanner.png
+    - lib/assets/favorito.png
+    - lib/assets/estrella_completa.png
+    - lib/assets/estrella_vacia.png
+    - lib/assets/azucar.png
+    - lib/assets/calidad_ingredientes.png
+    - lib/assets/naturalidad.png
+    - lib/assets/numero_ingredientes.png
+    - lib/assets/calorias.png
+    - lib/assets/grasas.png
+    - lib/assets/proteinas.png
+    - lib/assets/nutria_1.png
+    - lib/assets/scanner_tutorial.png
+
+    - lib/assets/botones/ver_producto.png
+    - lib/assets/botones/agregar.png
+    - lib/assets/botones/continuar.png
+    - lib/assets/botones/comenzar.png
+
+    - lib/assets/puntos/punto_0.png
+    - lib/assets/puntos/punto_1.png
+    - lib/assets/puntos/punto_2.png
+    - lib/assets/puntos/punto_3.png
+    - lib/assets/puntos/punto_4.png
+    - lib/assets/puntos/punto_5.png
+    - lib/assets/puntos/punto_6.png
+    - lib/assets/puntos/punto_7.png
+    - lib/assets/puntos/punto_8.png
+    - lib/assets/puntos/punto_9.png
+    - lib/assets/puntos/punto_10.png
+    - lib/assets/puntos/punto_11.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
