@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/tutorial_2.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class FirstTutorialPage extends StatelessWidget {
   const FirstTutorialPage({Key? key}) : super(key: key);
+
+  void _completeTutorial(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFirstTime', false);
+
+    // Después de actualizar isFirstTime, puedes navegar a la siguiente pantalla o realizar otras acciones.
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const SecondTutorialPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // starting offset from right
+          const end = Offset.zero;
+          const curve = Curves.easeInOutQuart;
+
+          var tween = Tween(begin: begin, end: end)
+              .chain(CurveTween(curve: curve));
+
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,26 +96,7 @@ class FirstTutorialPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: InkWell(
                     onTap: () {
-                      // Use PageRouteBuilder for custom page transition
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) =>
-                              const SecondTutorialPage(),
-                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                            const begin = Offset(1.0, 0.0); // starting offset from right
-                            const end = Offset.zero;
-                            const curve = Curves.easeInOutQuart;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-
-                            var offsetAnimation = animation.drive(tween);
-
-                            return SlideTransition(position: offsetAnimation, child: child);
-                          },
-                        ),
-                      );
+                      _completeTutorial(context);
                     },
                     child: Image.asset(
                       'lib/assets/botones/comenzar.png',

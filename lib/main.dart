@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
-import 'package:frontend_oky_code/pages/scanner.dart';
+import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ScanditFlutterDataCaptureBarcode.initialize();
-  runApp(const MyApp());
+  await ScanditFlutterDataCaptureBarcode.initialize();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+  runApp(MyApp(isFirstTime: isFirstTime));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool isFirstTime;
+
+  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -25,21 +32,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const FirstTutorialPage(),
+      home: isFirstTime ? const FirstTutorialPage() : const MainPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  final bool showProductPopup;
-  final bool showNotFoundPopup;
-  final Map<String, dynamic> popUpData;
-
+  
   const MainPage({
     Key? key, 
-    required this.showProductPopup, 
-    required this.showNotFoundPopup, 
-    required this.popUpData, 
   }): super(key: key);
 
   @override
@@ -47,7 +48,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -57,21 +58,15 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool showProductPopup = widget.showProductPopup;
-    bool showNotFoundPopup = widget.showNotFoundPopup;
-
+    
     final pages = [
-      HomePage(
-        showProductPopup: showProductPopup,
-        showNotFoundPopup: showNotFoundPopup,
-        popUpData: widget.popUpData,
-      ),
+      const HomePage(),
       const ProfilePage(),
-      const ScannerPage(),
+      BarcodeScannerScreen(),
       const NutricoachPage(),
-      const SearchPage(),
-      
+      const SearchPage(), 
     ];
+
     return Scaffold(
         body: pages[_currentIndex],
         bottomNavigationBar:  NavigationBarTheme(

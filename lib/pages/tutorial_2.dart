@@ -77,11 +77,7 @@ class SecondTutorialPage extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const MainPage(
-                                        showProductPopup: false, 
-                                        popUpData: {},
-                                        showNotFoundPopup: false,
-                                        ),
+                        const MainPage(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       const begin = Offset(1.0, 0.0); // starting offset from right
                       const end = Offset.zero;

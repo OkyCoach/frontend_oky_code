@@ -41,7 +41,7 @@ class ProductPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.network(
-                    data["basicInformation"]["photoUrl"],
+                    data["photoUrl"],
                     height: screenHeight * 0.1,
                     width: screenHeight * 0.1,
                   ),
@@ -53,7 +53,7 @@ class ProductPopup extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            data["basicInformation"]["description"],
+                            data["name"],
                             style: TextStyle(
                               fontSize: screenHeight * 0.02,
                               fontWeight: FontWeight.bold,
@@ -63,7 +63,7 @@ class ProductPopup extends StatelessWidget {
                             maxLines: 2,
                           ),
                           Text(
-                            data["basicInformation"]["brands"][0]["name"],
+                            data["brand"],
                             style: TextStyle(
                               fontSize: screenHeight * 0.02,
                             ),

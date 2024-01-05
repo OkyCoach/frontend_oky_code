@@ -9,7 +9,6 @@ import 'package:frontend_oky_code/widgets/product_popup.dart';
 
 const String licenseKey = 'AYBUKQKDJtx6DFpt+Dgz/cIdIvvrMIv3yww70aU2+47pfM7PKVX0DhUaiyH1Qo5kSWPEKTJn9OCyS4xeS2DXBfZACmdYbc/TATI4FjpZG3M1Qu5X02fPYM9jntrFbrNgr0uIKqwRRZPzFYP5cihi8odEJx/ZQ1bhWAGJh6c+AeIs0HzfVGRxoOrGbt29GNxzJOCbchg5+MzUxOldC0uOaLAuYkI05XTTChm++ZDCFTnz+0fQtf3V0wDhFYc2njB2Uu8eOseqKhUe9sH5x7Bo3OsGbKG6LMb4vPePuzacHGVYVn+g0j45bozvM7iCpi1/QsxaDCSv677TbkXULA4c43UEDJOKlfIZXNhR+u3gyqTyHG8QNMBjIJFGd0jQ/BVN/GNlMot34tY7xnMqmVpoOT/9yhmahsfzKbJn0liLLQ9BPzatrz4qlt3sxbpinqrNJqQ02JHOufg5djZ5hzgikx+yP+YjFXYSKFxjP6H2bjtB4ooEI3geByGWVerrd1Fw8Ew2qEjHkLVBsXdO4oQ3IKOAHmVtdPMMEKwySINv6Gs0zyLgjPtsKCQPlFLpLg3Lt/TAD0E/3UCqPKxirnvoKGQZiSLRcVEAd6eZPgADr5aU4TQVQxmvJ/Ae6V8B5At9lWBjVVjTiY+WQ2eKU18zyDVLSBtTWiQocLPbI3QTtIuZ97MAw4dPft8FQDcLnoY2vPH/V0WWEgKfF+uNm/1dxCkF+EmrGYJNGvhRe881CcokOwx+cCc+VYWwUvasIOhWqCa6OLWBKnDNU0XXik/cUP5wCw75pVmdr6v3NXk1wEYUmTtJSu6M+rika0319NglTotXwAg=';
 
-
 class BarcodeScannerScreen extends StatefulWidget {
   // Create data capture context using your license key.
   @override
@@ -112,7 +111,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
   Widget build(BuildContext context) {
     Widget child;
     if (_isPermissionMessageVisible) {
-      child = Text('No permission to access the camera!',
+      child = const Text('No permission to access the camera!',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black));
     } else {
       child = _captureView;
@@ -134,7 +133,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     }
   }
 
-  Future<Map<String, dynamic>> fetchBarcodeData(String code) async {
+  Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
   const url = 'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/';
     try {
       final response = await http.get(Uri.parse('$url$code'));
@@ -154,9 +153,10 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     _barcodeCapture.isEnabled = false;
     var code = session.newlyRecognizedBarcodes.first;
     var data = (code.data == null || code.data?.isEmpty == true) ? code.rawData : code.data;
+    var product = await fetchBarcodeData(data);
     await showDialog(
         context: context,
-        builder: (_) => const ProductPopup(data: {},));
+        builder: (_) => ProductPopup(data: product));
     _barcodeCapture.isEnabled = true;
   }
 
@@ -170,7 +170,9 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     _barcodeCapture.isEnabled = false;
     _camera?.switchToDesiredState(FrameSourceState.off);
     _context.removeAllModes();
-    super.dispose();
+    try{
+      super.dispose();
+    } catch (error){}  
   }
 
   T? _ambiguate<T>(T? value) => value;
