@@ -9,6 +9,8 @@ import 'package:frontend_oky_code/pages/tutorial_1.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,13 @@ void main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+  // pregunta por permisos de camara
+  PermissionStatus status = await Permission.camera.status;
+  if (!status.isGranted) {
+    await Permission.camera.request();
+  }
+
   runApp(MyApp(isFirstTime: isFirstTime));
 }
 
@@ -42,7 +51,6 @@ class MainPage extends StatefulWidget {
   const MainPage({
     Key? key, 
   }): super(key: key);
-
   @override
   State<MainPage> createState() => _MainState();
 }
@@ -58,7 +66,7 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    
+
     final pages = [
       const HomePage(),
       const ProfilePage(),
@@ -66,7 +74,6 @@ class _MainState extends State<MainPage> {
       const NutricoachPage(),
       const SearchPage(), 
     ];
-
     return Scaffold(
         body: pages[_currentIndex],
         bottomNavigationBar:  NavigationBarTheme(

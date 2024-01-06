@@ -1,0 +1,69 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_barcode_scanner (2.0.0):
+    - Flutter
+  - permission_handler_apple (9.1.1):
+    - Flutter
+  - scandit-datacapture-frameworks-barcode (6.21.1):
+    - scandit-datacapture-frameworks-core (= 6.21.1)
+    - ScanditBarcodeCapture (= 6.21.1)
+  - scandit-datacapture-frameworks-core (6.21.1):
+    - ScanditCaptureCore (= 6.21.1)
+  - scandit_flutter_datacapture_barcode (6.21.1):
+    - Flutter
+    - scandit-datacapture-frameworks-barcode (= 6.21.1)
+    - scandit_flutter_datacapture_core
+  - scandit_flutter_datacapture_core (6.21.1):
+    - Flutter
+    - scandit-datacapture-frameworks-core (= 6.21.1)
+  - ScanditBarcodeCapture (6.21.1):
+    - ScanditCaptureCore (= 6.21.1)
+  - ScanditCaptureCore (6.21.1)
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - scandit_flutter_datacapture_barcode (from `.symlinks/plugins/scandit_flutter_datacapture_barcode/ios`)
+  - scandit_flutter_datacapture_core (from `.symlinks/plugins/scandit_flutter_datacapture_core/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - scandit-datacapture-frameworks-barcode
+    - scandit-datacapture-frameworks-core
+    - ScanditBarcodeCapture
+    - ScanditCaptureCore
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_barcode_scanner:
+    :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  scandit_flutter_datacapture_barcode:
+    :path: ".symlinks/plugins/scandit_flutter_datacapture_barcode/ios"
+  scandit_flutter_datacapture_core:
+    :path: ".symlinks/plugins/scandit_flutter_datacapture_core/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  scandit-datacapture-frameworks-barcode: b8ed12989116f0e10b7ceb413edfc1a6ee1dea6e
+  scandit-datacapture-frameworks-core: 358ebc2978f3fa92a12705605c57bbfc1e2084fa
+  scandit_flutter_datacapture_barcode: cf3037f2bb67b7f33c272e6f9b6e4064d0a954e4
+  scandit_flutter_datacapture_core: 9a5dc40283580d9b96c69cf6501548236b2dacd1
+  ScanditBarcodeCapture: d964418083359e7e5089046cfed547c9f1f56dae
+  ScanditCaptureCore: 3abfce1cc31f48c3d365aba46580748f4dc495c7
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+
+PODFILE CHECKSUM: 9c30c3ca6391813433de5d0f0b025031c12c559a
+
+COCOAPODS: 1.14.3
