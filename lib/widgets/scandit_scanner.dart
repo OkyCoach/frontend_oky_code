@@ -6,6 +6,8 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
+import 'package:frontend_oky_code/widgets/not_found_popup.dart';
+
 
 const String licenseKey = 'AfNExWGDRUGpNTmIeRRiwrAlYOjPJs8E4XfRKQp0dCiuSBmspWHIout0dYE9W6Vv8nZtuP1LrctINCTLZ0Awn35LKFuXWhMGKHbdY7dx3VAKKamYuG3OBJFrRHuKGso32yH7zFMPwr9MOHxJqofc6Ljk16whP2un3PCAvqQHeA2Anv8bt1JGqLXSevSukZl18YZDXqZur1V2BOPMbvIpx7Bocebv4ttfvfecToiViTw23qDwllwvkOSqnC63GL2/92UCzHAvPse9WjWD7ufq1Kx6He6Rb1m1pMVbrhRK36RDM2aDcdawo4EP1aDbSzFEGCukiUB0Ead0W0w1iH0I+Wy+7sUyFKQlMAUuIpL+DqTNw0U3vyCs6XLnwJK77bp1tWahWFR+B1ReDl/bAxrCujW71i0gRXYUc3Km6KGsK4CSUlEvNP/tVq1eQSMzoh8n+ZWgdZ2ewEJJID8lLehbMGLiSoPEP2sAtHY0IraebZ7ftwO6pSVvvajqcDmZrTr8hGEU9mhbKs8+Y7D1g9DGQga/gSYUYlDf3JmBXjaTuIym69JdibKEuY1FvjgOiuwy2t8B6glYwdPCgfkiIXQpVhHKpPXfy7BDVD07OMzwH0gh3MuIIE3f0E6TxH5cgVdZ9a9fIfafrg41//9wk9Uc6tC67wJT1eHAXZkUljLSt0v2hZeBPGyKbz7DO6hl+yvdDyH93s/Wr17ZP2otdK/oPqheWlLM2xE29JkLrj3mSJStc68PBD0ESrkxFLiOA75Fpz6kIVMde2dWRVEtBzBFDWPvE0ZJE7IhZWi4zp9WqV2o4e6Ka4i4BlHZ';
 
@@ -156,7 +158,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     await showDialog(
         context: context,
-        builder: (_) => ProductPopup(data: product));
+        builder: (_) => product["barcode"] != null ? ProductPopup(data: product) : NotFoundPopup());
     _barcodeCapture.isEnabled = true;
   }
 
