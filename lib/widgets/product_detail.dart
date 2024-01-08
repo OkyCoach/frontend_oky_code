@@ -37,9 +37,9 @@ class ProductDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProductInfoRow(
-                    photoUrl: data["basicInformation"]["photoUrl"],
-                    description: data["basicInformation"]["description"],
-                    brandName: data["basicInformation"]["brands"][0]["name"],
+                    photoUrl: data["ok_to_shop"]["basicInformation"]["photoUrl"],
+                    description: data["ok_to_shop"]["basicInformation"]["description"],
+                    brandName: data["ok_to_shop"]["basicInformation"]["brands"][0]["name"],
                     starCount: 4, // Cambia esto según tu lógica
                     nutritionistsCount: 7, // Cambia esto según tu lógica
                   ),
