@@ -38,9 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Codigo Oky',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(useMaterial3: true),
       home: isFirstTime ? const FirstTutorialPage() : const MainPage(),
     );
   }
@@ -56,7 +54,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -77,11 +75,18 @@ class _MainState extends State<MainPage> {
     return Scaffold(
         body: pages[_currentIndex],
         bottomNavigationBar:  NavigationBarTheme(
+          
               data: NavigationBarThemeData(
-                indicatorColor: const Color(0x8028144C),
+                indicatorColor: Colors.transparent,
+                indicatorShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                   // Puedes ajustar el radio de las esquinas
+                ),
+                
                 labelTextStyle: MaterialStateProperty.all(
                   const TextStyle(color: Colors.white, fontSize: 10.0),
                 ),
+                
               ),
               child: CustomNavigationBar(
                 currentIndex: _currentIndex,

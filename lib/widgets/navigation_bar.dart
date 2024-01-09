@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatefulWidget {
+  
   final int currentIndex;
   final Function(int) onUpdateIndex;
 
@@ -18,8 +19,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
+    
     return NavigationBar(
+      
       height: screenHeight * 0.08,
       backgroundColor: const Color(0xFF201547),
       selectedIndex: widget.currentIndex,

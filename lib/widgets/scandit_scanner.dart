@@ -63,7 +63,6 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       Symbology.ean8,
       Symbology.ean13Upca,
       Symbology.upce,
-      Symbology.qr,
       Symbology.dataMatrix,
       Symbology.code39,
       Symbology.code128,

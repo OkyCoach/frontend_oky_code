@@ -40,6 +40,7 @@ dependencies:
   scandit_flutter_datacapture_barcode: ^6.21.1
   permission_handler: "10.2.0"
   shared_preferences: ^2.2.2
+  url_launcher: ^6.2.3
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
     - lib/assets/proteinas.png
     - lib/assets/nutria_1.png
     - lib/assets/scanner_tutorial.png
+    - lib/assets/image_not_found.png
 
     - lib/assets/botones/ver_producto.png
     - lib/assets/botones/agregar.png

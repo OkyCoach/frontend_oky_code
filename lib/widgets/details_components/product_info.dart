@@ -26,11 +26,24 @@ class ProductInfoRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Image.network(
-            photoUrl,
-            height: 80,
-            width: 80,
-          ),
+          photoUrl != "not_found"
+          ? Image.network(
+              photoUrl, 
+              height: screenHeight * 0.1,
+              width: screenHeight * 0.1,
+              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                return Image.asset(
+                  'lib/assets/image_not_found.png',
+                  height: screenHeight * 0.1,
+                  width: screenHeight * 0.1,
+                );
+              },
+            )
+          : Image.asset(
+              'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
+              height: screenHeight * 0.1,
+              width: screenHeight * 0.1,
+            ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),

@@ -37,9 +37,11 @@ class ProductDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProductInfoRow(
-                    photoUrl: data["ok_to_shop"]["basicInformation"]["photoUrl"],
-                    description: data["ok_to_shop"]["basicInformation"]["description"],
-                    brandName: data["ok_to_shop"]["basicInformation"]["brands"][0]["name"],
+                    photoUrl: data["ok_to_shop"]?["basicInformation"]?["photoUrl"] ?? "not_found",
+                    description: data["ok_to_shop"]?["basicInformation"]?["description"] ?? "not_found",
+                    brandName: (data["ok_to_shop"]?["basicInformation"]?["brands"]?.isNotEmpty ?? false)
+                                ? (data["ok_to_shop"]["basicInformation"]["brands"][0]["name"] ?? 'not_found')
+                                : 'not_found',            
                     starCount: 4, // Cambia esto según tu lógica
                     nutritionistsCount: 7, // Cambia esto según tu lógica
                   ),
