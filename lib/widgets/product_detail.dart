@@ -49,7 +49,7 @@ class ProductDetail extends StatelessWidget {
                     "Evaluación Nutricional",
                     style: TextStyle(
                       fontSize: screenHeight * 0.022,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: "Gilroy-Bold",
                     ),
                   ),
                   const ProductTabs(),

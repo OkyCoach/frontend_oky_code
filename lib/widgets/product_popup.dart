@@ -70,8 +70,8 @@ class ProductPopup extends StatelessWidget {
                           Text(
                             data["ok_to_shop"]?["basicInformation"]?["description"] ?? 'not_found',   
                             style: TextStyle(
+                              fontFamily: "Gilroy-SemiBold",
                               fontSize: screenHeight * 0.02,
-                              fontWeight: FontWeight.bold,
                               color: const Color(0xFF7448ED),
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -82,7 +82,9 @@ class ProductPopup extends StatelessWidget {
                                 ? data["ok_to_shop"]["basicInformation"]["brands"][0]["name"] ?? 'not_found'
                                 : 'not_found',
                             style: TextStyle(
+                              fontFamily: "Gilroy-Medium",
                               fontSize: screenHeight * 0.02,
+                              fontWeight: FontWeight.w500,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,

@@ -86,8 +86,8 @@ class NutricionistEvaluation extends StatelessWidget {
                     Text(
                       title,
                       style: TextStyle(
+                        fontFamily: "Gilroy-Bold",
                         fontSize: screenHeight * 0.022,
-                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),

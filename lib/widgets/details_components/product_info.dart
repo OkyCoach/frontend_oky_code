@@ -54,8 +54,8 @@ class ProductInfoRow extends StatelessWidget {
                   Text(
                     description,
                     style: TextStyle(
+                      fontFamily: "Gilroy-Bold",
                       fontSize: screenHeight * 0.022,
-                      fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -63,6 +63,7 @@ class ProductInfoRow extends StatelessWidget {
                   Text(
                     brandName,
                     style: TextStyle(
+                      fontFamily: "Gilroy-Medium",
                       fontSize: screenHeight * 0.022,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -90,6 +91,7 @@ class ProductInfoRow extends StatelessWidget {
                       Text(
                         "Evaluado por $nutritionistsCount nutricionistas",
                         style:  TextStyle(
+                          fontFamily: "Gilroy-Medium",
                           fontSize: screenHeight * 0.015,
                         ),
                       ),

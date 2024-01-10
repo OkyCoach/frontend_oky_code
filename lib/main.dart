@@ -54,7 +54,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 1;
+  int _currentIndex = 2;
 
   void updateIndex(int newIndex) {
     setState(() {

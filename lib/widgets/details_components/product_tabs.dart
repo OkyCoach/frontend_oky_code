@@ -21,7 +21,8 @@ class ProductTabs extends StatelessWidget {
           child: Text(
             "Nutricionistas",
             style: TextStyle(
-              fontSize: screenHeight * 0.02,
+              fontFamily: "Gilroy-SemiBold",
+              fontSize: screenHeight * 0.02,             
             ),
           ),
         ),
@@ -29,6 +30,7 @@ class ProductTabs extends StatelessWidget {
           child: Text(
             "Tabla Nutricional",
             style: TextStyle(
+              fontFamily: "Gilroy-SemiBold",
               fontSize: screenHeight * 0.02,
             ),
           ),

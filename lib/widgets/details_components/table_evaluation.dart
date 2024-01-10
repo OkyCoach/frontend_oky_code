@@ -69,16 +69,16 @@ class TableEvaluation extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
+                          fontFamily: "Gilroy-Bold",
                           fontSize: screenHeight * 0.022,
-                          fontWeight: FontWeight.bold,
                           color: const Color(0xFF201547),
                         ),
                       ),
                       Text(
                         "Según la dosis diaria recomendada",
                         style: TextStyle(
+                          fontFamily: "Gilroy-Medium",
                           fontSize: screenHeight * 0.015,
-                          fontWeight: FontWeight.normal,
                           color: const Color(0xFF201547),
                         ),
                       ),
@@ -117,8 +117,8 @@ Widget buildRange(List<String> rangeValues, double screenHeight) {
           Text(
             rangeValues[i],
             style: TextStyle(
+              fontFamily: "Gilroy-Medium",
               fontSize: screenHeight * 0.012,
-              fontWeight: FontWeight.normal,
               color: const Color(0xFF201547),
             ),
           ),

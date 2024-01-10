@@ -34,8 +34,8 @@ class NotFoundPopup extends StatelessWidget {
                     child: Text(
                       "No pudimos encontrar el producto :(",
                       style: TextStyle(
+                          fontFamily: "Gilroy-SemiBold",
                           fontSize: screenWidth*0.05,
-                          fontWeight: FontWeight.w500,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -47,8 +47,8 @@ class NotFoundPopup extends StatelessWidget {
                     child: Text(
                       "¡Tus contribuciones son valiosas! Puedes agregar el producto y ayudar a otros a encontrarlo.",
                       style: TextStyle(
+                        fontFamily: "Gilroy-Medium",
                         fontSize: screenWidth*0.034,
-                        fontWeight: FontWeight.normal,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -66,9 +66,9 @@ class NotFoundPopup extends StatelessWidget {
                     child: Text(
                       "No gracias",
                       style: TextStyle(
+                        fontFamily: "Gilroy-Medium",
                           fontSize: screenWidth*0.035,
-                          fontWeight: FontWeight.normal,
-                          color: Color(0xFF97999B)),
+                          color: const Color(0xFF97999B)),
                     ),
                   ),
                 ],

@@ -29,14 +29,17 @@ class _HomeState extends State<HomePage> {
           ),
         ),
         child: const Center(
-          child: Text(
-            "Pagina principal",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+          child: 
+              Text(
+                "Pagina principal",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w100,
+                  color: Colors.white,
+                ),
+              ),
+              
+          
         )
       ),
     );
