@@ -22,6 +22,8 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - url_launcher_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -30,6 +32,7 @@ DEPENDENCIES:
   - scandit_flutter_datacapture_barcode (from `.symlinks/plugins/scandit_flutter_datacapture_barcode/ios`)
   - scandit_flutter_datacapture_core (from `.symlinks/plugins/scandit_flutter_datacapture_core/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -51,6 +54,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/scandit_flutter_datacapture_core/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
@@ -63,6 +68,7 @@ SPEC CHECKSUMS:
   ScanditBarcodeCapture: d964418083359e7e5089046cfed547c9f1f56dae
   ScanditCaptureCore: 3abfce1cc31f48c3d365aba46580748f4dc495c7
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
 
 PODFILE CHECKSUM: bec31757aab81e220d8ca716b9938c5c9686a86f
 
