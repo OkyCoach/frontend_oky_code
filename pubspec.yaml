@@ -123,6 +123,7 @@ flutter:
     - family: Gilroy-Regular
       fonts:
         - asset: fonts/Gilroy-Regular.ttf
+        
     - family: Gilroy-Medium
       fonts:
         - asset: fonts/Gilroy-Medium.ttf
