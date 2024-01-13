@@ -29,20 +29,20 @@ class ProductInfoRow extends StatelessWidget {
           photoUrl != "not_found"
           ? Image.network(
               photoUrl, 
-              height: screenHeight * 0.1,
-              width: screenHeight * 0.1,
+              height: screenHeight * 0.15,
+              width: screenHeight * 0.15,
               errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                 return Image.asset(
                   'lib/assets/image_not_found.png',
-                  height: screenHeight * 0.1,
-                  width: screenHeight * 0.1,
+                  height: screenHeight * 0.15,
+                  width: screenHeight * 0.15,
                 );
               },
             )
           : Image.asset(
               'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-              height: screenHeight * 0.1,
-              width: screenHeight * 0.1,
+              height: screenHeight * 0.15,
+              width: screenHeight * 0.15,
             ),
           Expanded(
             child: Padding(

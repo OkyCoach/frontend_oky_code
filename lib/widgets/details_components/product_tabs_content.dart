@@ -16,13 +16,14 @@ class ProductTabsContent extends StatelessWidget {
     return Expanded(
       child: TabBarView(
         children: [
+          /*
           // Contenido de la pestaña Nutricionistas
           ListView(
             children: [
               NutricionistEvaluation(data: data),
             ],
           ),
-
+          */
           // Contenido de la pestaña Tabla Nutricional
           ListView(
             children: [

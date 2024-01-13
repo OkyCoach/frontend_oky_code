@@ -17,9 +17,10 @@ class ProductDetail extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
+      
       children: [  
         DefaultTabController(
-          length: 2, // Número de pestañas (Nutricionistas y Tabla Nutricional)
+          length: 1, // Número de pestañas (Nutricionistas y Tabla Nutricional)
           child: Dialog(
             insetPadding: const EdgeInsets.only(top: 20, left: 10, right:10),
             shape: const RoundedRectangleBorder(
@@ -28,6 +29,7 @@ class ProductDetail extends StatelessWidget {
               ),
             ),
             elevation: 10,
+            backgroundColor: const Color(0xFFFFFFFF),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.7,
@@ -45,6 +47,7 @@ class ProductDetail extends StatelessWidget {
                     starCount: 4, // Cambia esto según tu lógica
                     nutritionistsCount: 7, // Cambia esto según tu lógica
                   ),
+                  /*
                   Text(
                     "Evaluación Nutricional",
                     style: TextStyle(
@@ -52,6 +55,7 @@ class ProductDetail extends StatelessWidget {
                       fontFamily: "Gilroy-Bold",
                     ),
                   ),
+                  */
                   const ProductTabs(),
                   ProductTabsContent(data: data),
                 ],

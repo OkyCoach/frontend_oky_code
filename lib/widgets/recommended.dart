@@ -17,7 +17,7 @@ class Recommended extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        color: const Color(0xFFFFFFFF), // Fondo blanco
+        color: const Color(0xFFF9F9FA), // Fondo blanco
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           child: Column(

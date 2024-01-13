@@ -47,7 +47,7 @@ class TableEvaluation extends StatelessWidget {
   }
 
   Widget buildRow({required String imagePath, required String title, required double screenHeight}) {
-    const double padding = 15.0;
+    const double padding = 30.0;
     return Padding(
         padding: const EdgeInsets.only(left: padding),
         child: Column(children: [
@@ -109,7 +109,7 @@ class TableEvaluation extends StatelessWidget {
 
 Widget buildRange(List<String> rangeValues, double screenHeight) {
   return Padding(
-    padding: const EdgeInsets.only(top: 5, right: 15.0),
+    padding: const EdgeInsets.only(top: 5, right: 30.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

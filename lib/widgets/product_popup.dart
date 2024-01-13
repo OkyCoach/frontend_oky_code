@@ -45,8 +45,8 @@ class ProductPopup extends StatelessWidget {
                   data["ok_to_shop"]?["basicInformation"]?["photoUrl"] != null
                   ? Image.network(
                       data["ok_to_shop"]?["basicInformation"]?["photoUrl"], 
-                      height: screenHeight * 0.1,
-                      width: screenHeight * 0.1,
+                      height: screenHeight * 0.15,
+                      width: screenHeight * 0.15,
                       errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                         return Image.asset(
                           'lib/assets/image_not_found.png',
@@ -71,7 +71,7 @@ class ProductPopup extends StatelessWidget {
                             data["ok_to_shop"]?["basicInformation"]?["description"] ?? 'not_found',   
                             style: TextStyle(
                               fontFamily: "Gilroy-SemiBold",
-                              fontSize: screenHeight * 0.02,
+                              fontSize: screenHeight * 0.025,
                               color: const Color(0xFF7448ED),
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -83,8 +83,7 @@ class ProductPopup extends StatelessWidget {
                                 : 'not_found',
                             style: TextStyle(
                               fontFamily: "Gilroy-Medium",
-                              fontSize: screenHeight * 0.02,
-                              fontWeight: FontWeight.w500,
+                              fontSize: screenHeight * 0.025,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
