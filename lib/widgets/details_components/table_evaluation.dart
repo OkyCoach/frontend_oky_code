@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TableEvaluation extends StatelessWidget {
-  final dynamic data; // Objeto con atributos variables
+  final dynamic evaluation; // Objeto con atributos variables
 
   const TableEvaluation({
     Key? key,
-    required this.data,
+    required this.evaluation,
   }) : super(key: key);
 
   @override

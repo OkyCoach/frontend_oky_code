@@ -78,6 +78,7 @@ flutter:
     - lib/assets/scanner.png
     - lib/assets/favorito.png
     - lib/assets/estrella_completa.png
+    - lib/assets/estrella_mitad.png
     - lib/assets/estrella_vacia.png
     - lib/assets/azucar.png
     - lib/assets/calidad_ingredientes.png
