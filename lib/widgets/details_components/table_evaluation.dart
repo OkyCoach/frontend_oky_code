@@ -1,4 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
+
+final Map<String, dynamic> stringDisplay = {
+      "proteinas": { "text": "Proteínas", "display": 0},
+      "fibra": { "text": "Fibra", "display": 0},
+      "hidratos": { "text": "Hidratos", "display": 1},
+      "sodio": { "text": "Sodio", "display": 1},
+      "azucares": { "text": "Azúcares", "display": 1},
+      "calorias": { "text": "Calorías", "display": 1},
+      "grasas": { "text": "Grasas", "display": 1},
+      
+  };
 
 class TableEvaluation extends StatelessWidget {
   final dynamic evaluation; // Objeto con atributos variables
@@ -7,6 +19,7 @@ class TableEvaluation extends StatelessWidget {
     Key? key,
     required this.evaluation,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +32,9 @@ class TableEvaluation extends StatelessWidget {
         child: Column(
           children: (evaluation["resultado"] as List).map<Widget>((category) {
             return buildRow(
-              title: category[
-                  'campo'], // Ajusta según la estructura real de tus datos
+              title: category['campo'],
+              value: category["valor"]
+                  .toInt(), // Ajusta según la estructura real de tus datos
               screenHeight: screenHeight,
             );
           }).toList(),
@@ -29,7 +43,8 @@ class TableEvaluation extends StatelessWidget {
     );
   }
 
-  Widget buildRow({required String title, required double screenHeight}) {
+  Widget buildRow({required String title, required int value, required double screenHeight}) {
+
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
         child: Column(children: [
@@ -37,7 +52,7 @@ class TableEvaluation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
-                'lib/assets/calorias.png',
+                'lib/assets/$title.png',
                 height: 50,
                 width: 50,
               ),
@@ -49,7 +64,7 @@ class TableEvaluation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        stringDisplay[title]["text"],
                         style: TextStyle(
                           fontFamily: "Gilroy-Bold",
                           fontSize: screenHeight * 0.022,
@@ -70,34 +85,28 @@ class TableEvaluation extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                for (int i = 0; i < 12; i++)
-                  Image.asset(
-                    'lib/assets/puntos/punto_$i.png',
-                    height: screenHeight * 0.015,
-                  ),
-              ],
-            ),
-          ),
+          DotsWidget(
+              ranges: evaluation["formato_algoritmo_categoria"][title]
+                  ["rangos"],
+              actualScore: value),
           buildRange(
-            evaluation["formato_algoritmo_categoria"][title]["rangos"], 
-            screenHeight, 
-            evaluation["formato_algoritmo_categoria"][title]["unidad"]
-          ),
-        ]
-      )
-    );
+              title,
+              evaluation["formato_algoritmo_categoria"][title]["rangos"],
+              screenHeight,
+              evaluation["formato_algoritmo_categoria"][title]["unidad"]),
+        ]));
   }
 }
 
-Widget buildRange(List<dynamic> rangeValues, double screenHeight, String unit) {
-  List<dynamic> orderRanges(List<dynamic> listaRangos) {
-    listaRangos.sort((a, b) => a["min"].compareTo(b["min"]));
-    return listaRangos;
+Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, String unit) {
+  List<dynamic> orderRanges(List<dynamic> rangeValues) {
+    
+    if (stringDisplay[title]["display"] == 1) {
+      rangeValues.sort((a, b) => b["min"].compareTo(a["min"]));
+    } else {
+      rangeValues.sort((a, b) => a["min"].compareTo(b["min"]));
+    }
+    return rangeValues;
   }
 
   String rangeToString(dynamic range) {
@@ -110,12 +119,12 @@ Widget buildRange(List<dynamic> rangeValues, double screenHeight, String unit) {
     }
   }
 
-
   List<dynamic> orderedList = orderRanges(rangeValues);
 
   return Padding(
-      padding: const EdgeInsets.only(top: 5),
-      child: Column(children: [
+    padding: const EdgeInsets.only(top: 5),
+    child: Column(
+      children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -144,5 +153,7 @@ Widget buildRange(List<dynamic> rangeValues, double screenHeight, String unit) {
               ),
           ],
         ),
-      ]));
+      ]
+    )
+  );
 }

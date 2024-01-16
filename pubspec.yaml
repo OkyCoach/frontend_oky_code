@@ -80,13 +80,18 @@ flutter:
     - lib/assets/estrella_completa.png
     - lib/assets/estrella_mitad.png
     - lib/assets/estrella_vacia.png
-    - lib/assets/azucares.png
+  
     - lib/assets/calidad_ingredientes.png
-    - lib/assets/naturalidad.png
     - lib/assets/numero_ingredientes.png
+    - lib/assets/naturalidad.png
+    - lib/assets/azucares.png
     - lib/assets/calorias.png
     - lib/assets/grasas.png
     - lib/assets/proteinas.png
+    - lib/assets/sodio.png
+    - lib/assets/fibra.png
+    - lib/assets/hidratos.png
+
     - lib/assets/nutria_1.png
     - lib/assets/scanner_tutorial.png
     - lib/assets/image_not_found.png
@@ -108,6 +113,19 @@ flutter:
     - lib/assets/puntos/punto_9.png
     - lib/assets/puntos/punto_10.png
     - lib/assets/puntos/punto_11.png
+    
+    - lib/assets/puntos/punto_0_selected.png
+    - lib/assets/puntos/punto_1_selected.png
+    - lib/assets/puntos/punto_2_selected.png
+    - lib/assets/puntos/punto_3_selected.png
+    - lib/assets/puntos/punto_4_selected.png
+    - lib/assets/puntos/punto_5_selected.png
+    - lib/assets/puntos/punto_6_selected.png
+    - lib/assets/puntos/punto_7_selected.png
+    - lib/assets/puntos/punto_8_selected.png
+    - lib/assets/puntos/punto_9_selected.png
+    - lib/assets/puntos/punto_10_selected.png
+    - lib/assets/puntos/punto_11_selected.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
