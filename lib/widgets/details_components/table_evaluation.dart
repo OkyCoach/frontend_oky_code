@@ -13,49 +13,31 @@ class TableEvaluation extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-        color: const Color(0xFFFFFFFF),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Column(
-            children: [
-              buildRow(
-                imagePath: 'lib/assets/calorias.png',
-                title: 'Calorías',
-                screenHeight: screenHeight
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(color: Color(0xFFE8E4F4), thickness: 1),
-              ),
-              buildRow(
-                imagePath: 'lib/assets/grasas.png',
-                title: 'Grasas',
-                screenHeight: screenHeight
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(color: Color(0xFFE8E4F4), thickness: 1),
-              ),
-              buildRow(
-                imagePath: 'lib/assets/proteinas.png',
-                title: 'Proteínas',
-                screenHeight: screenHeight
-              ),
-            ],
-          ),
-        ));
+      color: const Color(0xFFFFFFFF),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Column(
+          children: (evaluation["resultado"] as List).map<Widget>((category) {
+            return buildRow(
+              title: category[
+                  'campo'], // Ajusta según la estructura real de tus datos
+              screenHeight: screenHeight,
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 
-  Widget buildRow({required String imagePath, required String title, required double screenHeight}) {
-    const double padding = 30.0;
+  Widget buildRow({required String title, required double screenHeight}) {
     return Padding(
-        padding: const EdgeInsets.only(left: padding),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
-                imagePath,
+                'lib/assets/calorias.png',
                 height: 50,
                 width: 50,
               ),
@@ -89,7 +71,7 @@ class TableEvaluation extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 15, right: padding),
+            padding: const EdgeInsets.only(top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,28 +83,66 @@ class TableEvaluation extends StatelessWidget {
               ],
             ),
           ),
-          buildRange(['ALTO', 'MODERADO', 'ADECUADO', 'BAJO'], screenHeight),
-          buildRange(['>8 gr', '4-7 gr', '1-3 gr', '<1 gr'], screenHeight)
-        ]));
+          buildRange(
+            evaluation["formato_algoritmo_categoria"][title]["rangos"], 
+            screenHeight, 
+            evaluation["formato_algoritmo_categoria"][title]["unidad"]
+          ),
+        ]
+      )
+    );
   }
 }
 
-Widget buildRange(List<String> rangeValues, double screenHeight) {
+Widget buildRange(List<dynamic> rangeValues, double screenHeight, String unit) {
+  List<dynamic> orderRanges(List<dynamic> listaRangos) {
+    listaRangos.sort((a, b) => a["min"].compareTo(b["min"]));
+    return listaRangos;
+  }
+
+  String rangeToString(dynamic range) {
+    if (range["min"] == 0) {
+      return '<${range["max"]} $unit';
+    } else if (range["max"] == 1000) {
+      return '>${range["min"]} $unit';
+    } else {
+      return '${range["min"]}-${range["max"]} $unit';
+    }
+  }
+
+
+  List<dynamic> orderedList = orderRanges(rangeValues);
+
   return Padding(
-    padding: const EdgeInsets.only(top: 5, right: 30.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        for (int i = 0; i < rangeValues.length; i++)
-          Text(
-            rangeValues[i],
-            style: TextStyle(
-              fontFamily: "Gilroy-Medium",
-              fontSize: screenHeight * 0.012,
-              color: const Color(0xFF201547),
-            ),
-          ),
-      ],
-    ),
-  );
+      padding: const EdgeInsets.only(top: 5),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (int i = 0; i < orderedList.length; i++)
+              Text(
+                orderedList[i]["nombre"],
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF201547),
+                ),
+              ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (int i = 0; i < orderedList.length; i++)
+              Text(
+                rangeToString(orderedList[i]),
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF201547),
+                ),
+              ),
+          ],
+        ),
+      ]));
 }

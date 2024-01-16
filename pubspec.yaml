@@ -80,7 +80,7 @@ flutter:
     - lib/assets/estrella_completa.png
     - lib/assets/estrella_mitad.png
     - lib/assets/estrella_vacia.png
-    - lib/assets/azucar.png
+    - lib/assets/azucares.png
     - lib/assets/calidad_ingredientes.png
     - lib/assets/naturalidad.png
     - lib/assets/numero_ingredientes.png
