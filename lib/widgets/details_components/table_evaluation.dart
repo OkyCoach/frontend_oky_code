@@ -1,61 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
+
+final Map<String, dynamic> stringDisplay = {
+      "proteinas": { "text": "Proteínas", "display": 0},
+      "fibra": { "text": "Fibra", "display": 0},
+      "hidratos": { "text": "Hidratos", "display": 1},
+      "sodio": { "text": "Sodio", "display": 1},
+      "azucares": { "text": "Azúcares", "display": 1},
+      "calorias": { "text": "Calorías", "display": 1},
+      "grasas": { "text": "Grasas", "display": 1},
+      
+  };
 
 class TableEvaluation extends StatelessWidget {
-  final dynamic data; // Objeto con atributos variables
+  final dynamic evaluation; // Objeto con atributos variables
 
   const TableEvaluation({
     Key? key,
-    required this.data,
+    required this.evaluation,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-        color: const Color(0xFFFFFFFF),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Column(
-            children: [
-              buildRow(
-                imagePath: 'lib/assets/calorias.png',
-                title: 'Calorías',
-                screenHeight: screenHeight
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(color: Color(0xFFE8E4F4), thickness: 1),
-              ),
-              buildRow(
-                imagePath: 'lib/assets/grasas.png',
-                title: 'Grasas',
-                screenHeight: screenHeight
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(color: Color(0xFFE8E4F4), thickness: 1),
-              ),
-              buildRow(
-                imagePath: 'lib/assets/proteinas.png',
-                title: 'Proteínas',
-                screenHeight: screenHeight
-              ),
-            ],
-          ),
-        ));
+      color: const Color(0xFFFFFFFF),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Column(
+          children: (evaluation["resultado"] as List).map<Widget>((category) {
+            return buildRow(
+              title: category['campo'],
+              value: category["valor"]
+                  .toInt(), // Ajusta según la estructura real de tus datos
+              screenHeight: screenHeight,
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 
-  Widget buildRow({required String imagePath, required String title, required double screenHeight}) {
-    const double padding = 15.0;
+  Widget buildRow({required String title, required int value, required double screenHeight}) {
+
     return Padding(
-        padding: const EdgeInsets.only(left: padding),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
-                imagePath,
+                'lib/assets/$title.png',
                 height: 50,
                 width: 50,
               ),
@@ -67,7 +64,7 @@ class TableEvaluation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        stringDisplay[title]["text"],
                         style: TextStyle(
                           fontFamily: "Gilroy-Bold",
                           fontSize: screenHeight * 0.022,
@@ -88,41 +85,75 @@ class TableEvaluation extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, right: padding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                for (int i = 0; i < 12; i++)
-                  Image.asset(
-                    'lib/assets/puntos/punto_$i.png',
-                    height: screenHeight * 0.015,
-                  ),
-              ],
-            ),
-          ),
-          buildRange(['ALTO', 'MODERADO', 'ADECUADO', 'BAJO'], screenHeight),
-          buildRange(['>8 gr', '4-7 gr', '1-3 gr', '<1 gr'], screenHeight)
+          DotsWidget(
+              ranges: evaluation["formato_algoritmo_categoria"][title]
+                  ["rangos"],
+              actualScore: value),
+          buildRange(
+              title,
+              evaluation["formato_algoritmo_categoria"][title]["rangos"],
+              screenHeight,
+              evaluation["formato_algoritmo_categoria"][title]["unidad"]),
         ]));
   }
 }
 
-Widget buildRange(List<String> rangeValues, double screenHeight) {
+Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, String unit) {
+  List<dynamic> orderRanges(List<dynamic> rangeValues) {
+    
+    if (stringDisplay[title]["display"] == 1) {
+      rangeValues.sort((a, b) => b["min"].compareTo(a["min"]));
+    } else {
+      rangeValues.sort((a, b) => a["min"].compareTo(b["min"]));
+    }
+    return rangeValues;
+  }
+
+  String rangeToString(dynamic range) {
+    if (range["min"] == 0) {
+      return '<${range["max"]} $unit';
+    } else if (range["max"] == 1000) {
+      return '>${range["min"]} $unit';
+    } else {
+      return '${range["min"]}-${range["max"]} $unit';
+    }
+  }
+
+  List<dynamic> orderedList = orderRanges(rangeValues);
+
   return Padding(
-    padding: const EdgeInsets.only(top: 5, right: 15.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    padding: const EdgeInsets.only(top: 5),
+    child: Column(
       children: [
-        for (int i = 0; i < rangeValues.length; i++)
-          Text(
-            rangeValues[i],
-            style: TextStyle(
-              fontFamily: "Gilroy-Medium",
-              fontSize: screenHeight * 0.012,
-              color: const Color(0xFF201547),
-            ),
-          ),
-      ],
-    ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (int i = 0; i < orderedList.length; i++)
+              Text(
+                orderedList[i]["nombre"],
+                style: TextStyle(
+                  fontFamily: "Gilroy-Bold",
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF201547),
+                ),
+              ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (int i = 0; i < orderedList.length; i++)
+              Text(
+                rangeToString(orderedList[i]),
+                style: TextStyle(
+                  fontFamily: "Gilroy-Bold",
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF201547),
+                ),
+              ),
+          ],
+        ),
+      ]
+    )
   );
 }

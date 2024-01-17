@@ -21,8 +21,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     double screenHeight = MediaQuery.of(context).size.height;
     
     return NavigationBar(
-      
-      height: screenHeight * 0.08,
+      overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+      height: screenHeight * 0.07,
       backgroundColor: const Color(0xFF201547),
       selectedIndex: widget.currentIndex,
       onDestinationSelected: (index) {
@@ -40,28 +40,28 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: screenHeight * 0.04,
+            width: screenHeight * 0.035,
             child: Image.asset('lib/assets/perfil.png'),
           ),
           label: "Perfil",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: screenHeight * 0.04,
+            width: screenHeight * 0.035,
             child: Image.asset('lib/assets/scanner.png'),
           ),
           label: "Scanner",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: screenHeight * 0.04,
+            width: screenHeight * 0.035,
             child: Image.asset('lib/assets/preguntas.png'),
           ),
           label: "Nutricoach",
         ),
         NavigationDestination(
           icon: SizedBox(
-            width: screenHeight * 0.04,
+            width: screenHeight * 0.035,
             child: Image.asset('lib/assets/lupa.png'),
           ),
           label: "Buscar", 

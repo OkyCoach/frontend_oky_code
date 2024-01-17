@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
 class Recommended extends StatelessWidget {
-  final dynamic data;
+  final dynamic product;
 
   const Recommended({
     Key? key,
-    required this.data,
+    required this.product,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     double containerWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double itemWidth = containerWidth / 3;
 
     return Expanded(
       child: Container(
-        color: const Color(0xFFFFFFFF), // Fondo blanco
+        color: const Color(0xFFF9F9FA), // Fondo blanco
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           child: Column(

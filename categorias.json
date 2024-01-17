@@ -1,0 +1,643 @@
+{
+  "leches":{
+    "porcion":{
+        "cantidad": 200,
+        "unidad": "ml"
+    },
+    "calorias":{
+        "unidad": "kcal",
+        "rangos":[
+            {"nombre":"Alto", "min":141, "max":1000, "puntos": 1},
+            {"nombre":"Moderado", "min":110, "max":140, "puntos": 2},
+            {"nombre":"Adecuado", "min":71, "max":109, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":70, "puntos": 4}
+            
+        ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":8, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":7, "puntos": 2},
+            {"nombre":"Bajo", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Muy bajo", "min":0, "max":1, "puntos": 4}   
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":8, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":6, "max":7, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":14, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":8, "max":13, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":7, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    }
+  },
+  "quesos":{
+    "porcion":{
+        "cantidad": 60,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+          {"nombre":"Alto", "min":166, "max":1000, "puntos": 1},
+          {"nombre":"Moderado", "min":111, "max":165, "puntos": 2},
+          {"nombre":"Adecuado", "min":71, "max":110, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":70, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":8, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":7, "puntos": 2},
+            {"nombre":"Bajo", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Muy Bajo", "min":0, "max":1, "puntos": 4}   
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":8, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":6, "max":7, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":14, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":8, "max":13, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":7, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    }
+  },
+  "yogurt":{
+    "porcion":{
+        "cantidad": 1,
+        "unidad": "envase"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+          {"nombre":"Alto", "min":111, "max":1000, "puntos": 1},
+          {"nombre":"Moderado", "min":88, "max":110, "puntos": 2},
+          {"nombre":"Adecuado", "min":71, "max":87, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":70, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":8, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":7, "puntos": 2},
+            {"nombre":"Bajo", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Muy Bajo", "min":0, "max":1, "puntos": 4}   
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":8, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":6, "max":7, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":14, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":8, "max":13, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":7, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    }
+  },
+  "yogurt_proteina":{
+    "porcion":{
+        "cantidad": 1,
+        "unidad": "envase"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+          {"nombre":"Alto", "min":111, "max":1000, "puntos": 1},
+          {"nombre":"Moderado", "min":88, "max":110, "puntos": 2},
+          {"nombre":"Adecuado", "min":71, "max":87, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":70, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":8, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":7, "puntos": 2},
+            {"nombre":"Bajo", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Muy Bajo", "min":0, "max":1, "puntos": 4}   
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":16, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":8, "max":15, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":7, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+        {"nombre":"Alto", "min":14, "max":1000, "puntos": 1},
+        {"nombre":"Adecuado", "min":8, "max":13, "puntos": 2},
+        {"nombre":"Bajo", "min":0, "max":7, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+        {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+        {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    }
+  },
+  "cereales":{
+    "porcion":{
+        "cantidad": 40,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":141, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":111, "max":140, "puntos": 2},
+        {"nombre":"Adecuado", "min":101, "max":110, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":100, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":7, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":6, "puntos": 2},
+            {"nombre":"Bajo", "min":0, "max":3, "puntos": 3} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":2, "max":3, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":1, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":36, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":26, "max":35, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":25, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":3, "max":3, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2, "puntos": 1}
+      ]
+    }
+  },
+  "snacks_dulces":{
+    "porcion":{
+        "cantidad": 20,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":71, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":56, "max":70, "puntos": 2},
+        {"nombre":"Adecuado", "min":51, "max":55, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":50, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":4, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":1.6, "max":3, "puntos": 2},
+            {"nombre":"Bajo", "min":0, "max":1.5, "puntos": 3} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":1.6, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":0.6, "max":1.5, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":0.5, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":17.6, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":12.6, "max":17.5, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":12.5, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":6, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":2.6, "max":5, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2.5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":1.6, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":1.1, "max":1.5, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":1, "puntos": 1}
+      ]
+    }
+  },
+  "barras_cereal":{
+    "porcion":{
+        "cantidad": 40,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":141, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":111, "max":140, "puntos": 2},
+        {"nombre":"Adecuado", "min":91, "max":110, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":90, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":7, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":6, "puntos": 2},
+            {"nombre":"Normal", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":1, "puntos": 4} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":2, "max":3, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":1, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":31, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":21, "max":30, "puntos": 2},
+          {"nombre":"Normal", "min":15, "max":20, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":14, "puntos": 4}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":3, "max":3, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2, "puntos": 1}
+      ]
+    }
+  },
+  "barras_proteina":{
+    "porcion":{
+        "cantidad": 45,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":151, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":124, "max":150, "puntos": 2},
+        {"nombre":"Adecuado", "min":101, "max":123, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":100, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":7, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":6, "puntos": 2},
+            {"nombre":"Normal", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":1, "puntos": 4} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":21, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":16, "max":320, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":15, "puntos": 1}
+      ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":31, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":21, "max":30, "puntos": 2},
+          {"nombre":"Normal", "min":15, "max":20, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":14, "puntos": 4}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":3, "max":3, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2, "puntos": 1}
+      ]
+    }
+  },
+  "snacks_salados":{
+    "porcion":{
+        "cantidad": 25,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Alto", "min":101, "max":1000, "puntos": 1},
+        {"nombre":"Moderado", "min":41, "max":100, "puntos": 2},
+        {"nombre":"Bajo", "min":0, "max":40, "puntos": 3}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":7, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":4, "max":6, "puntos": 2},
+            {"nombre":"Normal", "min":2, "max":3, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":1, "puntos": 4} 
+        ]
+    },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":31, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":21, "max":30, "puntos": 2},
+          {"nombre":"Normal", "min":15, "max":20, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":14, "puntos": 4}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    }
+  },
+  "pan_molde":{
+    "porcion":{
+        "cantidad": 25,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":141, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":111, "max":140, "puntos": 2},
+        {"nombre":"Moderado", "min":91, "max":110, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":90, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":3, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":2, "max":2, "puntos": 2},
+            {"nombre":"Bajo", "min":0, "max":1, "puntos": 3} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":2, "max":3, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":1, "puntos": 1} 
+      ]
+  },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":36, "max":1000, "puntos": 1},
+          {"nombre":"Normal", "min":26, "max":35, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":25, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":3, "max":3, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2, "puntos": 1}
+      ]
+    }
+  },
+  "pan_granel":{
+    "porcion":{
+        "cantidad": 25,
+        "unidad": "g"
+    },
+    "calorias":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Muy Alto", "min":141, "max":1000, "puntos": 1},
+        {"nombre":"Alto", "min":111, "max":140, "puntos": 2},
+        {"nombre":"Moderado", "min":91, "max":110, "puntos": 3},
+        {"nombre":"Bajo", "min":0, "max":90, "puntos": 4}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Alto", "min":3, "max":1000, "puntos": 1},
+            {"nombre":"Adecuado", "min":2, "max":2, "puntos": 2},
+            {"nombre":"Bajo", "min":0, "max":1, "puntos": 3} 
+        ]
+    },
+    "proteinas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 3},
+          {"nombre":"Adecuado", "min":2, "max":3, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":1, "puntos": 1} 
+      ]
+  },
+    "hidratos":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":36, "max":1000, "puntos": 1},
+          {"nombre":"Normal", "min":26, "max":35, "puntos": 2},
+          {"nombre":"Bajo", "min":0, "max":25, "puntos": 3}
+      ]
+    },
+    "azucares":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":11, "max":1000, "puntos": 1},
+          {"nombre":"Adecuado", "min":6, "max":10, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":5, "puntos": 5}
+      ]
+    },
+    "fibra":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Alto", "min":4, "max":1000, "puntos": 5},
+          {"nombre":"Adecuado", "min":3, "max":3, "puntos": 3},
+          {"nombre":"Bajo", "min":0, "max":2, "puntos": 1}
+      ]
+    }
+  },
+  "carnes":{
+    "porcion":{
+        "cantidad": 140,
+        "unidad": "g"
+    },
+    "proteinas":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Alto", "min":26, "max":140, "puntos": 1},
+        {"nombre":"Normal", "min":16, "max":25, "puntos": 2},
+        {"nombre":"Bajo", "min":0, "max":15, "puntos": 3}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Muy Alto", "min":17, "max":1000, "puntos": 1},
+            {"nombre":"Alto", "min":11, "max":16, "puntos": 2},
+            {"nombre":"Normal", "min":5, "max":10, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":4, "puntos": 4} 
+        ]
+    }
+  },
+  "pescados":{
+    "porcion":{
+        "cantidad": 150,
+        "unidad": "g"
+    },
+    "proteinas":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Alto", "min":26, "max":140, "puntos": 1},
+        {"nombre":"Normal", "min":16, "max":25, "puntos": 2},
+        {"nombre":"Bajo", "min":0, "max":15, "puntos": 3}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Muy Alto", "min":17, "max":1000, "puntos": 1},
+            {"nombre":"Alto", "min":11, "max":16, "puntos": 2},
+            {"nombre":"Normal", "min":5, "max":10, "puntos": 3},
+            {"nombre":"Bajo", "min":0, "max":4, "puntos": 4} 
+        ]
+    }
+  },
+  "embutidos":{
+    "porcion":{
+        "cantidad": 100,
+        "unidad": "g"
+    },
+    "azucares":{
+      "unidad": "kcal",
+      "rangos":[
+        {"nombre":"Alto", "min":11, "max":140, "puntos": 1},
+        {"nombre":"Adecuado", "min":6, "max":10, "puntos": 2},
+        {"nombre":"Bajo", "min":0, "max":5, "puntos": 3}    
+      ]
+    },
+    "grasas":{
+        "unidad": "g",
+        "rangos":[
+            {"nombre":"Muy Alto", "min":21, "max":1000, "puntos": 1},
+            {"nombre":"Alto", "min":0, "max":20, "puntos": 2}
+        ]
+    },
+    "grasas_saturadas":{
+      "unidad": "g",
+      "rangos":[
+          {"nombre":"Muy Alto", "min":7, "max":1000, "puntos": 1},
+          {"nombre":"Alto", "min":0, "max":6, "puntos": 2}
+      ]
+    }
+  },
+}

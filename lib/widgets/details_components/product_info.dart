@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 
 class ProductInfoRow extends StatelessWidget {
   final String photoUrl;
   final String description;
   final String brandName;
-  final int starCount;
-  final int nutritionistsCount;
+  final dynamic evaluation;
 
   const ProductInfoRow({
     Key? key,
     required this.photoUrl,
     required this.description,
     required this.brandName,
-    required this.starCount,
-    required this.nutritionistsCount,
+    required this.evaluation,
   }) : super(key: key);
 
   @override
@@ -29,20 +28,20 @@ class ProductInfoRow extends StatelessWidget {
           photoUrl != "not_found"
           ? Image.network(
               photoUrl, 
-              height: screenHeight * 0.1,
-              width: screenHeight * 0.1,
+              height: screenHeight * 0.15,
+              width: screenHeight * 0.15,
               errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                 return Image.asset(
                   'lib/assets/image_not_found.png',
-                  height: screenHeight * 0.1,
-                  width: screenHeight * 0.1,
+                  height: screenHeight * 0.15,
+                  width: screenHeight * 0.15,
                 );
               },
             )
           : Image.asset(
               'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-              height: screenHeight * 0.1,
-              width: screenHeight * 0.1,
+              height: screenHeight * 0.15,
+              width: screenHeight * 0.15,
             ),
           Expanded(
             child: Padding(
@@ -76,20 +75,12 @@ class ProductInfoRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          for (int i = 0; i < starCount; i++)
-                            Padding(
-                              padding: const EdgeInsets.only(right: 3),
-                              child: Image.asset(
-                                'lib/assets/estrella_completa.png',
-                                height: screenHeight * 0.03,
-                              ),
-                            ),
-                        ],
+                      StarsWidget(
+                        maxScore: evaluation["puntos_totales"],
+                        actualScore: evaluation["puntos_obtenidos"]
                       ),
                       Text(
-                        "Evaluado por $nutritionistsCount nutricionistas",
+                        "Evaluado por 7 nutricionistas",
                         style:  TextStyle(
                           fontFamily: "Gilroy-Medium",
                           fontSize: screenHeight * 0.015,
