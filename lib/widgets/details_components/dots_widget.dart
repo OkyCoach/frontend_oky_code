@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 class DotsWidget extends StatelessWidget {
   final List ranges;
   final int actualScore;
+  final int display;
 
-  const DotsWidget({Key? key, required this.ranges, required this.actualScore})
+  const DotsWidget(
+      {Key? key,
+      required this.ranges,
+      required this.actualScore,
+      required this.display})
       : super(key: key);
 
   int getMaxValue(List<dynamic> ranges) {
@@ -23,6 +28,9 @@ class DotsWidget extends StatelessWidget {
     int maxScore = getMaxValue(ranges);
     score = score.clamp(0, maxScore);
     double selectedDot = ((score / maxScore) * maxDots).roundToDouble();
+    if (display == 1) {
+      selectedDot = maxDots - selectedDot;
+    }
     return selectedDot;
   }
 
@@ -38,9 +46,21 @@ class DotsWidget extends StatelessWidget {
         12,
         (index) {
           if (index == selectedDot) {
-            return Image.asset(
-              'lib/assets/puntos/punto_${index}_selected.png',
-              height: screenHeight * 0.035,
+            return Column(
+              children: [
+                Text(
+                  actualScore.toStringAsFixed(1),
+                  style: TextStyle(
+                    fontFamily: "Gilroy-Bold",
+                    fontSize: screenHeight * 0.012,
+                    color: const Color(0xFF201547),
+                  ),
+                ),
+                Image.asset(
+                  'lib/assets/puntos/punto_${index}_selected.png',
+                  height: screenHeight * 0.035,
+                ),
+              ],
             );
           } else {
             return Image.asset(

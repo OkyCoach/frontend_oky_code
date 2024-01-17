@@ -94,6 +94,7 @@ class TableEvaluation extends StatelessWidget {
             DotsWidget(
               ranges: evaluation["formato_algoritmo_categoria"][title]["rangos"],
               actualScore: value,
+              display: stringDisplay[title]["display"]
             ),
             buildRange(
               title,
