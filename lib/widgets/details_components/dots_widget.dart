@@ -31,27 +31,25 @@ class DotsWidget extends StatelessWidget {
     double selectedDot = calculateSelectedDot(actualScore);
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Padding(
-        padding: const EdgeInsets.only(top: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: List.generate(
-            12,
-            (index) {
-              if (index == selectedDot) {
-                return Image.asset(
-                  'lib/assets/puntos/punto_${index}_selected.png',
-                  height: screenHeight * 0.035,
-                );
-              } else {
-                return Image.asset(
-                  'lib/assets/puntos/punto_$index.png',
-                  height: screenHeight * 0.015,
-                );
-              }
-            },
-          ),
-        ));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: List.generate(
+        12,
+        (index) {
+          if (index == selectedDot) {
+            return Image.asset(
+              'lib/assets/puntos/punto_${index}_selected.png',
+              height: screenHeight * 0.035,
+            );
+          } else {
+            return Image.asset(
+              'lib/assets/puntos/punto_$index.png',
+              height: screenHeight * 0.015,
+            );
+          }
+        },
+      ),
+    );
   }
 }
