@@ -132,7 +132,7 @@ Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, 
               Text(
                 orderedList[i]["nombre"],
                 style: TextStyle(
-                  fontFamily: "Gilroy-Medium",
+                  fontFamily: "Gilroy-Bold",
                   fontSize: screenHeight * 0.012,
                   color: const Color(0xFF201547),
                 ),
@@ -146,7 +146,7 @@ Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, 
               Text(
                 rangeToString(orderedList[i]),
                 style: TextStyle(
-                  fontFamily: "Gilroy-Medium",
+                  fontFamily: "Gilroy-Bold",
                   fontSize: screenHeight * 0.012,
                   color: const Color(0xFF201547),
                 ),
