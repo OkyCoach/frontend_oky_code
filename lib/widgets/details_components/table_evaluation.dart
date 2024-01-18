@@ -46,55 +46,67 @@ class TableEvaluation extends StatelessWidget {
   Widget buildRow({required String title, required int value, required double screenHeight}) {
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'lib/assets/$title.png',
-                height: 50,
-                width: 50,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        stringDisplay[title]["text"],
-                        style: TextStyle(
-                          fontFamily: "Gilroy-Bold",
-                          fontSize: screenHeight * 0.022,
-                          color: const Color(0xFF201547),
+      padding: const EdgeInsets.only(bottom: 10.0, left: 30.0, right: 30.0),
+      child: Container( 
+        decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Color.fromARGB(255, 207, 206, 206),
+          width: 2.0)), 
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  'lib/assets/$title.png',
+                  height: 50,
+                  width: 50,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          stringDisplay[title]["text"],
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Bold",
+                            fontSize: screenHeight * 0.022,
+                            color: const Color(0xFF201547),
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Según la dosis diaria recomendada",
-                        style: TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: screenHeight * 0.015,
-                          color: const Color(0xFF201547),
+                        Text(
+                          "Según la dosis diaria recomendada",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: screenHeight * 0.015,
+                            color: const Color(0xFF201547),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          DotsWidget(
-              ranges: evaluation["formato_algoritmo_categoria"][title]
-                  ["rangos"],
-              actualScore: value),
-          buildRange(
+              ],
+            ),
+            DotsWidget(
+              ranges: evaluation["formato_algoritmo_categoria"][title]["rangos"],
+              actualScore: value,
+              display: stringDisplay[title]["display"]
+            ),
+            buildRange(
               title,
               evaluation["formato_algoritmo_categoria"][title]["rangos"],
               screenHeight,
-              evaluation["formato_algoritmo_categoria"][title]["unidad"]),
-        ]));
+              evaluation["formato_algoritmo_categoria"][title]["unidad"],
+            ),
+          ],
+        ),
+      ),
+    );
+
   }
 }
 
@@ -122,7 +134,7 @@ Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, 
   List<dynamic> orderedList = orderRanges(rangeValues);
 
   return Padding(
-    padding: const EdgeInsets.only(top: 5),
+    padding: const EdgeInsets.only(top: 5, bottom: 10),
     child: Column(
       children: [
         Row(
