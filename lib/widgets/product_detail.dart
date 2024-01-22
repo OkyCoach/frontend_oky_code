@@ -17,6 +17,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Column(children: [
       DefaultTabController(
@@ -39,6 +40,14 @@ class ProductDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Container(
+                  height: 4.5, // Grosor de la línea
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2), // Establecer el radio de los bordes
+                    color: const Color.fromARGB(255, 201, 200, 200), // Color de la línea
+                  ),
+                  margin: EdgeInsets.only(bottom: 10, left: screenWidth * 0.4, right: screenWidth * 0.4, top: 8),
+                ),
                 ProductInfoRow(
                   photoUrl: product["ok_to_shop"]?["basicInformation"]
                           ?["photoUrl"] ??

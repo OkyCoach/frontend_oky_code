@@ -27,6 +27,7 @@ class ProductPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Dialog(
       insetPadding: const EdgeInsets.all(10),
@@ -36,11 +37,19 @@ class ProductPopup extends StatelessWidget {
       elevation: 1,
       child: IntrinsicHeight(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.only(bottom: 15, top: 10, left: 15, right: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Container(
+                  height: 4.5, // Grosor de la línea
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2), // Establecer el radio de los bordes
+                    color: const Color.fromARGB(255, 201, 200, 200), // Color de la línea
+                  ),
+                  margin: EdgeInsets.only(bottom: 10, left: screenWidth * 0.38, right: screenWidth * 0.38,),
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
