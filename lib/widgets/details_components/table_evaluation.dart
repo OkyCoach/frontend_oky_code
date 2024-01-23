@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
 
 final Map<String, dynamic> stringDisplay = {
-      "proteinas": { "text": "Proteínas", "display": 0},
-      "fibra": { "text": "Fibra", "display": 0},
-      "hidratos": { "text": "Hidratos", "display": 1},
-      "sodio": { "text": "Sodio", "display": 1},
-      "azucares": { "text": "Azúcares", "display": 1},
-      "calorias": { "text": "Calorías", "display": 1},
-      "grasas": { "text": "Grasas", "display": 1},
-      
-  };
+  "proteinas": {"text": "Proteínas", "display": 0},
+  "fibra": {"text": "Fibra", "display": 0},
+  "hidratos": {"text": "Hidratos", "display": 1},
+  "sodio": {"text": "Sodio", "display": 1},
+  "azucares": {"text": "Azúcares", "display": 1},
+  "calorias": {"text": "Calorías", "display": 1},
+  "grasas": {"text": "Grasas", "display": 1},
+};
 
 class TableEvaluation extends StatelessWidget {
   final dynamic evaluation; // Objeto con atributos variables
@@ -19,7 +18,6 @@ class TableEvaluation extends StatelessWidget {
     Key? key,
     required this.evaluation,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +41,17 @@ class TableEvaluation extends StatelessWidget {
     );
   }
 
-  Widget buildRow({required String title, required int value, required double screenHeight}) {
-
+  Widget buildRow(
+      {required String title,
+      required int value,
+      required double screenHeight}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0, left: 30.0, right: 30.0),
-      child: Container( 
+      child: Container(
         decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Color.fromARGB(255, 207, 206, 206),
-          width: 2.0)), 
+          border: Border(
+              bottom: BorderSide(
+                  color: Color.fromARGB(255, 207, 206, 206), width: 2.0)),
         ),
         child: Column(
           children: [
@@ -92,10 +93,10 @@ class TableEvaluation extends StatelessWidget {
               ],
             ),
             DotsWidget(
-              ranges: evaluation["formato_algoritmo_categoria"][title]["rangos"],
-              actualScore: value,
-              display: stringDisplay[title]["display"]
-            ),
+                ranges: evaluation["formato_algoritmo_categoria"][title]
+                    ["rangos"],
+                actualScore: value,
+                display: stringDisplay[title]["display"]),
             buildRange(
               title,
               evaluation["formato_algoritmo_categoria"][title]["rangos"],
@@ -106,13 +107,12 @@ class TableEvaluation extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
 
-Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, String unit) {
+Widget buildRange(
+    String title, List<dynamic> rangeValues, double screenHeight, String unit) {
   List<dynamic> orderRanges(List<dynamic> rangeValues) {
-    
     if (stringDisplay[title]["display"] == 1) {
       rangeValues.sort((a, b) => b["min"].compareTo(a["min"]));
     } else {
@@ -122,21 +122,21 @@ Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, 
   }
 
   String rangeToString(dynamic range) {
+    int meanValue = ((range["max"] + range["min"]) / 2).round();
     if (range["min"] == 0) {
-      return '<${range["max"]} $unit';
+      return '<$meanValue $unit';
     } else if (range["max"] == 1000) {
       return '>${range["min"]} $unit';
     } else {
-      return '${range["min"]}-${range["max"]} $unit';
+      return '$meanValue $unit';
     }
   }
 
   List<dynamic> orderedList = orderRanges(rangeValues);
 
   return Padding(
-    padding: const EdgeInsets.only(top: 5, bottom: 10),
-    child: Column(
-      children: [
+      padding: const EdgeInsets.only(top: 5, bottom: 10),
+      child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -165,7 +165,5 @@ Widget buildRange(String title, List<dynamic> rangeValues, double screenHeight, 
               ),
           ],
         ),
-      ]
-    )
-  );
+      ]));
 }

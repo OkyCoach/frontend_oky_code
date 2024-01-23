@@ -12,22 +12,27 @@ class DotsWidget extends StatelessWidget {
       required this.display})
       : super(key: key);
 
-  int getMaxValue(List<dynamic> ranges) {
+  List<int> getMaxValue(List<dynamic> ranges) {
     int maxValue = 0;
+    int minValue = 0;
     for (var range in ranges) {
       if (range["max"] == 1000) {
         maxValue = range["min"];
-        break; // Termina el bucle al encontrar el rango con max 1000
+         // Termina el bucle al encontrar el rango con max 1000
       }
+      if (range["min"] == 0) {
+        minValue = range["max"]; // Termina el bucle al encontrar el rango con max 1000
+      }
+
     }
-    return maxValue;
+    return [minValue, maxValue];
   }
 
   double calculateSelectedDot(int score) {
     int maxDots = 11;
-    int maxScore = getMaxValue(ranges);
-    score = score.clamp(0, maxScore);
-    double selectedDot = ((score / maxScore) * maxDots).roundToDouble();
+    List<int> limits = getMaxValue(ranges);
+    score = score.clamp(limits[0], limits[1]);
+    double selectedDot = (((score- limits[0]) / (limits[1]- limits[0])) * maxDots).roundToDouble();
     if (display == 1) {
       selectedDot = maxDots - selectedDot;
     }
