@@ -70,7 +70,7 @@ flutter:
     - lib/assets/logos/logo_degrade.png
     - lib/assets/logos/full_logo.png
     - lib/assets/logos/logo_borde_morado.png
-    
+    - lib/assets/logos/mano_oky.png
     
     - lib/assets/lupa.png
     - lib/assets/perfil.png
@@ -101,6 +101,9 @@ flutter:
     - lib/assets/botones/continuar.png
     - lib/assets/botones/comenzar.png
     - lib/assets/botones/siguiente.png
+    - lib/assets/botones/rotar.png
+    - lib/assets/botones/recortar.png
+    - lib/assets/botones/enviar.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png
