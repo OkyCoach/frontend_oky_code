@@ -35,6 +35,7 @@ class CustomInputField extends StatelessWidget {
                 color: const Color(0xFF97999B),
               ),
               decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(bottom: 12.0, left: 10, right: 10),
                 filled: true,
                 fillColor: const Color(0xFFE8E4F4), // Color de fondo gris
                 border: OutlineInputBorder(
@@ -42,6 +43,7 @@ class CustomInputField extends StatelessWidget {
                   borderSide: BorderSide.none, // Sin contorno
                 ),
               ),
+              
             ),
           ),
         ],
