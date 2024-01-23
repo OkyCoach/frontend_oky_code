@@ -100,6 +100,7 @@ flutter:
     - lib/assets/botones/agregar.png
     - lib/assets/botones/continuar.png
     - lib/assets/botones/comenzar.png
+    - lib/assets/botones/siguiente.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png
