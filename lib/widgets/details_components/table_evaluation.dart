@@ -124,7 +124,7 @@ Widget buildRange(
   String rangeToString(dynamic range) {
     int meanValue = ((range["max"] + range["min"]) / 2).round();
     if (range["min"] == 0) {
-      return '<$meanValue $unit';
+      return '<${range["max"]} $unit';
     } else if (range["max"] == 1000) {
       return '>${range["min"]} $unit';
     } else {
