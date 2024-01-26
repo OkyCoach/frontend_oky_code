@@ -11,7 +11,6 @@ class StarsWidget extends StatelessWidget {
   double calcularEstrellas(int maxScore, int actualScore) {
     double maxStars = 5.0;
     double actualStars = (actualScore / maxScore) * maxStars;
-    actualStars = (actualStars * 2).roundToDouble() / 2;
     return actualStars;
   }
 
@@ -20,7 +19,6 @@ class StarsWidget extends StatelessWidget {
     double stars = calcularEstrellas(maxScore, actualScore);
     int estrellasEnteras = stars.floor();
     double fraccionEstrella = stars - estrellasEnteras;
-
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Row(
@@ -32,25 +30,95 @@ class StarsWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
-                'lib/assets/estrella_completa.png',
+                'lib/assets/estrellas/estrella_8_8.png',
                 height: screenHeight * 0.03,
               ),
             );
-          } else if (index == estrellasEnteras && fraccionEstrella > 0.0) {
+          } else if (index == estrellasEnteras &&
+              (0.0 < fraccionEstrella && fraccionEstrella <= 0.125)) {
             // Estrella a la mitad
             return Padding(
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
-                'lib/assets/estrella_mitad.png',
+                'lib/assets/estrellas/estrella_1_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.125 < fraccionEstrella && fraccionEstrella <= 0.250)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_2_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.250 < fraccionEstrella && fraccionEstrella <= 0.375)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_3_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.375 < fraccionEstrella && fraccionEstrella <= 0.500)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_4_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.500 < fraccionEstrella && fraccionEstrella <= 0.625)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_5_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.625 < fraccionEstrella && fraccionEstrella <= 0.750)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_6_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.750 < fraccionEstrella && fraccionEstrella <= 0.875)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_7_8.png',
+                height: screenHeight * 0.03,
+              ),
+            );
+          } else if (index == estrellasEnteras &&
+              (0.875 < fraccionEstrella && fraccionEstrella <= 1.0)) {
+            // Estrella a la mitad
+            return Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Image.asset(
+                'lib/assets/estrellas/estrella_8_8.png',
                 height: screenHeight * 0.03,
               ),
             );
           } else {
-            // Estrella vacía
             return Padding(
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
-                'lib/assets/estrella_vacia.png',
+                'lib/assets/estrellas/estrella_0_8.png',
                 height: screenHeight * 0.03,
               ),
             );

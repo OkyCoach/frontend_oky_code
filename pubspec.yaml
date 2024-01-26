@@ -77,9 +77,17 @@ flutter:
     - lib/assets/preguntas.png
     - lib/assets/scanner.png
     - lib/assets/favorito.png
-    - lib/assets/estrella_completa.png
-    - lib/assets/estrella_mitad.png
-    - lib/assets/estrella_vacia.png
+
+    - lib/assets/estrellas/estrella_0_8.png
+    - lib/assets/estrellas/estrella_1_8.png
+    - lib/assets/estrellas/estrella_2_8.png
+    - lib/assets/estrellas/estrella_3_8.png
+    - lib/assets/estrellas/estrella_4_8.png
+    - lib/assets/estrellas/estrella_5_8.png
+    - lib/assets/estrellas/estrella_6_8.png
+    - lib/assets/estrellas/estrella_7_8.png
+    - lib/assets/estrellas/estrella_8_8.png
+    
   
     - lib/assets/calidad_ingredientes.png
     - lib/assets/numero_ingredientes.png
