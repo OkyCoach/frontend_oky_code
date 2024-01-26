@@ -104,6 +104,7 @@ flutter:
     - lib/assets/botones/rotar.png
     - lib/assets/botones/recortar.png
     - lib/assets/botones/enviar.png
+    - lib/assets/botones/oky.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png
