@@ -29,10 +29,10 @@ class CustomInputField extends StatelessWidget {
           SizedBox(
             height: 40, // Ajusta la altura del SizedBox según tus necesidades
             child: TextField(
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Gilroy-Medium",
                 fontSize: 16,
-                color: const Color(0xFF201547),
+                color: Color(0xFF201547),
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(bottom: 16.0, left: 10, right: 10),

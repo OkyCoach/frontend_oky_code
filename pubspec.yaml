@@ -41,6 +41,7 @@ dependencies:
   permission_handler: "10.2.0"
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.3
+  amazon_cognito_identity_dart_2: ^3.6.2
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +114,8 @@ flutter:
     - lib/assets/botones/recortar.png
     - lib/assets/botones/enviar.png
     - lib/assets/botones/oky.png
+    - lib/assets/botones/iniciar_sesion.png
+    - lib/assets/botones/registrate.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png
