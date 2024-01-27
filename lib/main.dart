@@ -7,10 +7,12 @@ import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
 
+import 'package:frontend_oky_code/pages/login_test.dart';
+import 'package:frontend_oky_code/pages/sign_up_test.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,16 +47,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  
   const MainPage({
-    Key? key, 
-  }): super(key: key);
+    Key? key,
+  }) : super(key: key);
   @override
   State<MainPage> createState() => _MainState();
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 2;
+  int _currentIndex = 4;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -64,34 +65,32 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final pages = [
       const HomePage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),
-      const SearchPage(), 
+      // const SearchPage(),
+      LoginPage(),
+      // SignUpPage()
     ];
     return Scaffold(
         body: pages[_currentIndex],
-        bottomNavigationBar:  NavigationBarTheme(
-          
-              data: NavigationBarThemeData(
-                indicatorColor: Colors.transparent,
-                indicatorShape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                   // Puedes ajustar el radio de las esquinas
-                ),
-                
-                labelTextStyle: MaterialStateProperty.all(
-                  const TextStyle(color: Colors.white, fontSize: 10.0),
-                ),
-                
-              ),
-              child: CustomNavigationBar(
-                currentIndex: _currentIndex,
-                onUpdateIndex: updateIndex, // Pasa la función de callback
-              ),
-            ));
+        bottomNavigationBar: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            indicatorColor: Colors.transparent,
+            indicatorShape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              // Puedes ajustar el radio de las esquinas
+            ),
+            labelTextStyle: MaterialStateProperty.all(
+              const TextStyle(color: Colors.white, fontSize: 10.0),
+            ),
+          ),
+          child: CustomNavigationBar(
+            currentIndex: _currentIndex,
+            onUpdateIndex: updateIndex, // Pasa la función de callback
+          ),
+        ));
   }
 }
