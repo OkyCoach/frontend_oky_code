@@ -31,7 +31,7 @@ class DotsWidget extends StatelessWidget {
   double calculateSelectedDot(int score) {
     int maxDots = 11;
     List<int> limits = getMaxValue(ranges);
-    score = score.clamp(limits[0], limits[1]);
+    score = score.toInt().clamp(limits[0], limits[1]);
     double selectedDot = (((score- limits[0]) / (limits[1]- limits[0])) * maxDots).roundToDouble();
     if (display == 1) {
       selectedDot = maxDots - selectedDot;
@@ -43,6 +43,7 @@ class DotsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double selectedDot = calculateSelectedDot(actualScore);
     double screenHeight = MediaQuery.of(context).size.height;
+    
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,7 +55,7 @@ class DotsWidget extends StatelessWidget {
             return Column(
               children: [
                 Text(
-                  actualScore.toStringAsFixed(1),
+                  actualScore.toStringAsFixed(0),
                   style: TextStyle(
                     fontFamily: "Gilroy-Bold",
                     fontSize: screenHeight * 0.012,
