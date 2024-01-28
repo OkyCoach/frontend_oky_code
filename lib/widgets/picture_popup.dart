@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class NotFoundPopup extends StatelessWidget {
-  const NotFoundPopup({
-    Key? key,
-  }) : super(key: key);
+class PicturePopup extends StatelessWidget {
+  final String type;
+  const PicturePopup({Key? key, required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double popupHeight = 300;
-
     double logoWidth = 70;
+    double popupHeight = 230;
 
     return Stack(
       alignment: AlignmentDirectional.centerStart,
@@ -21,24 +19,25 @@ class NotFoundPopup extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
+          elevation: 1,
           insetPadding: EdgeInsets.only(
               top: (screenHeight - popupHeight) / 2, left: 35, right: 35),
-          elevation: 1,
           child: SizedBox(
             height: popupHeight,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 40, bottom: 15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10, top: 20),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "No pudimos encontrar el producto :(",
+                      type == "frontal" ? "Foto del producto" : "Información Nutricional",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
-                          fontSize: popupHeight * 0.07,
+                          fontSize: popupHeight * 0.1,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -48,29 +47,27 @@ class NotFoundPopup extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                      "¡Tus contribuciones son valiosas! Puedes agregar el producto y ayudar a otros a encontrarlo.",
+                      type == "frontal" ? "Toma una foto del frente del producto y recórtala si es necesario." : "Toma una foto del frente de la información nutricional y recórtala si es necesario.",
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: popupHeight * 0.055,
+                        fontSize: type == "frontal" ? popupHeight * 0.07 :popupHeight * 0.06,
                       ),
                       textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
                     ),
                   ),
                   InkWell(
                     child: Image.asset(
-                      "lib/assets/botones/agregar.png",
-                      width: popupHeight * 0.5,
+                      "lib/assets/botones/oky.png",
+                      width: popupHeight * 0.35,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
-                      "No gracias",
+                      "Volver",
                       style: TextStyle(
                           fontFamily: "Gilroy-Medium",
-                          fontSize: screenWidth * 0.035,
+                          fontSize: popupHeight * 0.07,
                           color: const Color(0xFF97999B)),
                     ),
                   ),

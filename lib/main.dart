@@ -6,6 +6,7 @@ import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
+import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
 
 import 'package:frontend_oky_code/pages/login_test.dart';
 import 'package:frontend_oky_code/pages/sign_up_test.dart';
@@ -66,7 +67,7 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const HomePage(),
+      MailConfirmationPage(mail: "felipe.lara@uc.cl",),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),

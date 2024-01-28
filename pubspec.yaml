@@ -71,16 +71,24 @@ flutter:
     - lib/assets/logos/logo_degrade.png
     - lib/assets/logos/full_logo.png
     - lib/assets/logos/logo_borde_morado.png
-    
+    - lib/assets/logos/mano_oky.png
     
     - lib/assets/lupa.png
     - lib/assets/perfil.png
     - lib/assets/preguntas.png
     - lib/assets/scanner.png
     - lib/assets/favorito.png
-    - lib/assets/estrella_completa.png
-    - lib/assets/estrella_mitad.png
-    - lib/assets/estrella_vacia.png
+
+    - lib/assets/estrellas/estrella_0_8.png
+    - lib/assets/estrellas/estrella_1_8.png
+    - lib/assets/estrellas/estrella_2_8.png
+    - lib/assets/estrellas/estrella_3_8.png
+    - lib/assets/estrellas/estrella_4_8.png
+    - lib/assets/estrellas/estrella_5_8.png
+    - lib/assets/estrellas/estrella_6_8.png
+    - lib/assets/estrellas/estrella_7_8.png
+    - lib/assets/estrellas/estrella_8_8.png
+    
   
     - lib/assets/calidad_ingredientes.png
     - lib/assets/numero_ingredientes.png
@@ -101,6 +109,13 @@ flutter:
     - lib/assets/botones/agregar.png
     - lib/assets/botones/continuar.png
     - lib/assets/botones/comenzar.png
+    - lib/assets/botones/siguiente.png
+    - lib/assets/botones/rotar.png
+    - lib/assets/botones/recortar.png
+    - lib/assets/botones/enviar.png
+    - lib/assets/botones/oky.png
+    - lib/assets/botones/iniciar_sesion.png
+    - lib/assets/botones/registrate.png
 
     - lib/assets/puntos/punto_0.png
     - lib/assets/puntos/punto_1.png

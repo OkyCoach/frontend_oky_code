@@ -5,6 +5,7 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
+import 'package:frontend_oky_code/widgets/picture_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
