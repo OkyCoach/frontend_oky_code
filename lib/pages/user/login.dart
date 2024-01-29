@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
+import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:convert';
+import 'package:frontend_oky_code/pages/user/signup.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
+
+  
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -13,18 +22,29 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   var userSession;
 
+
   void _login() async {
+    // Perform login logic
     var session =
         await login(_usernameController.text, _passwordController.text);
-    print(session);
     if (session != null) {
-      // Navegar a la siguiente pantalla o manejar la sesión de usuario
-      userSession = session.accessToken.jwtToken;
+      await AuthManager().saveSession({
+        'accessToken': session.accessToken.toString(),
+        'refreshToken': session.refreshToken.toString(),
+        'idToken': session.idToken.toString(),
+        'userInfo': jsonEncode(session.idToken.payload),
+      });
 
-      // refresh the UI
-      setState(() {});
+      final storage = FlutterSecureStorage();
+      await storage.write(
+          key: 'session', value: jsonEncode(session.toString()));
+
+      // Navigate to the home screen
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
     } else {
-      // Mostrar error de inicio de sesión
+      // Handle login error
+      // Show an error message
     }
   }
 
@@ -92,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
-                obscureText: true,
+                obscureText: false,
                 controller: _usernameController,
                 style: const TextStyle(
                   fontFamily: "Gilroy-Medium",
@@ -134,42 +154,48 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.only(top: screenHeight * 0.06),
               child: Align(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "¿Aún no tienes una cuenta?",
-                      style: TextStyle(
-                        fontFamily: "Gilroy-Regular",
-                        fontSize: screenHeight * 0.018,
-                        color: const Color(0xFF97999B),
-                      ),
-                    ),
-                    Text(
-                      "Registrate aquí",
-                      style: TextStyle(
-                        fontFamily: "Gilroy-Regular",
-                        fontSize: screenHeight * 0.018,
-                        color: const Color(0xFF97999B),
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: screenHeight * 0.04),
-                      child: InkWell(
-                        onTap: () {
-                          _login;
-                        },
-                        child: Image.asset(
-                          "lib/assets/botones/iniciar_sesion.png",
-                          height: screenHeight * 0.05,
+                  alignment: Alignment.center,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "¿Aún no tienes una cuenta?",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: screenHeight * 0.018,
+                            color: const Color(0xFF97999B),
+                          ),
                         ),
-                      ),
-                    )
-                  ]
-                )
-              ),
+                        //enlace a la página de registro
+                        Padding(
+                          padding: EdgeInsets.only(top: screenHeight * 0.04),
+                          child: InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpPage())),
+                            child: Text(
+                              "Registrate aquí",
+                              style: TextStyle(
+                                fontFamily: "Gilroy-Regular",
+                                fontSize: screenHeight * 0.018,
+                                color: const Color(0xFF97999B),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: screenHeight * 0.04),
+                          child: InkWell(
+                            onTap: () => _login(),
+                            child: Image.asset(
+                              "lib/assets/botones/iniciar_sesion.png",
+                              height: screenHeight * 0.05,
+                            ),
+                          ),
+                        )
+                      ])),
             )
           ],
         ),
@@ -178,9 +204,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final userPool = CognitoUserPool(
-    'us-east-1_7LsYT4REs', // Reemplaza con tu Pool ID de Cognito
-    '5qad0ct7kdk6t0trn71ik12rpa', // Reemplaza con tu Client ID de Cognito
+    dotenv.env['COGNITO_USER_POOL_ID']??'',
+    dotenv.env['COGNITO_CLIENT_ID']??'',
   );
+  void _showError(String message) {
+    // Use the scaffold key to get the context for the ScaffoldMessenger
+    // and show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
 
   Future<CognitoUserSession?> login(String username, String password) async {
     final cognitoUser = CognitoUser(username, userPool);
@@ -190,11 +225,14 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     try {
+      
       var userSession = await cognitoUser.authenticateUser(authDetails);
 
       // Si el usuario se autentica correctamente, se devuelve una sesión de usuario
       if (userSession != null) {
         print(userSession.idToken.payload);
+        print('token id: ${userSession.refreshToken?.token}');
+
         return userSession;
       } else {
         print(userSession);
@@ -202,6 +240,11 @@ class _LoginPageState extends State<LoginPage> {
       }
     } on CognitoUserException catch (e) {
       print(e.message);
+      return null;
+    }catch (e) {
+      // Handle any other exceptions
+      print('An unexpected error occurred: $e');
+      _showError('An unexpected error occurred.');
       return null;
     }
   }

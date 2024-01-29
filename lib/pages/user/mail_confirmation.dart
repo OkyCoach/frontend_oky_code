@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
+import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MailConfirmationPage extends StatefulWidget {
   final String mail;
-  const MailConfirmationPage({super.key, required this.mail});
+  final String username;
+  const MailConfirmationPage({super.key, required this.mail, required this.username});
 
   @override
   _MailConfirmationPageState createState() => _MailConfirmationPageState();
@@ -12,7 +15,38 @@ class MailConfirmationPage extends StatefulWidget {
 class _MailConfirmationPageState extends State<MailConfirmationPage> {
   final _codeController = TextEditingController();
 
-  void _verify() async {}
+  void _verify() async {
+    final code = _codeController.text.trim();
+    final userPool = CognitoUserPool(
+      dotenv.env['COGNITO_USER_POOL_ID']??'',
+      dotenv.env['COGNITO_CLIENT_ID']??'',
+    );
+
+
+    final cognitoUser = CognitoUser('caduto', userPool);
+    try {
+      print(cognitoUser.username);
+      print(code);
+      final confirmationResult = await cognitoUser.confirmRegistration(code);
+      if (confirmationResult) {
+        // The email was successfully confirmed
+        print('Email confirmed successfully.');
+        // Navigate to the sign-in page or home page as appropriate
+
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => LoginPage()));
+      } else {
+        // Handle the case where confirmation did not succeed
+        print('Failed to confirm email.');
+      }
+    } on CognitoUserException catch (e) {
+      // Handle Cognito-specific exceptions
+      print('Cognito user error: ${e.message}');
+    } catch (e) {
+      // Handle generic exceptions
+      print('Error confirming email: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -74,9 +108,7 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
                 child: Align(
                   alignment: Alignment.center,
                   child: InkWell(
-                    onTap: () {
-                      _verify;
-                    },
+                    onTap: () => _verify(),
                     child: Image.asset(
                       "lib/assets/botones/siguiente.png",
                       height: screenHeight * 0.05,
@@ -89,32 +121,4 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
     )));
   }
 
-  final userPool = CognitoUserPool(
-    'us-east-1_7LsYT4REs', // Reemplaza con tu Pool ID de Cognito
-    '5qad0ct7kdk6t0trn71ik12rpa', // Reemplaza con tu Client ID de Cognito
-  );
-
-  Future<CognitoUserSession?> login(String username, String password) async {
-    final cognitoUser = CognitoUser(username, userPool);
-    final authDetails = AuthenticationDetails(
-      username: username,
-      password: password,
-    );
-
-    try {
-      var userSession = await cognitoUser.authenticateUser(authDetails);
-
-      // Si el usuario se autentica correctamente, se devuelve una sesión de usuario
-      if (userSession != null) {
-        print(userSession.idToken.payload);
-        return userSession;
-      } else {
-        print(userSession);
-        return null;
-      }
-    } on CognitoUserException catch (e) {
-      print(e.message);
-      return null;
-    }
-  }
 }

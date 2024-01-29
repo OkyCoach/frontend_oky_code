@@ -6,57 +6,63 @@ import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
-import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
 
-import 'package:frontend_oky_code/pages/login_test.dart';
-import 'package:frontend_oky_code/pages/sign_up_test.dart';
+import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScanditFlutterDataCaptureBarcode.initialize();
+  await dotenv.load(fileName:'lib/.env');
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
 
-  // pregunta por permisos de camara
+  // Use AuthService to check if the user is logged in
+  bool isLogged = await AuthManager().isLoggedIn();
+
+  // Request camera permissions
   PermissionStatus status = await Permission.camera.status;
   if (!status.isGranted) {
     await Permission.camera.request();
   }
 
-  runApp(MyApp(isFirstTime: isFirstTime));
+  runApp(MyApp(isFirstTime: isFirstTime, isLogged: isLogged));
 }
 
 class MyApp extends StatelessWidget {
   final bool isFirstTime;
+  final bool isLogged;
 
-  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
+  const MyApp({Key? key, required this.isFirstTime, required this.isLogged})
+      : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Codigo Oky',
       theme: ThemeData(useMaterial3: true),
-      home: isFirstTime ? const FirstTutorialPage() : const MainPage(),
+      home: isFirstTime
+          ? FirstTutorialPage()
+          : (isLogged ? MainPage() : LoginPage()),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({
-    Key? key,
-  }) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   State<MainPage> createState() => _MainState();
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 4;
+  int _currentIndex = 2;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -67,13 +73,11 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      MailConfirmationPage(mail: "felipe.lara@uc.cl",),
+      const HomePage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),
-      // const SearchPage(),
-      LoginPage(),
-      // SignUpPage()
+      const SearchPage(),
     ];
     return Scaffold(
         body: pages[_currentIndex],

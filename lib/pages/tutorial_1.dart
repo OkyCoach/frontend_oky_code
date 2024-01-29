@@ -4,7 +4,7 @@ import 'package:frontend_oky_code/pages/tutorial_2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstTutorialPage extends StatelessWidget {
-  const FirstTutorialPage({Key? key}) : super(key: key);
+  const FirstTutorialPage({Key? key}): super(key: key);
 
   void _completeTutorial(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -15,7 +15,7 @@ class FirstTutorialPage extends StatelessWidget {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const SecondTutorialPage(),
+          SecondTutorialPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0); // starting offset from right
           const end = Offset.zero;
