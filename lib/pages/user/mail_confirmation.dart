@@ -23,7 +23,7 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
     );
 
 
-    final cognitoUser = CognitoUser('caduto', userPool);
+    final cognitoUser = CognitoUser(widget.username, userPool);
     try {
       print(cognitoUser.username);
       print(code);
