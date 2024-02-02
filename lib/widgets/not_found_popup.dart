@@ -9,7 +9,7 @@ class NotFoundPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double popupHeight = 300;
+    double popupHeight = 310;
 
     double logoWidth = 70;
 
@@ -22,7 +22,7 @@ class NotFoundPopup extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
           insetPadding: EdgeInsets.only(
-              top: (screenHeight - popupHeight) / 2, left: 35, right: 35),
+              top: (screenHeight - popupHeight) / 2, left: 30, right: 30),
           elevation: 1,
           child: SizedBox(
             height: popupHeight,
@@ -70,7 +70,7 @@ class NotFoundPopup extends StatelessWidget {
                       "No gracias",
                       style: TextStyle(
                           fontFamily: "Gilroy-Medium",
-                          fontSize: screenWidth * 0.035,
+                          fontSize: popupHeight * 0.045,
                           color: const Color(0xFF97999B)),
                     ),
                   ),

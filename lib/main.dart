@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
+import 'package:frontend_oky_code/pages/user/signup.dart';
 import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
-import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
+import 'package:frontend_oky_code/pages/user/login.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
@@ -67,7 +68,7 @@ class _MainState extends State<MainPage> {
   Widget build(BuildContext context) {
 
     final pages = [
-      MailConfirmationPage(mail: "felipe.lara@uc.cl",),
+      const HomePage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),

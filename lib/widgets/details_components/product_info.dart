@@ -20,7 +20,7 @@ class ProductInfoRow extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 15, right: 15),
+      padding: const EdgeInsets.only(top: 5.0, bottom: 10, left: 15, right: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,

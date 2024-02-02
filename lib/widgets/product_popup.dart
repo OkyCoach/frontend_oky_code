@@ -13,6 +13,7 @@ class ProductPopup extends StatelessWidget {
   }) : super(key: key);
 
   void _showProductDetails(context) {
+    Navigator.pop(context);
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -37,19 +38,26 @@ class ProductPopup extends StatelessWidget {
       elevation: 1,
       child: IntrinsicHeight(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 15, top: 10, left: 15, right: 15),
+          padding:
+              const EdgeInsets.only(bottom: 15, top: 10, left: 15, right: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                  height: 4.5, // Grosor de la línea
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2), // Establecer el radio de los bordes
-                    color: const Color.fromARGB(255, 201, 200, 200), // Color de la línea
-                  ),
-                  margin: EdgeInsets.only(bottom: 10, left: screenWidth * 0.38, right: screenWidth * 0.38,),
+                height: 4.5, // Grosor de la línea
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      2), // Establecer el radio de los bordes
+                  color: const Color.fromARGB(
+                      255, 201, 200, 200), // Color de la línea
                 ),
+                margin: EdgeInsets.only(
+                  bottom: 10,
+                  left: screenWidth * 0.38,
+                  right: screenWidth * 0.38,
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -110,12 +118,10 @@ class ProductPopup extends StatelessWidget {
                             maxLines: 3,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: StarsWidget(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: StarsWidget(
                                   maxScore: evaluation["puntos_totales"],
-                                  actualScore: evaluation["puntos_obtenidos"]
-                            )
-                          )
+                                  actualScore: evaluation["puntos_obtenidos"]))
                         ],
                       ),
                     ),

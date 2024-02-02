@@ -11,6 +11,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscureText = true;
   var userSession;
 
   void _login() async {
@@ -118,41 +119,50 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
-                obscureText: true,
+                obscureText: _obscureText,
                 controller: _passwordController,
                 style: const TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: 16,
                   color: Color(0xFF201547),
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: screenHeight * 0.06),
               child: Align(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: screenHeight * 0.04),
-                      child: InkWell(
-                        onTap: () {
-                          _login;
-                        },
-                        child: Image.asset(
-                          "lib/assets/botones/registrate.png",
-                          height: screenHeight * 0.05,
-                        ),
-                      ),
-                    )
-                  ]
-                )
-              ),
+                  alignment: Alignment.center,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: screenHeight * 0.04),
+                          child: InkWell(
+                            onTap: () {
+                              _login;
+                            },
+                            child: Image.asset(
+                              "lib/assets/botones/registrate.png",
+                              height: screenHeight * 0.05,
+                            ),
+                          ),
+                        )
+                      ])),
             )
           ],
         ),
