@@ -116,21 +116,31 @@ class _NewProductPageState extends State<NewProductPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Atras",
-                        style: TextStyle(
-                          fontFamily: "Gilroy-Regular",
-                          fontSize: screenHeight * 0.02,
-                          color: const Color(0xFF97999B),
-                        ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Atras",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: screenHeight * 0.02,
+                            color: const Color(0xFF97999B),
+                          ),
+                        )
                       ),
-                      Text(
-                        "Cancelar",
-                        style: TextStyle(
-                          fontFamily: "Gilroy-Regular",
-                          fontSize: screenHeight * 0.02,
-                          color: const Color(0xFF97999B),
-                        ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Cancelar",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: screenHeight * 0.02,
+                            color: const Color(0xFF97999B),
+                          ),
+                        )
                       ),
                     ],
                   ),

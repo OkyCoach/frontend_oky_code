@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/nutritional_image.dart';
 import 'package:frontend_oky_code/pages/add_product/send_product.dart';
+import 'package:frontend_oky_code/main.dart';
 
 class ImagePreviewPage extends StatelessWidget {
   final dynamic data;
@@ -86,22 +87,50 @@ class ImagePreviewPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
                           "Atras",
                           style: TextStyle(
                             fontFamily: "Gilroy-Regular",
                             fontSize: screenHeight * 0.02,
                             color: const Color(0xFF97999B),
                           ),
-                        ),
-                        Text(
+                        )
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (context, animation, secondaryAnimation) =>
+                                  const MainPage(),
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0); // starting offset from right
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOutQuart;
+
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+
+                                var offsetAnimation = animation.drive(tween);
+
+                                return SlideTransition(position: offsetAnimation, child: child);
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
                           "Cancelar",
                           style: TextStyle(
                             fontFamily: "Gilroy-Regular",
                             fontSize: screenHeight * 0.02,
                             color: const Color(0xFF97999B),
                           ),
-                        ),
+                        )
+                      ),
                       ],
                     )),
                 Expanded(

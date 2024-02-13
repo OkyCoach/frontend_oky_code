@@ -67,6 +67,7 @@ class NotFoundPopup extends StatelessWidget {
                       width: popupHeight * 0.5,
                     ),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -94,14 +95,18 @@ class NotFoundPopup extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
-                    child: Text(
-                      "No gracias",
-                      style: TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: popupHeight * 0.045,
-                          color: const Color(0xFF97999B)),
-                    ),
-                  ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "No gracias",
+                        style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: popupHeight * 0.045,
+                            color: const Color(0xFF97999B)),
+                      ),
+                    )),
                 ],
               ),
             ),

@@ -73,13 +73,18 @@ class NewProductImagePopup extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
-                    child: Text(
-                      "Volver",
-                      style: TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: popupHeight * 0.055,
-                          color: const Color(0xFF97999B)),
-                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Volver",
+                        style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: popupHeight * 0.055,
+                            color: const Color(0xFF97999B)),
+                      ),
+                    )
                   ),
                 ],
               ),
