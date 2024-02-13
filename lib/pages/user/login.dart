@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscureText = true;
   var userSession;
 
 
@@ -138,16 +139,26 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
-                obscureText: true,
+                obscureText: _obscureText,
                 controller: _passwordController,
                 style: const TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: 16,
                   color: Color(0xFF201547),
                 ),
-                decoration: const InputDecoration(
-                  contentPadding:
-                      EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),

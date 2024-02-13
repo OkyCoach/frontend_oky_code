@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class StarsWidget extends StatelessWidget {
   final int maxScore;
   final int actualScore;
+  final double height;
 
   const StarsWidget(
-      {Key? key, required this.maxScore, required this.actualScore})
+      {Key? key, required this.maxScore, required this.actualScore, required this.height})
       : super(key: key);
 
   double calcularEstrellas(int maxScore, int actualScore) {
@@ -31,7 +32,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_8_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -41,7 +42,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_1_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -51,7 +52,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_2_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -61,7 +62,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_3_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -71,7 +72,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_4_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -81,7 +82,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_5_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -91,7 +92,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_6_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -101,7 +102,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_7_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else if (index == estrellasEnteras &&
@@ -111,7 +112,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_8_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           } else {
@@ -119,7 +120,7 @@ class StarsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3),
               child: Image.asset(
                 'lib/assets/estrellas/estrella_0_8.png',
-                height: screenHeight * 0.03,
+                height: screenHeight * height,
               ),
             );
           }
