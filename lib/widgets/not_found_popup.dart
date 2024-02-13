@@ -41,7 +41,7 @@ class NotFoundPopup extends StatelessWidget {
                       "No pudimos encontrar el producto :(",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
-                          fontSize: popupHeight * 0.055,
+                          fontSize: popupHeight * 0.08,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -54,7 +54,7 @@ class NotFoundPopup extends StatelessWidget {
                       "¡Tus contribuciones son valiosas! Puedes agregar el producto y ayudar a otros a encontrarlo.",
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: popupHeight * 0.04,
+                        fontSize: popupHeight * 0.06,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -94,19 +94,19 @@ class NotFoundPopup extends StatelessWidget {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "No gracias",
-                        style: TextStyle(
-                            fontFamily: "Gilroy-Medium",
-                            fontSize: popupHeight * 0.045,
-                            color: const Color(0xFF97999B)),
-                      ),
-                    )),
+                      padding: const EdgeInsets.only(top: 5),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "No gracias",
+                          style: TextStyle(
+                              fontFamily: "Gilroy-Medium",
+                              fontSize: popupHeight * 0.045,
+                              color: const Color(0xFF97999B)),
+                        ),
+                      )),
                 ],
               ),
             ),
