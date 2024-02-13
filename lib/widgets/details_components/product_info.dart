@@ -77,7 +77,9 @@ class ProductInfoRow extends StatelessWidget {
                     children: [
                       StarsWidget(
                         maxScore: evaluation["puntos_totales"],
-                        actualScore: evaluation["puntos_obtenidos"]
+                        actualScore: evaluation["puntos_obtenidos"],
+                        height: 0.03,
+                  
                       ),
                       Text(
                         "Evaluado por 7 nutricionistas",

@@ -121,7 +121,8 @@ class ProductPopup extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 8),
                               child: StarsWidget(
                                   maxScore: evaluation["puntos_totales"],
-                                  actualScore: evaluation["puntos_obtenidos"]))
+                                  actualScore: evaluation["puntos_obtenidos"],
+                                  height: 0.03,))
                         ],
                       ),
                     ),

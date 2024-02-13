@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/pages/add_product/new_product.dart';
 
-class NotFoundPopup extends StatelessWidget {
-  final String? barcode;
-  const NotFoundPopup({
+class NewProductImagePopup extends StatelessWidget {
+  final VoidCallback onOkyPressed;
+  final String type;
+  const NewProductImagePopup({
     Key? key,
-    required this.barcode,
+    required this.onOkyPressed,
+    required this.type,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double popupHeight = 310;
+    double popupHeight = 250;
 
     double logoWidth = 70;
 
@@ -25,23 +26,23 @@ class NotFoundPopup extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
           insetPadding: EdgeInsets.only(
-              top: (screenHeight - popupHeight) / 2, left: 15, right: 15),
+              top: (screenHeight - popupHeight) / 2, left: 20, right: 20),
           elevation: 1,
           child: SizedBox(
             height: popupHeight,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10, top: 20),
                     child: Text(
-                      "No pudimos encontrar el producto :(",
+                      "Foto del producto",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
-                          fontSize: popupHeight * 0.055,
+                          fontSize: popupHeight * 0.07,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -51,10 +52,10 @@ class NotFoundPopup extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                      "¡Tus contribuciones son valiosas! Puedes agregar el producto y ayudar a otros a encontrarlo.",
+                      type=="frontal" ? "Toma una foto del frente del producto y recórtala si es necesario." : "Toma una foto de la información nutricional y recórtala si es necesario." ,
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: popupHeight * 0.04,
+                        fontSize: popupHeight * 0.047,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -63,42 +64,20 @@ class NotFoundPopup extends StatelessWidget {
                   ),
                   InkWell(
                     child: Image.asset(
-                      "lib/assets/botones/agregar.png",
-                      width: popupHeight * 0.5,
+                      "lib/assets/botones/oky.png",
+                      width: popupHeight * 0.45,
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  NewProductPage(barcode: barcode),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            const begin =
-                                Offset(1.0, 0.0); // starting offset from right
-                            const end = Offset.zero;
-                            const curve = Curves.easeInOutQuart;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-
-                            var offsetAnimation = animation.drive(tween);
-
-                            return SlideTransition(
-                                position: offsetAnimation, child: child);
-                          },
-                        ),
-                      );
+                      onOkyPressed(); // Llama a la función de devolución de llamada
                     },
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
-                      "No gracias",
+                      "Volver",
                       style: TextStyle(
                           fontFamily: "Gilroy-Medium",
-                          fontSize: popupHeight * 0.045,
+                          fontSize: popupHeight * 0.055,
                           color: const Color(0xFF97999B)),
                     ),
                   ),

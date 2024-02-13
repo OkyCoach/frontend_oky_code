@@ -20,13 +20,15 @@ class ProductDetail extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      margin: EdgeInsets.only(bottom: screenHeight * 0.07), // Puedes ajustar el valor según tus necesidades
-      child:  Column(
-        children: [
+        margin: EdgeInsets.only(
+            bottom: screenHeight *
+                0.07), // Puedes ajustar el valor según tus necesidades
+        child: Column(children: [
           DefaultTabController(
-            length: 1, // Número de pestañas (Nutricionistas y Tabla Nutricional)
+            length:
+                1, // Número de pestañas (Nutricionistas y Tabla Nutricional)
             child: Dialog(
-              insetPadding: const EdgeInsets.only(top: 3, left: 10, right: 10),
+              insetPadding: const EdgeInsets.only(top: 0, left: 10, right: 10),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(
@@ -37,7 +39,7 @@ class ProductDetail extends StatelessWidget {
               backgroundColor: const Color(0xFFFFFFFF),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.67,
+                  maxHeight: MediaQuery.of(context).size.height * 0.63,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -46,10 +48,16 @@ class ProductDetail extends StatelessWidget {
                     Container(
                       height: 4.5, // Grosor de la línea
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2), // Establecer el radio de los bordes
-                        color: const Color.fromARGB(255, 201, 200, 200), // Color de la línea
+                        borderRadius: BorderRadius.circular(
+                            2), // Establecer el radio de los bordes
+                        color: const Color.fromARGB(
+                            255, 201, 200, 200), // Color de la línea
                       ),
-                      margin: EdgeInsets.only(bottom: 10, left: screenWidth * 0.4, right: screenWidth * 0.4, top: 8),
+                      margin: EdgeInsets.only(
+                          bottom: 10,
+                          left: screenWidth * 0.4,
+                          right: screenWidth * 0.4,
+                          top: 8),
                     ),
                     ProductInfoRow(
                       photoUrl: product["ok_to_shop"]?["basicInformation"]
@@ -62,12 +70,11 @@ class ProductDetail extends StatelessWidget {
                                       ?["brands"]
                                   ?.isNotEmpty ??
                               false)
-                          ? (product["ok_to_shop"]["basicInformation"]["brands"][0]
-                                  ["name"] ??
+                          ? (product["ok_to_shop"]["basicInformation"]["brands"]
+                                  [0]["name"] ??
                               'not_found')
                           : 'not_found',
                       evaluation: evaluation,
-                    
                     ),
                     /*
                       Text(
@@ -85,9 +92,7 @@ class ProductDetail extends StatelessWidget {
               ),
             ),
           ),
-          const Recommended(product: {})
-        ]
-      )
-    );
+          Recommended(product: product)
+        ]));
   }
 }

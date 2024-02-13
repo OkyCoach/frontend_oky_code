@@ -47,9 +47,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  
   const MainPage({
     Key? key, 
+
   }): super(key: key);
   @override
   State<MainPage> createState() => _MainState();
@@ -68,7 +68,7 @@ class _MainState extends State<MainPage> {
   Widget build(BuildContext context) {
 
     final pages = [
-      const NewProductPage(),
+      const HomePage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),

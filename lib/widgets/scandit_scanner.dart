@@ -156,7 +156,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
                 product: product,
                 evaluation: evaluation,
               )
-            : NotFoundPopup());
+            : NotFoundPopup(barcode: data));
     _barcodeCapture.isEnabled = true;
   }
 
