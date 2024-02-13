@@ -7,7 +7,7 @@ import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
-import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:frontend_oky_code/pages/add_product/new_product.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
@@ -68,7 +68,7 @@ class _MainState extends State<MainPage> {
   Widget build(BuildContext context) {
 
     final pages = [
-      const HomePage(),
+      const NewProductPage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),

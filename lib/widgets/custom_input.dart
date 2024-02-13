@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomInputField extends StatelessWidget {
+  final TextEditingController controller;
   final String title;
 
   const CustomInputField({
     Key? key,
+    required this.controller,
     required this.title,
   }) : super(key: key);
 
@@ -29,10 +31,11 @@ class CustomInputField extends StatelessWidget {
           SizedBox(
             height: 40, // Ajusta la altura del SizedBox según tus necesidades
             child: TextField(
+              controller: controller,
               style: const TextStyle(
                 fontFamily: "Gilroy-Medium",
                 fontSize: 16,
-                color: Color(0xFF201547),
+                color: Color.fromARGB(255, 7, 6, 7),
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(bottom: 16.0, left: 10, right: 10),

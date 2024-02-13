@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SendProductPage extends StatelessWidget {
-  const SendProductPage({Key? key}) : super(key: key);
+  final dynamic data;
+  const SendProductPage({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
