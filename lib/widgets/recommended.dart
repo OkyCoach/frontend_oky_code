@@ -60,7 +60,7 @@ class _RecommendedState extends State<Recommended> {
                   "Te recomendamos",
                   style: TextStyle(
                     fontSize: screenHeight * 0.022,
-                    fontWeight: FontWeight.bold,
+                    fontFamily: "Gilroy-Bold",
                     color: const Color(0xFF201547),
                   ),
                 ),
@@ -71,11 +71,11 @@ class _RecommendedState extends State<Recommended> {
                     child: CircularProgressIndicator(),
                   ),
                 ),
-              if (ready)
+              if (ready && recommendedProducts.isNotEmpty)
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 4,
+                    itemCount: recommendedProducts.length,
                     itemBuilder: (context, index) {
                       return SizedBox(
                         width: itemWidth,
@@ -85,6 +85,19 @@ class _RecommendedState extends State<Recommended> {
                     },
                   ),
                 ),
+              if (ready && !recommendedProducts.isNotEmpty)
+              Expanded(
+                child: Center(
+                  child: Text(
+                    "Mejor producto de la categoría",
+                    style: TextStyle(
+                      fontSize: screenHeight * 0.018,
+                      fontFamily: "Gilroy-Regular",
+                      color: const Color(0xFF201547),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -127,7 +140,7 @@ class _RecommendedState extends State<Recommended> {
                 'not_found',
             style: TextStyle(
               fontSize: screenHeight * 0.015,
-              fontWeight: FontWeight.w600,
+              fontFamily: "Gilroy-Bold",
               color: const Color(0xFF201547),
             ),
             overflow: TextOverflow.ellipsis,
@@ -142,7 +155,7 @@ class _RecommendedState extends State<Recommended> {
                 : 'not_found',
             style: TextStyle(
               fontSize: screenHeight * 0.015,
-              fontWeight: FontWeight.normal,
+              fontFamily: "Gilroy-Medium",
               color: const Color(0xFF201547),
             ),
             overflow: TextOverflow.ellipsis,
