@@ -68,7 +68,7 @@ class _MainState extends State<MainPage> {
   Widget build(BuildContext context) {
 
     final pages = [
-      const HomePage(),
+      const SignUpPage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),
