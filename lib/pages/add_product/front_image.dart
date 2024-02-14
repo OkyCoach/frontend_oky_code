@@ -25,36 +25,21 @@ class _CameraScreenState extends State<FrontImageCapture> {
   }
 
   Future<void> initializeCamera() async {
-    print("######################################################");
-    print("INICIANDO");
-    print("######################################################");
+
     _cameras = await availableCameras();
-    print("######################################################");
-    print("CAMARAS BIEN");
-    print("######################################################");
-    controller = CameraController(_cameras[0], ResolutionPreset.medium);
-    print("######################################################");
-      print("CONTROLADOR BIEN PRIMEROOOOOOO");
-      print("######################################################");
+    controller = CameraController(_cameras[0], ResolutionPreset.max);
+
     try {
-      print("######################################################");
-      print("CONTROLADOR BIEN");
-      print("######################################################");
       await controller.initialize();
       setState(() {
         ready = true;
       });
       
     } catch (e) {
-      print("######################################################");
-      print("ERROR ACA");
-      print("######################################################");
+
       if (e is CameraException) {
         switch (e.code) {
           case 'CameraAccessDenied':
-            print("######################################################");
-            print("ERROR DE ACCESO");
-            print("######################################################");
             break;
           default:
             // Handle other errors here.

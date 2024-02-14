@@ -68,6 +68,7 @@ class NotFoundPopup extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         PageRouteBuilder(
