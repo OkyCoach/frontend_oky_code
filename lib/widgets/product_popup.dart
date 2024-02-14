@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/product_detail.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
+import 'package:frontend_oky_code/widgets/custom_button.dart';
+
 
 class ProductPopup extends StatelessWidget {
   final dynamic product; // Objeto con atributos variables
@@ -120,9 +122,10 @@ class ProductPopup extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: StarsWidget(
-                                  maxScore: evaluation["puntos_totales"],
-                                  actualScore: evaluation["puntos_obtenidos"],
-                                  height: 0.03,))
+                                maxScore: evaluation["puntos_totales"],
+                                actualScore: evaluation["puntos_obtenidos"],
+                                height: 0.03,
+                              ))
                         ],
                       ),
                     ),
@@ -134,14 +137,12 @@ class ProductPopup extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      InkWell(
-                        onTap: () {
+                      RoundedButton(
+                        onPressed: () {
                           _showProductDetails(context);
                         },
-                        child: Image.asset(
-                          "lib/assets/botones/ver_producto.png",
-                          height: screenHeight * 0.05,
-                        ),
+                        buttonText: "Ver Producto",
+                        size: 190
                       ),
                       InkWell(
                         onTap: () {

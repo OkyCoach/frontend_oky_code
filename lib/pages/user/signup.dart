@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend_oky_code/pages/user/login.dart';
 import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
+import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -13,41 +15,87 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailController = TextEditingController(); // Email controller for Cognito sign-up
+  final _emailController =
+      TextEditingController(); // Email controller for Cognito sign-up
   bool _obscureText = true;
+
+  bool _hasUppercase = false;
+  bool _hasDigit = false;
+  bool _minimumCharacters = false;
+
+  bool _isLoading = false;
   var userSession;
 
   final userPool = CognitoUserPool(
-    dotenv.env['COGNITO_USER_POOL_ID']??'',
-    dotenv.env['COGNITO_CLIENT_ID']??'',
+    dotenv.env['COGNITO_USER_POOL_ID'] ?? '',
+    dotenv.env['COGNITO_CLIENT_ID'] ?? '',
   );
 
   void _signUp() async {
+    setState(() {
+      _isLoading = true;
+    });
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
-    final email = _emailController.text.trim(); // Ensure you collect email for Cognito sign-up
+    final email = _emailController.text
+        .trim(); // Ensure you collect email for Cognito sign-up
 
     try {
       final signUpResult = await userPool.signUp(
         username,
         password,
-        userAttributes: [AttributeArg(name: 'email', value: email)], // Add other attributes as needed
+        userAttributes: [
+          AttributeArg(name: 'email', value: email)
+        ], // Add other attributes as needed
       );
 
       if (signUpResult != null) {
         print('Sign-up successful, confirm user...');
+        
         // Navigate to a confirmation screen or another part of your app
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => MailConfirmationPage(mail: email, username: username)));
+            builder: (context) =>
+                MailConfirmationPage(mail: email, username: username)));
       }
     } on CognitoClientException catch (e) {
       print('Cognito sign-up error: ${e.message}');
-      // Handle Cognito-specific errors, such as user already exists
+      _showError('${e.message}');
     } catch (e) {
       print('General sign-up error: $e');
       // Handle other errors, such as network errors
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
+
+  void _showError(String message) {
+    // Use the scaffold key to get the context for the ScaffoldMessenger
+    // and show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF7448ED),
+        dismissDirection: DismissDirection.down,
+        margin: const EdgeInsets.all(5),
+        content: Text(
+          message,
+          style: const TextStyle(
+              fontFamily: "Gilroy-Semibold", fontSize: 12, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  void _updatePasswordStatus() {
+    setState(() {
+      _minimumCharacters = _passwordController.text.trim().length >= 8;
+      _hasUppercase =
+          _passwordController.text.trim().contains(RegExp(r'[A-Z]'));
+      _hasDigit = _passwordController.text.trim().contains(RegExp(r'[0-9]'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -57,12 +105,13 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
             child: Container(
       width: screenWidth,
+      height: screenHeight,
       decoration: const BoxDecoration(
         color: Color(0xFFF9F9FA),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 30.0, vertical: screenHeight * 0.1),
+        padding:
+            EdgeInsets.only(left: 30.0, right: 30.0, top: screenHeight * 0.06),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,12 +136,12 @@ class _SignUpPageState extends State<SignUpPage> {
               maxLines: 2,
             ),
             Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.06),
+              padding: EdgeInsets.only(top: screenHeight * 0.04),
               child: Text(
                 "Registrate",
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
-                  fontSize: screenHeight * 0.04,
+                  fontSize: screenHeight * 0.033,
                 ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
@@ -124,7 +173,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
                 ),
               ),
-            ),Padding(
+            ),
+            Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
                 "Email",
@@ -163,6 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
+                onChanged: (value) => _updatePasswordStatus(),
                 obscureText: _obscureText,
                 controller: _passwordController,
                 style: const TextStyle(
@@ -188,32 +239,128 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.06),
-              child: Align(
-                alignment: Alignment.center,
+                padding: const EdgeInsets.only(top: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: screenHeight * 0.04),
-                      child: InkWell(
-                        onTap: () {
-                          _signUp();
-                        },
-                        child: Image.asset(
-                          "lib/assets/botones/registrate.png",
-                          height: screenHeight * 0.05,
+                    Row(
+                      children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _minimumCharacters
+                                  ? Colors.green
+                                  : Colors.grey
+                              // Puedes cambiar el color según tus preferencias
+                              ),
                         ),
-                      ),
-                    )
-                  ]
-                )
-              ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Más de 7 caracteres.",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: 11,
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _hasUppercase
+                                  ? Colors.green
+                                  : Colors
+                                      .grey // Puedes cambiar el color según tus preferencias
+                              ),
+                        ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Contiene mayúsculas.",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: 11,
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _hasDigit
+                                  ? Colors.green
+                                  : Colors
+                                      .grey // Puedes cambiar el color según tus preferencias
+                              ),
+                        ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Contiene números.",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: 11,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "¿Ya tienes una cuenta?",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: screenHeight * 0.018,
+                            color: const Color(0xFF97999B),
+                          ),
+                        ),
+                        //enlace a la página de registro
+                        InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage())),
+                          child: Text(
+                            "Inicia sesión",
+                            style: TextStyle(
+                              fontFamily: "Gilroy-Regular",
+                              fontSize: screenHeight * 0.018,
+                              color: const Color(0xFF97999B),
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: screenHeight * 0.038),
+                          child: LoadingButton(
+                              buttonText: "regístrate",
+                              onPressed: () {
+                                _signUp();
+                              },
+                              size: 145,
+                              isLoading: _isLoading,
+                            )
+                        )
+                      ])),
             )
           ],
         ),
       ),
     )));
   }
-
 }
