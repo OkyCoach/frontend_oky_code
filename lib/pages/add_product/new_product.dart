@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/custom_input.dart';
 import 'package:frontend_oky_code/pages/add_product/front_image.dart';
+import 'package:frontend_oky_code/main.dart';
 
 class NewProductPage extends StatefulWidget {
   final String? barcode;
@@ -29,6 +30,28 @@ class _NewProductPageState extends State<NewProductPage> {
       isButtonEnabled = productNameController.text.isNotEmpty &&
           brandController.text.isNotEmpty;
     });
+  }
+
+  void _goBack(BuildContext context) async {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const MainPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // starting offset from right
+          const end = Offset.zero;
+          const curve = Curves.easeInOutQuart;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
+      ),
+    );
   }
 
   void _nextStep(BuildContext context) async {
@@ -118,7 +141,7 @@ class _NewProductPageState extends State<NewProductPage> {
                     children: [
                       InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            _goBack(context);
                           },
                           child: Text(
                             "Atras",
@@ -130,7 +153,7 @@ class _NewProductPageState extends State<NewProductPage> {
                           )),
                       InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            _goBack(context);
                           },
                           child: Text(
                             "Cancelar",
