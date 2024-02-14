@@ -117,31 +117,29 @@ class _NewProductPageState extends State<NewProductPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Atras",
-                          style: TextStyle(
-                            fontFamily: "Gilroy-Regular",
-                            fontSize: screenHeight * 0.02,
-                            color: const Color(0xFF97999B),
-                          ),
-                        )
-                      ),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Atras",
+                            style: TextStyle(
+                              fontFamily: "Gilroy-Regular",
+                              fontSize: screenHeight * 0.02,
+                              color: const Color(0xFF97999B),
+                            ),
+                          )),
                       InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Cancelar",
-                          style: TextStyle(
-                            fontFamily: "Gilroy-Regular",
-                            fontSize: screenHeight * 0.02,
-                            color: const Color(0xFF97999B),
-                          ),
-                        )
-                      ),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancelar",
+                            style: TextStyle(
+                              fontFamily: "Gilroy-Regular",
+                              fontSize: screenHeight * 0.02,
+                              color: const Color(0xFF97999B),
+                            ),
+                          )),
                     ],
                   ),
                 ),
