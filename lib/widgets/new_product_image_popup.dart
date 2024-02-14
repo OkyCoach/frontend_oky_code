@@ -42,7 +42,7 @@ class NewProductImagePopup extends StatelessWidget {
                       "Foto del producto",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
-                          fontSize: popupHeight * 0.07,
+                          fontSize: screenHeight * 0.035,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -55,7 +55,7 @@ class NewProductImagePopup extends StatelessWidget {
                       type=="frontal" ? "Toma una foto del frente del producto y recórtala si es necesario." : "Toma una foto de la información nutricional y recórtala si es necesario." ,
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: popupHeight * 0.047,
+                        fontSize: screenHeight * 0.021,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,

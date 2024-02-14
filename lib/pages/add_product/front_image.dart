@@ -25,16 +25,28 @@ class _CameraScreenState extends State<FrontImageCapture> {
   }
 
   Future<void> initializeCamera() async {
+
     _cameras = await availableCameras();
-
     controller = CameraController(_cameras[0], ResolutionPreset.max);
-    await controller.initialize();
 
-    if (mounted) {
+    try {
+      await controller.initialize();
       setState(() {
         ready = true;
       });
-    }
+      
+    } catch (e) {
+
+      if (e is CameraException) {
+        switch (e.code) {
+          case 'CameraAccessDenied':
+            break;
+          default:
+            // Handle other errors here.
+            break;
+        }
+      }
+    } 
   }
 
   @override
@@ -91,45 +103,46 @@ class _CameraScreenState extends State<FrontImageCapture> {
       alignment: Alignment.center,
       children: [
         FittedBox(
-          fit: BoxFit.cover,
-          child: SizedBox(
-            width: screenWidth,
-            height: screenHeight,
-            child: CameraPreview(controller),
-          )
-        ), 
-        if (isPopupVisible) NewProductImagePopup(onOkyPressed: togglePopupVisibility, type: "frontal"),
-        if (!isPopupVisible)Positioned(
-          bottom: 10,
-          child: GestureDetector(
-            onTap: () async {
-              XFile picture = await controller.takePicture();
-              _nextStep(context, picture.path);
-            },
-            child: Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.65), 
-                  width: 3.0, 
-                ),
-              ),
-              child: Center(
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: screenWidth,
+              height: screenHeight,
+              child: CameraPreview(controller),
+            )),
+        if (isPopupVisible)
+          NewProductImagePopup(
+              onOkyPressed: togglePopupVisibility, type: "frontal"),
+        if (!isPopupVisible)
+          Positioned(
+            bottom: 10,
+            child: GestureDetector(
+              onTap: () async {
+                XFile picture = await controller.takePicture();
+                _nextStep(context, picture.path);
+              },
+              child: Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
                     color: Colors.white.withOpacity(0.65),
-
+                    width: 3.0,
+                  ),
+                ),
+                child: Center(
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withOpacity(0.65),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        )
+          )
       ],
     );
   }
