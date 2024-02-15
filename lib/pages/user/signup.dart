@@ -13,7 +13,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _nameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController(); // Email controller for Cognito sign-up
   bool _obscureText = true;
@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _isLoading = true;
     });
-    final username = _nameController.text.trim();
+    final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
     final email = _emailController.text.trim(); 
 
@@ -88,7 +88,8 @@ class _SignUpPageState extends State<SignUpPage> {
   void _updatePasswordStatus() {
     setState(() {
       _minimumCharacters = _passwordController.text.trim().length >= 8;
-      _hasUppercase = _passwordController.text.trim().contains(RegExp(r'[A-Z]'));
+      _hasUppercase =
+          _passwordController.text.trim().contains(RegExp(r'[A-Z]'));
       _hasDigit = _passwordController.text.trim().contains(RegExp(r'[0-9]'));
     });
   }
@@ -159,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
                 obscureText: false,
-                controller: _nameController,
+                controller: _usernameController,
                 style: const TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: 16,
