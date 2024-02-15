@@ -5,12 +5,14 @@ class LoadingButton extends StatelessWidget {
   final String buttonText;
   final bool isLoading;
   final double size;
+  final String color;
 
   LoadingButton({
     required this.onPressed,
     required this.buttonText,
     required this.isLoading,
     required this.size,
+    required this.color,
   });
 
   @override
@@ -20,7 +22,7 @@ class LoadingButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF7448ED), // Color de fondo morado
+          backgroundColor: color == 'purple' ? Color(0xFF7448ED) : Color(0xFF76FDB1), // Color de fondo morado
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(60.0), // Bordes redondeados
           ),
@@ -30,21 +32,23 @@ class LoadingButton extends StatelessWidget {
           width: size,
           child: Center(
             child: isLoading
-                ? const SizedBox(
-                    height: 25.0, // Ajusta el tamaño del CircularProgressIndicator
-                    width: 25.0, // Ajusta el tamaño del CircularProgressIndicator
+                ? SizedBox(
+                    height:
+                        25.0, // Ajusta el tamaño del CircularProgressIndicator
+                    width:
+                        25.0, // Ajusta el tamaño del CircularProgressIndicator
                     child: CircularProgressIndicator(
-                      color: Colors.white,
+                      color: color == 'purple' ? Colors.white : Color(0xFF7448ED),
                       strokeWidth: 3.0, // Ajusta el ancho de la línea
                     ),
                   )
                 : Text(
                     buttonText.toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       letterSpacing: 1,
                       fontFamily: "Gilroy-Black",
-                      fontSize: 22,
-                      color: Colors.white, // Color de letras blanco
+                      fontSize: 18,
+                      color: color == 'purple' ? Colors.white : Color(0xFF7448ED), // Color de letras blanco
                     ),
                   ),
           ),

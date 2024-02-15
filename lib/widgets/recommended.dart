@@ -16,7 +16,7 @@ class Recommended extends StatefulWidget {
 }
 
 class _RecommendedState extends State<Recommended> {
-  List<Map<String, dynamic>> recommendedProducts = [];
+  List<dynamic> recommendedProducts = [];
   bool ready = false;
 
   @override
@@ -27,7 +27,7 @@ class _RecommendedState extends State<Recommended> {
 
   Future<void> fetchData() async {
     try {
-      List<Map<String, dynamic>> products =
+      List<dynamic> products =
           await fetchRecommendedProducts(widget.product["barcode"]);
       setState(() {
         recommendedProducts = products;
@@ -38,14 +38,14 @@ class _RecommendedState extends State<Recommended> {
     }
   }
 
-  void _showProductDetails(context, product) {
+  void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return ProductDetail(
-          product: product["product_info"],
-          evaluation: product["evaluation"],
+          product: product["product"],
+          evaluation: product["algorithm"],
         );
       },
     );
@@ -132,12 +132,12 @@ class _RecommendedState extends State<Recommended> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  child: product["product_info"]["ok_to_shop"]
-                              ?["basicInformation"]?["photoUrl"] !=
+                  child: product["product"]["ok_to_shop"]?["basicInformation"]
+                              ?["photoUrl"] !=
                           null
                       ? Image.network(
-                          product["product_info"]["ok_to_shop"]
-                              ?["basicInformation"]?["photoUrl"],
+                          product["product"]["ok_to_shop"]?["basicInformation"]
+                              ?["photoUrl"],
                           height: 50,
                           width: 50,
                           errorBuilder: (BuildContext context, Object error,
@@ -157,7 +157,7 @@ class _RecommendedState extends State<Recommended> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  product["product_info"]["ok_to_shop"]?["basicInformation"]
+                  product["product"]["ok_to_shop"]?["basicInformation"]
                           ?["description"] ??
                       'not_found',
                   style: TextStyle(
@@ -169,12 +169,12 @@ class _RecommendedState extends State<Recommended> {
                   maxLines: 1,
                 ),
                 Text(
-                  (product["product_info"]["ok_to_shop"]?["basicInformation"]
+                  (product["product"]["ok_to_shop"]?["basicInformation"]
                                   ?["brands"]
                               ?.isNotEmpty ??
                           false)
-                      ? product["product_info"]["ok_to_shop"]
-                              ["basicInformation"]["brands"][0]["name"] ??
+                      ? product["product"]["ok_to_shop"]["basicInformation"]
+                              ["brands"][0]["name"] ??
                           'not_found'
                       : 'not_found',
                   style: TextStyle(
@@ -186,8 +186,8 @@ class _RecommendedState extends State<Recommended> {
                   maxLines: 1,
                 ),
                 StarsWidget(
-                    maxScore: product["evaluation"]["puntos_totales"],
-                    actualScore: product["evaluation"]["puntos_obtenidos"],
+                    maxScore: product["algorithm"]["puntos_totales"],
+                    actualScore: product["algorithm"]["puntos_obtenidos"],
                     height: 0.02),
               ],
             )));

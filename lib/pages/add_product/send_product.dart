@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
-class SendProductPage extends StatelessWidget {
+import 'package:frontend_oky_code/widgets/loading_button.dart';
+
+class SendProductPage extends StatefulWidget {
   final dynamic data;
+  
   const SendProductPage({Key? key, required this.data}) : super(key: key);
-  void sendInfo(BuildContext context) {
+
+  @override
+  _SendProductPageState createState() => _SendProductPageState();
+}
+
+class _SendProductPageState extends State<SendProductPage> {
+  bool _isLoading = false;
+  
+
+  void sendInfo(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    var frontImageUrl = await uploadImage(widget.data["frontImagePath"], "front");
+    var backImageUrl = await uploadImage(widget.data["nutritionalImagePath"], "back");
+    String status = await requestProduct(widget.data["barcode"], widget.data["productName"],
+        widget.data["brand"], frontImageUrl, backImageUrl);
+    setState(() {
+      _isLoading = false;
+    });
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>    
-          const MainPage(),        
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const MainPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0); // starting offset from right
           const end = Offset.zero;
@@ -24,6 +47,8 @@ class SendProductPage extends StatelessWidget {
         },
       ),
     );
+
+    
   }
 
   @override
@@ -116,16 +141,19 @@ class SendProductPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: InkWell(
-                      child: Image.asset(
-                        'lib/assets/botones/enviar.png',
-                        width: screenWidth * 0.4,
-                      ),
-                      onTap: () {
-                        sendInfo(context);
-                      }))
-            ]),
+                padding: const EdgeInsets.only(top: 25),
+                child: LoadingButton(
+                  buttonText: "Enviar",
+                  onPressed: () {
+                    sendInfo(context);
+                  },
+                  size: 130,
+                  isLoading: _isLoading,
+                  color: 'green'
+                )
+              )
+            ]
+          ),
       ),
     );
   }

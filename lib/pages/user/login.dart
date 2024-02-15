@@ -207,8 +207,9 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () {
                                 _login();
                               },
-                              size: 165,
+                              size: 200,
                               isLoading: _isLoading,
+                              color: 'purple'
                             ))
                       ])),
             )

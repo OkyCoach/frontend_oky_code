@@ -17,6 +17,7 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:frontend_oky_code/pages/add_product/front_image.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScanditFlutterDataCaptureBarcode.initialize();
@@ -77,7 +78,7 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const SignUpPage(),
+      const HomePage(),
       const ProfilePage(),
       BarcodeScannerScreen(),
       const NutricoachPage(),

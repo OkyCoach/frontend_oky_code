@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/custom_input.dart';
 import 'package:frontend_oky_code/pages/add_product/front_image.dart';
 import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/widgets/custom_button.dart';
 
 class NewProductPage extends StatefulWidget {
   final String? barcode;
