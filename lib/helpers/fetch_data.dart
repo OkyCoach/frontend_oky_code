@@ -79,19 +79,19 @@ Future<String> uploadImage(String imagePath, String? filename) async {
   }
 }
 
-Future<String> requestProduct(String barcode, String name, String brand, String frontImageUrl, String backImageUrl) async {
+Future<String> requestProduct(String barcode, String name, String brand,
+    String frontImageUrl, String backImageUrl) async {
   const url =
       'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/solicitar_producto';
 
   try {
-
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json', // Especifica el tipo de contenido
       },
       body: jsonEncode({
-        'barcode': barcode, 
+        'barcode': barcode,
         'name': name,
         'brand': brand,
         'url_img_front': frontImageUrl,
@@ -99,6 +99,31 @@ Future<String> requestProduct(String barcode, String name, String brand, String 
       }),
     );
 
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data["message"];
+    } else {
+      return "Error en la solicitud HTTP: ${response.statusCode}";
+    }
+  } catch (error) {
+    return "Error al buscar los datos: $error";
+  }
+}
+
+Future<String> notifyMissingProduct(String? barcode) async {
+  const url =
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/solicitar_producto';
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json', // Especifica el tipo de contenido
+      },
+      body: jsonEncode({
+        'barcode': barcode,
+      }),
+    );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data["message"];

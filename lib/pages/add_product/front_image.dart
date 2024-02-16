@@ -125,8 +125,8 @@ class _CameraScreenState extends State<FrontImageCapture> {
                 _nextStep(context);
               },
               child: Container(
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -136,8 +136,8 @@ class _CameraScreenState extends State<FrontImageCapture> {
                 ),
                 child: Center(
                   child: Container(
-                    height: 70,
-                    width: 70,
+                    height: 60,
+                    width: 60,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white.withOpacity(0.65),
