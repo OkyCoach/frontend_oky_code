@@ -44,7 +44,7 @@ class ProductDetail extends StatelessWidget {
               backgroundColor: const Color(0xFFFFFFFF),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.65,
+                  maxHeight: MediaQuery.of(context).size.height * 0.6,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
