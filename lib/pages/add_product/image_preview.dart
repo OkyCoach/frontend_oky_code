@@ -56,7 +56,7 @@ class ImagePreviewPage extends StatelessWidget {
           ),
         ),
         child: Container(
-          margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+          margin: const EdgeInsets.only(top: 50, left: 15, right: 15),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
