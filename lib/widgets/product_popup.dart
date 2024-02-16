@@ -37,7 +37,7 @@ class ProductPopup extends StatelessWidget {
         child: Column(children: [
           SizedBox(
               width: screenWidth,
-              height: screenHeight * 0.65,
+              height: screenHeight * 0.6,
               child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
