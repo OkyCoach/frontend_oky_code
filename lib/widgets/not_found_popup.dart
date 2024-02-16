@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/new_product.dart';
+import 'package:frontend_oky_code/widgets/custom_button.dart';
+import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class NotFoundPopup extends StatelessWidget {
   final String? barcode;
@@ -7,6 +9,36 @@ class NotFoundPopup extends StatelessWidget {
     Key? key,
     required this.barcode,
   }) : super(key: key);
+
+  void _addProduct(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            NewProductPage(barcode: barcode),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // starting offset from right
+          const end = Offset.zero;
+          const curve = Curves.easeInOutQuart;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
+      ),
+    );
+  }
+
+  void _notifyMissing(BuildContext context) async {
+    notifyMissingProduct(barcode);
+    Navigator.pop(context);
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,44 +93,17 @@ class NotFoundPopup extends StatelessWidget {
                       maxLines: 3,
                     ),
                   ),
-                  InkWell(
-                    child: Image.asset(
-                      "lib/assets/botones/agregar.png",
-                      width: popupHeight * 0.5,
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  NewProductPage(barcode: barcode),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            const begin =
-                                Offset(1.0, 0.0); // starting offset from right
-                            const end = Offset.zero;
-                            const curve = Curves.easeInOutQuart;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-
-                            var offsetAnimation = animation.drive(tween);
-
-                            return SlideTransition(
-                                position: offsetAnimation, child: child);
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  RoundedButton(
+                      onPressed: () {
+                        _addProduct(context);
+                      },
+                      buttonText: "agregar",
+                      size: 110),
                   Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pop(context);
+                          _notifyMissing(context);
                         },
                         child: Text(
                           "No gracias",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/custom_button.dart';
 
 class NewProductImagePopup extends StatelessWidget {
   final VoidCallback onOkyPressed;
@@ -42,7 +43,7 @@ class NewProductImagePopup extends StatelessWidget {
                       "Foto del producto",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
-                          fontSize: screenHeight * 0.035,
+                          fontSize: screenHeight * 0.03,
                           color: const Color(0xFF7448ED)),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -55,21 +56,17 @@ class NewProductImagePopup extends StatelessWidget {
                       type=="frontal" ? "Toma una foto del frente del producto y recórtala si es necesario." : "Toma una foto de la información nutricional y recórtala si es necesario." ,
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: screenHeight * 0.021,
+                        fontSize: screenHeight * 0.02,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                      maxLines: 2,
                     ),
                   ),
-                  InkWell(
-                    child: Image.asset(
-                      "lib/assets/botones/oky.png",
-                      width: popupHeight * 0.45,
-                    ),
-                    onTap: () {
-                      onOkyPressed(); // Llama a la función de devolución de llamada
-                    },
+                  RoundedButton(
+                    onPressed: onOkyPressed, 
+                    buttonText: "oky", 
+                    size: 55
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),

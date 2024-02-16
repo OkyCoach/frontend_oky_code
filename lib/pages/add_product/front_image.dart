@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:frontend_oky_code/pages/add_product/image_preview.dart';
 import 'package:frontend_oky_code/widgets/new_product_image_popup.dart';
 
+
 class FrontImageCapture extends StatefulWidget {
   final dynamic data;
 
@@ -25,7 +26,6 @@ class _CameraScreenState extends State<FrontImageCapture> {
   }
 
   Future<void> initializeCamera() async {
-
     _cameras = await availableCameras();
     controller = CameraController(_cameras[0], ResolutionPreset.max);
 
@@ -34,9 +34,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
       setState(() {
         ready = true;
       });
-      
     } catch (e) {
-
       if (e is CameraException) {
         switch (e.code) {
           case 'CameraAccessDenied':
@@ -46,7 +44,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
             break;
         }
       }
-    } 
+    }
   }
 
   @override
@@ -61,15 +59,20 @@ class _CameraScreenState extends State<FrontImageCapture> {
     });
   }
 
-  void _nextStep(BuildContext context, String picturePath) async {
+  void _nextStep(BuildContext context) async {
+  
+    XFile picture = await controller.takePicture();
+    
+    
+    
     dynamic newData = {
       'barcode': widget.data['barcode'],
       'productName': widget.data['productName'],
       'brand': widget.data['brand'],
       'type': "frontal",
-      'frontImagePath': picturePath,
+      'frontImagePath': picture.path,
     };
-
+    
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -89,6 +92,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
         },
       ),
     );
+    
   }
 
   @override
@@ -114,15 +118,15 @@ class _CameraScreenState extends State<FrontImageCapture> {
               onOkyPressed: togglePopupVisibility, type: "frontal"),
         if (!isPopupVisible)
           Positioned(
-            bottom: 10,
+            bottom: screenHeight * 0.07,
             child: GestureDetector(
-              onTap: () async {
-                XFile picture = await controller.takePicture();
-                _nextStep(context, picture.path);
+              onTap: () {
+                
+                _nextStep(context);
               },
               child: Container(
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -132,8 +136,8 @@ class _CameraScreenState extends State<FrontImageCapture> {
                 ),
                 child: Center(
                   child: Container(
-                    height: 70,
-                    width: 70,
+                    height: 60,
+                    width: 60,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white.withOpacity(0.65),

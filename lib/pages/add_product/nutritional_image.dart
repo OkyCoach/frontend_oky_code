@@ -49,14 +49,16 @@ class _CameraScreenState extends State<NutritionalImageCapture> {
     });
   }
 
-  void _nextStep(BuildContext context, String picturePath) async {
+  void _nextStep(BuildContext context) async {
+    
+    XFile picture = await controller.takePicture();
     dynamic data = {
       'barcode': widget.data['barcode'],
       'productName': widget.data['productName'],
       'brand': widget.data['brand'],
       'frontImagePath': widget.data['frontImagePath'],
       'type': "nutricional",
-      'nutritionalImagePath': picturePath,
+      'nutritionalImagePath': picture.path,
     };
 
     Navigator.push(
@@ -101,15 +103,15 @@ class _CameraScreenState extends State<NutritionalImageCapture> {
         ), 
         if (isPopupVisible) NewProductImagePopup(onOkyPressed: togglePopupVisibility, type: "nutritional"),
         if (!isPopupVisible)  Positioned(
-          bottom: 10,
+          bottom: screenHeight*0.07,
           child: GestureDetector(
-            onTap: () async {
-              XFile picture = await controller.takePicture();
-              _nextStep(context, picture.path);
+            onTap: () {
+              
+              _nextStep(context);
             },
             child: Container(
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -119,8 +121,8 @@ class _CameraScreenState extends State<NutritionalImageCapture> {
               ),
               child: Center(
                 child: Container(
-                  height: 70,
-                  width: 70,
+                  height: 60,
+                  width: 60,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white.withOpacity(0.65),

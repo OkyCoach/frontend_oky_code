@@ -6,28 +6,28 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'package:frontend_oky_code/pages/user/signup.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
-
-  
 }
 
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
+  bool _isLoading = false;
   var userSession;
 
-
   void _login() async {
-    // Perform login logic
-    var session =
-        await login(_usernameController.text, _passwordController.text);
+    setState(() {
+      _isLoading = true;
+    });
+    var session = await login(
+        _usernameController.text.trim(), _passwordController.text.trim());
     if (session != null) {
       await AuthManager().saveSession({
         'accessToken': session.accessToken.toString(),
@@ -39,14 +39,16 @@ class _LoginPageState extends State<LoginPage> {
       final storage = FlutterSecureStorage();
       await storage.write(
           key: 'session', value: jsonEncode(session.toString()));
-
-      // Navigate to the home screen
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
+      
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const MainPage()));
     } else {
       // Handle login error
       // Show an error message
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -58,12 +60,13 @@ class _LoginPageState extends State<LoginPage> {
         body: SingleChildScrollView(
             child: Container(
       width: screenWidth,
+      height: screenHeight,
       decoration: const BoxDecoration(
         color: Color(0xFFF9F9FA),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 30.0, vertical: screenHeight * 0.1),
+        padding:
+            EdgeInsets.only(left: 30.0, right: 30.0, top: screenHeight * 0.06),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,12 +91,12 @@ class _LoginPageState extends State<LoginPage> {
               maxLines: 2,
             ),
             Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.06),
+              padding: EdgeInsets.only(top: screenHeight * 0.04),
               child: Text(
                 "Inicia sesión",
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
-                  fontSize: screenHeight * 0.04,
+                  fontSize: screenHeight * 0.033,
                 ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
@@ -147,7 +150,8 @@ class _LoginPageState extends State<LoginPage> {
                   color: Color(0xFF201547),
                 ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                  contentPadding:
+                      const EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -179,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         //enlace a la página de registro
                         Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.04),
+                          padding: EdgeInsets.only(top: 3),
                           child: InkWell(
                             onTap: () => Navigator.push(
                                 context,
@@ -197,15 +201,16 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.04),
-                          child: InkWell(
-                            onTap: () => _login(),
-                            child: Image.asset(
-                              "lib/assets/botones/iniciar_sesion.png",
-                              height: screenHeight * 0.05,
-                            ),
-                          ),
-                        )
+                            padding: EdgeInsets.only(top: screenHeight * 0.04),
+                            child: LoadingButton(
+                              buttonText: "inicia sesión",
+                              onPressed: () {
+                                _login();
+                              },
+                              size: 200,
+                              isLoading: _isLoading,
+                              color: 'purple'
+                            ))
                       ])),
             )
           ],
@@ -215,15 +220,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final userPool = CognitoUserPool(
-    dotenv.env['COGNITO_USER_POOL_ID']??'',
-    dotenv.env['COGNITO_CLIENT_ID']??'',
+    dotenv.env['COGNITO_USER_POOL_ID'] ?? '',
+    dotenv.env['COGNITO_CLIENT_ID'] ?? '',
   );
   void _showError(String message) {
     // Use the scaffold key to get the context for the ScaffoldMessenger
     // and show a SnackBar.
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF7448ED),
+        dismissDirection: DismissDirection.down,
+        margin: const EdgeInsets.all(5),
+        content: Text(
+          message,
+          style: const TextStyle(
+              fontFamily: "Gilroy-Semibold", fontSize: 12, color: Colors.white),
+        ),
       ),
     );
   }
@@ -236,7 +249,6 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     try {
-      
       var userSession = await cognitoUser.authenticateUser(authDetails);
 
       // Si el usuario se autentica correctamente, se devuelve una sesión de usuario
@@ -250,12 +262,13 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       }
     } on CognitoUserException catch (e) {
-      print(e.message);
       return null;
-    }catch (e) {
-      // Handle any other exceptions
-      print('An unexpected error occurred: $e');
-      _showError('An unexpected error occurred.');
+    } on CognitoClientException catch (e) {
+      print(e);
+      _showError('${e.message}');
+      return null;
+    } catch (e) {
+      _showError('Ocurio un error inesperado');
       return null;
     }
   }
