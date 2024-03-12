@@ -24,11 +24,10 @@ class ProductTabsContent extends StatelessWidget {
           ),
           */
           // Contenido de la pestaña Tabla Nutricional
-          ListView(
-            children: [
+          
               TableEvaluation(evaluation: evaluation),
-            ],
-          ),
+            
+          
         ],
       ),
     );

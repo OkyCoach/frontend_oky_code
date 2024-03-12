@@ -9,6 +9,8 @@ import 'package:frontend_oky_code/widgets/picture_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
+import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
+
 const String licenseKey =
     'AY2kjw2vKdeYNGj2WDrztPNDU60tRR0h+n/tF2wmxabHbkEZ+Wqom49UXfKXED7ieU3KIVwPjJ7OXXIWmGuhfpxBSjCBKuOvUA0gIgUlBY9fCe4YSCf4S9bvzqRwqVi2NNJc7Uo6ANoGT9sxbQkdd9m8ZBRWcvVUnZq6DUaJts/qgk3DyWIwYyeXTEYJzOgWPUAPtXYNBX9UvCDOufERM9yjWuhNP1jQhG0LfDEk+kaUWkfwF63E5G0c0epGGhot1QhYHfsY0bJ6j3qHnXtyncWqyPlUwaHMaxowuyeD9Qrwe2432JELn3t0mDGmWoxJU1kWJicWSkobDP+cfHGM9HSM8m1+WovhLRphGDYQBd5sYKKEYBIuPfpgB4/vZto7B9lWNlKIKpSw1yyCn0YtsWpJfCMvO43Lw/E84wbssQVuBas6tooZKOCEDY7O5ITL2PthlMKvCmEAMWVWD5bFZn4BcZN3vdW9GWzK6f7AwTmdvjBp0iCX7sydufJf35GG0mHkdIBbKCh6VgYYsqLb+XcKH0k4gLNrwyQZmpQuJTX9dj956XrAshKX66BJ7IKndam/2TkAB2uYq637EXGzXzYZuzoHBjeuQbO78qKDvQPGHWHJh8D3qMHNRp/tQcdt1f5mvBxRgnxUFvAK1UH0EasaJVdsyooOLpiFxSgZqYxRbRU0OZ9QT+pLpat+MC/hDnMhFsWHkwnLgL0F599qepI57QKWUmT8qvMdfg1p86iXv26ydjwJlccfnKWcQRjlpvJJ99vpU3SaEAD6G7fJPUkb+VB/ihfg';
 
@@ -150,12 +152,10 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     var evaluation = await fetchEvaluationData(data);
     await showDialog(
+        barrierColor: Colors.white.withOpacity(0),
         context: context,
         builder: (_) => (product["barcode"] != null && evaluation["puntos_obtenidos"] != null)
-            ? ProductPopup(
-                product: product,
-                evaluation: evaluation,
-              )
+            ? ProductDetailV2(product: product, evaluation: evaluation,)
             : NotFoundPopup(barcode: data));
     _barcodeCapture.isEnabled = true;
   }

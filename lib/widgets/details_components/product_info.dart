@@ -23,7 +23,7 @@ class ProductInfoRow extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5.0, bottom: 10, left: 15, right: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           photoUrl != "not_found"
           ? Image.network(
@@ -47,7 +47,7 @@ class ProductInfoRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -68,9 +68,7 @@ class ProductInfoRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 15,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,13 +78,6 @@ class ProductInfoRow extends StatelessWidget {
                         actualScore: evaluation["puntos_obtenidos"],
                         height: 0.03,
                   
-                      ),
-                      Text(
-                        "Evaluado por 7 nutricionistas",
-                        style:  TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: screenHeight * 0.015,
-                        ),
                       ),
                     ],
                   )

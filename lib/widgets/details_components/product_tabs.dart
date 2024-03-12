@@ -17,17 +17,6 @@ class ProductTabs extends StatelessWidget {
       indicatorWeight: 8.0,
       labelPadding: EdgeInsets.symmetric(horizontal: 1.0),
       tabs: [
-        /*
-        Tab(
-          child: Text(
-            "Nutricionistas",
-            style: TextStyle(
-              fontFamily: "Gilroy-SemiBold",
-              fontSize: screenHeight * 0.02,             
-            ),
-          ),
-        ),
-        */
         Tab(
           child: Text(
             "Evaluación Nutricional",
