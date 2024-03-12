@@ -207,7 +207,7 @@ class ProductPopup extends StatelessWidget {
                           ),
                         ),
                       ]))),
-          Recommended(product: product)
+          Recommended(recommendedProducts: product)
         ]));
   }
 }

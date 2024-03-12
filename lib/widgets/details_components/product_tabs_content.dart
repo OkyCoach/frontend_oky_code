@@ -12,24 +12,12 @@ class ProductTabsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TabBarView(
+    return 
+      TabBarView(
         children: [
-          /*
-          // Contenido de la pestaña Nutricionistas
-          ListView(
-            children: [
-              NutricionistEvaluation(product: product),
-            ],
-          ),
-          */
-          // Contenido de la pestaña Tabla Nutricional
-          
-              TableEvaluation(evaluation: evaluation),
-            
-          
+          TableEvaluation(evaluation: evaluation),
         ],
-      ),
-    );
+      );
+   
   }
 }
