@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 import 'package:frontend_oky_code/widgets/product_detail.dart';
+import 'package:frontend_oky_code/widgets/dummy_products.dart';
 
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
@@ -35,10 +36,8 @@ class _RecommendedState extends State<Recommended> {
     double screenHeight = MediaQuery.of(context).size.height;
     double itemWidth = screenWidth / 3;
 
-    return 
-    Container(
+    return Container(
       width: screenWidth,
-      height: screenHeight * 0.4,
       color: const Color(0xFFF9F9FA), // Fondo blanco
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -54,35 +53,41 @@ class _RecommendedState extends State<Recommended> {
                 color: const Color(0xFF201547),
               ),
             ),
-            
-            if (widget.recommendedProducts.isNotEmpty)
-              Expanded( // Envuelve el ListView.builder con Expanded
-                child: Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  child: ListView.builder(
-                    shrinkWrap: false, // Permite que el ListView ocupe todo el espacio necesario
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.recommendedProducts.length,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: itemWidth,
-                        child: buildProduct(
-                            screenHeight, widget.recommendedProducts[index], context),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              
+            widget.recommendedProducts.isNotEmpty
+              ? SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: widget.recommendedProducts.map((product) {
+                      return buildProduct(product, context); 
+                    }).toList(), 
+                  )
+                )
+              : const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [  
+                    DummyProduct(),
+                    DummyProduct(),
+                    DummyProduct(),
+                    DummyProduct(),
+                    DummyProduct(),
+                  ], 
+                )
+              )
+                
           ],
         ),
-      ),  
+      ),
     );
   }
 
-    Widget buildProduct(
-      double screenHeight, dynamic product, BuildContext context) {
-      return GestureDetector(
+  Widget buildProduct(dynamic product, BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return SizedBox(
+      width: screenWidth / 3,
+      child:GestureDetector(
         onTap: () {
           _showProductDetails(context, product);
         },
@@ -92,7 +97,6 @@ class _RecommendedState extends State<Recommended> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 Container(
                   alignment: Alignment.center,
                   child: product["product"]["ok_to_shop"]?["basicInformation"]
@@ -131,6 +135,7 @@ class _RecommendedState extends State<Recommended> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                const SizedBox(height: 2),
                 Text(
                   (product["product"]["ok_to_shop"]?["basicInformation"]
                                   ?["brands"]
@@ -148,14 +153,16 @@ class _RecommendedState extends State<Recommended> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                const SizedBox(height: 2),
                 StarsWidget(
                     maxScore: product["algorithm"]["puntos_totales"],
                     actualScore: product["algorithm"]["puntos_obtenidos"],
                     height: 0.02),
-              
               ],
-        )
-      )
-    );
+            ))));
   }
+
+  
 }
+
+

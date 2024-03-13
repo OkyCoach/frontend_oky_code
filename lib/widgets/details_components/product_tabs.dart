@@ -12,14 +12,23 @@ class ProductTabs extends StatelessWidget {
 
     return TabBar(
       indicatorSize: TabBarIndicatorSize.tab,
-      indicatorColor: Color(0xFF76FDB1),
+      indicatorColor: const Color(0xFF76FDB1),
       labelColor: Colors.black,
       indicatorWeight: 8.0,
-      labelPadding: EdgeInsets.symmetric(horizontal: 1.0),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 1.0),
       tabs: [
         Tab(
           child: Text(
             "Evaluación Nutricional",
+            style: TextStyle(
+              fontFamily: "Gilroy-SemiBold",
+              fontSize: screenHeight * 0.02,
+            ),
+          ),
+        ),
+        Tab(
+          child: Text(
+            "Oky Tips",
             style: TextStyle(
               fontFamily: "Gilroy-SemiBold",
               fontSize: screenHeight * 0.02,

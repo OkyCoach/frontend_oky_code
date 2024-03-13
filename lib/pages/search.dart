@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/widgets/v3_product_detail.dart';
+import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -15,7 +15,26 @@ class _ProfileState extends State<SearchPage> {
     return Scaffold(
       body: Container(
         width: screenWidth,
-        child: ProductDetailV3(evaluation:{}, product: {})
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFF201547),
+              Color(0xFF7448ED),
+            ],
+          ),
+        ),
+        child: const Center(
+          child: Text(
+            "Buscar",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        )
       ),
     );
   }

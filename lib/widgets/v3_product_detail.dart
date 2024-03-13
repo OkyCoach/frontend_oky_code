@@ -62,12 +62,14 @@ class ProductDetailV3 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const DismissibleBar(width: 40),
-                  //ProductInfoRow(
-                  //  photoUrl: photoUrl,
-                  //  description: description,
-                  //  brandName: brandName,
-                  //  evaluation: evaluation,
-                  //),
+                  /*
+                  ProductInfoRow(
+                    photoUrl: photoUrl,
+                    description: description,
+                    brandName: brandName,
+                    evaluation: evaluation,
+                  ),
+                  */
                   const ProductTabs(),
                 ],
               )
@@ -75,6 +77,7 @@ class ProductDetailV3 extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
+                  Text("HOLA")/*
                   ListView(
                     padding: const EdgeInsets.all(0),
                     children: [
@@ -87,6 +90,7 @@ class ProductDetailV3 extends StatelessWidget {
                       //Recommended(recommendedProducts: recommendedProducts)
                     ],
                   ),
+                  */
                   
                 ],
               ),

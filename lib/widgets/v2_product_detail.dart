@@ -4,8 +4,7 @@ import 'package:frontend_oky_code/widgets/dismissible_bar.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_info.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs_content.dart';
-import 'package:frontend_oky_code/widgets/recommended.dart';
-import 'package:frontend_oky_code/widgets/details_components/table_evaluation.dart';
+
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class ProductDetailV2 extends StatefulWidget {
@@ -49,7 +48,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
+    
     String photoUrl = widget.product["ok_to_shop"]?["basicInformation"]
             ?["photoUrl"] ??
         "not_found";
@@ -64,66 +63,58 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                 ["name"] ??
             'not_found')
         : 'not_found';
-
+    
     return DefaultTabController(
       length: 2,
-      child: Container(
-        width: double.infinity, // Ocupar todo el ancho
-        color: Colors.transparent, // Fondo azul
-        margin:
-            EdgeInsets.only(bottom: screenHeight * 0.07, top: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IntrinsicHeight(
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: screenWidth * margins),
-                padding: const EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 5),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const DismissibleBar(width: 40),
-                    ProductInfoRow(
-                      photoUrl: photoUrl,
-                      description: description,
-                      brandName: brandName,
-                      evaluation: widget.evaluation,
+      child: Dialog(
+        backgroundColor: Colors.transparent, // Fondo azul
+        insetPadding: EdgeInsets.only(bottom: screenHeight*0.07),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0), // Ajusta el radio según tu preferencia
+        ),
+        child: Dismissible(
+          direction: DismissDirection.down,
+          dismissThresholds: const {DismissDirection.down: 0.25},
+          key: const Key('key'),
+          onDismissed: (_) => Navigator.of(context).pop(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IntrinsicHeight(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth * margins),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 5, right: 5),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ListView(
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: screenWidth * margins),
-                        child: Text("HOLA")
+                      const DismissibleBar(width: 40),
+                      ProductInfoRow(
+                        photoUrl: photoUrl,
+                        description: description,
+                        brandName: brandName,
+                        evaluation: widget.evaluation,
                       ),
-                      //Recommended(recommendedProducts: recommendedProducts)
+                      const ProductTabs(),
                     ],
                   ),
-                  // Aquí puedes agregar tu widget NutritionalEvaluation
-                  // en lugar de Text('Nutritional Evaluation')
-                  const Text('Nutritional Evaluation'),
-                ],
+                ),
               ),
-            ),
-          ],
-        ),
+              Expanded(
+                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts),
+              ), 
+            ],
+          ),
+        )
       ),
     );
   }

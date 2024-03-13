@@ -86,7 +86,7 @@ class ProductDetail extends StatelessWidget {
                       ),
                       */
                     const ProductTabs(),
-                    ProductTabsContent(evaluation: evaluation),
+                    //ProductTabsContent(evaluation: evaluation, recommendedProducts: re,),
                   ],
                 ),
               ),
