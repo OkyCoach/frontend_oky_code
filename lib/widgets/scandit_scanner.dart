@@ -10,6 +10,7 @@ import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
+import 'package:frontend_oky_code/widgets/product_detail.dart';
 
 
 const String licenseKey =
@@ -156,7 +157,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
         barrierColor: Colors.white.withOpacity(0),
         context: context,
         builder: (_) => (product["barcode"] != null && evaluation["puntos_obtenidos"] != null)
-            ? ProductDetailV2(product: product, evaluation: evaluation,)
+            ? ProductDetail(product: product, evaluation: evaluation,)
             : NotFoundPopup(barcode: data));
     _barcodeCapture.isEnabled = true;
   }

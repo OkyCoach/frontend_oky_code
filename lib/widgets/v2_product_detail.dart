@@ -15,7 +15,8 @@ class ProductDetailV2 extends StatefulWidget {
   const ProductDetailV2(
       {Key? key, required this.product, required this.evaluation})
       : super(key: key);
- @override
+
+  @override
   _ProductDetailV2State createState() => _ProductDetailV2State();
 }
 
@@ -26,7 +27,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
   @override
   void initState() {
     super.initState();
-    fetchData();  
+    fetchData();
   }
 
   Future<void> fetchData() async {
@@ -41,8 +42,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
       print("Error al obtener los productos recomendados: $error");
     }
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     double margins = 0.04;
@@ -56,8 +56,8 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     String description = widget.product["ok_to_shop"]?["basicInformation"]
             ?["description"] ??
         "not_found";
-    String brandName = (
-                widget.product["ok_to_shop"]?["basicInformation"]?["brands"]
+    String brandName = (widget.product["ok_to_shop"]?["basicInformation"]
+                ?["brands"]
                 ?.isNotEmpty ??
             false)
         ? (widget.product["ok_to_shop"]["basicInformation"]["brands"][0]
@@ -65,52 +65,67 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
             'not_found')
         : 'not_found';
 
-    return Container(
+    return DefaultTabController(
+      length: 2,
+      child: Container(
         width: double.infinity, // Ocupar todo el ancho
         color: Colors.transparent, // Fondo azul
-        margin: EdgeInsets.only(bottom: screenHeight * 0.07, top: 20),
+        margin:
+            EdgeInsets.only(bottom: screenHeight * 0.07, top: 20),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IntrinsicHeight(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                    ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IntrinsicHeight(
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: screenWidth * margins),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10, horizontal: 5),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const DismissibleBar(width: 40),
-                      ProductInfoRow(
-                        photoUrl: photoUrl,
-                        description: description,
-                        brandName: brandName,
-                        evaluation: widget.evaluation,
-                      ), 
-                      
-                    ]),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const DismissibleBar(width: 40),
+                    ProductInfoRow(
+                      photoUrl: photoUrl,
+                      description: description,
+                      brandName: brandName,
+                      evaluation: widget.evaluation,
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-                      child: TableEvaluation(evaluation: widget.evaluation), 
-                    ),
-                    Recommended(recommendedProducts: recommendedProducts)
-                  ]
-                )
-              )
-                 
-            ]));
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  ListView(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: screenWidth * margins),
+                        child: Text("HOLA")
+                      ),
+                      //Recommended(recommendedProducts: recommendedProducts)
+                    ],
+                  ),
+                  // Aquí puedes agregar tu widget NutritionalEvaluation
+                  // en lugar de Text('Nutritional Evaluation')
+                  const Text('Nutritional Evaluation'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
+

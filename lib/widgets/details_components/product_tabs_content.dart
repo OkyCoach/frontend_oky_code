@@ -12,12 +12,12 @@ class ProductTabsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      TabBarView(
+    return Expanded(
+      child:TabBarView(
         children: [
           TableEvaluation(evaluation: evaluation),
         ],
-      );
+      ));
    
   }
 }

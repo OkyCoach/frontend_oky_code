@@ -26,6 +26,7 @@ class ProductTabs extends StatelessWidget {
             ),
           ),
         ),
+        
       ],
     );
   }
