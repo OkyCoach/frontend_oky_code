@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:frontend_oky_code/widgets/dismissible_bar.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_info.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs.dart';
@@ -65,7 +64,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
         : 'not_found';
     
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Dialog(
         backgroundColor: Colors.transparent, // Fondo azul
         insetPadding: EdgeInsets.only(bottom: screenHeight*0.07),
@@ -110,7 +109,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                 ),
               ),
               Expanded(
-                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts),
+                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts, ready: ready),
               ), 
             ],
           ),

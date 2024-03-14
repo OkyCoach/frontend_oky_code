@@ -26,6 +26,7 @@ class ProductTabs extends StatelessWidget {
             ),
           ),
         ),
+        /*
         Tab(
           child: Text(
             "Oky Tips",
@@ -35,7 +36,7 @@ class ProductTabs extends StatelessWidget {
             ),
           ),
         ),
-        
+        */
       ],
     );
   }

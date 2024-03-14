@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
-import 'package:frontend_oky_code/widgets/product_detail.dart';
+import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
 import 'package:frontend_oky_code/widgets/dummy_products.dart';
 
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
+  final bool ready;
 
   const Recommended({
     Key? key,
     required this.recommendedProducts,
+    required this.ready,
   }) : super(key: key);
 
   @override
@@ -20,9 +21,10 @@ class _RecommendedState extends State<Recommended> {
   void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
+      barrierColor: Colors.white.withOpacity(0),
       context: context,
       builder: (BuildContext context) {
-        return ProductDetail(
+        return ProductDetailV2(
           product: product["product"],
           evaluation: product["algorithm"],
         );
@@ -53,19 +55,40 @@ class _RecommendedState extends State<Recommended> {
                 color: const Color(0xFF201547),
               ),
             ),
-            widget.recommendedProducts.isNotEmpty
-              ? SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: widget.recommendedProducts.map((product) {
-                        return buildProduct(product, context); 
-                      }).toList(), 
-                    )
+            if(widget.ready && widget.recommendedProducts.isNotEmpty)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: widget.recommendedProducts.map((product) {
+                      return buildProduct(product, context); 
+                    }).toList(), 
                   )
                 )
-              : const SingleChildScrollView(
+              ),
+            if(widget.ready && !widget.recommendedProducts.isNotEmpty)
+              SizedBox(
+                width: screenWidth,
+                height: 100,
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      "Mejor producto de la categoria.",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: "Gilroy-Regular",
+                        color: Color(0xFF201547),
+                      ),
+                    ),
+                  )
+                )
+              ),
+
+            if(!widget.ready) 
+              const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
@@ -79,6 +102,7 @@ class _RecommendedState extends State<Recommended> {
                   )
                 )
               )
+            
                 
           ],
         ),

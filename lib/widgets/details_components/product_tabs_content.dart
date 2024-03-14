@@ -5,11 +5,13 @@ import 'package:frontend_oky_code/widgets/recommended.dart';
 class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
+  final bool ready;
 
   const ProductTabsContent({
     Key? key,
     required this.evaluation,
     required this.recommendedProducts,
+    required this.ready,
   }) : super(key: key);
 
   @override
@@ -25,10 +27,10 @@ class ProductTabsContent extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
               child: TableEvaluation(evaluation: evaluation),
             ),
-            Recommended(recommendedProducts: recommendedProducts)
+            Recommended(recommendedProducts: recommendedProducts, ready: ready)
           ],
         ),
-        const Text("OkyTips")
+        
       ],
     );
   }
