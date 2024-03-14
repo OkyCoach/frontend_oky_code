@@ -63,10 +63,12 @@ class NewProductImagePopup extends StatelessWidget {
                       maxLines: 2,
                     ),
                   ),
-                  RoundedButton(
-                    onPressed: onOkyPressed, 
-                    buttonText: "oky", 
-                    size: 55
+                  InkWell(
+                    onTap: onOkyPressed,
+                    child: Image.asset(
+                      'lib/assets/botones/oky.png', // Ruta de tu imagen
+                      width: screenWidth * 0.25,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),

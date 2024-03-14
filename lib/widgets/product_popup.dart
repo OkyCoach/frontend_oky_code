@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
-import 'package:frontend_oky_code/widgets/custom_button.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
-import 'package:http/http.dart';
 
 class ProductPopup extends StatefulWidget {
   final dynamic product; // Objeto con atributos variables

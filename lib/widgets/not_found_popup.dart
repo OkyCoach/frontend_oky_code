@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/new_product.dart';
-import 'package:frontend_oky_code/widgets/custom_button.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class NotFoundPopup extends StatelessWidget {
@@ -37,7 +36,6 @@ class NotFoundPopup extends StatelessWidget {
   void _notifyMissing(BuildContext context) async {
     notifyMissingProduct(barcode);
     Navigator.pop(context);
-    
   }
 
   @override
@@ -93,12 +91,15 @@ class NotFoundPopup extends StatelessWidget {
                       maxLines: 3,
                     ),
                   ),
-                  RoundedButton(
-                      onPressed: () {
-                        _addProduct(context);
-                      },
-                      buttonText: "agregar",
-                      size: 110),
+                  InkWell(
+                    onTap: () {
+                      _addProduct(context);
+                    },
+                    child: Image.asset(
+                      'lib/assets/botones/oky.png', // Ruta de tu imagen
+                      width: screenWidth * 0.25,
+                    ),
+                  ),
                   Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: InkWell(

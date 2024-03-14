@@ -134,21 +134,21 @@ class _RecommendedState extends State<Recommended> {
                       ? Image.network(
                           product["product"]["ok_to_shop"]?["basicInformation"]
                               ?["photoUrl"],
-                          height: 50,
-                          width: 50,
+                          height: 70,
+                          width: 70,
                           errorBuilder: (BuildContext context, Object error,
                               StackTrace? stackTrace) {
                             return Image.asset(
                               'lib/assets/image_not_found.png',
-                              height: 50,
-                              width: 50,
+                              height: 70,
+                              width: 70,
                             );
                           },
                         )
                       : Image.asset(
                           'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-                          height: 50,
-                          width: 50,
+                          height: 70,
+                          width: 70,
                         ),
                 ),
                 const SizedBox(height: 8),
