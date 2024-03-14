@@ -61,6 +61,7 @@ class _ProductPopupState extends State<ProductPopup> {
     return Container(
       margin: EdgeInsets.only(bottom: screenHeight * 0.07),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
             width: screenWidth,
@@ -82,7 +83,7 @@ class _ProductPopupState extends State<ProductPopup> {
                       icon: const Icon(
                         Icons.clear,
                         size: 20.0,
-                        color: Colors.purple,
+                        color: Color(0xFF7448ED),
                       ),
                       onPressed: () {
                         Navigator.pop(context);
@@ -110,13 +111,13 @@ class _ProductPopupState extends State<ProductPopup> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                widget.product["ok_to_shop"]?["basicInformation"]
+                                widget.product["ok_to_shop"]
+                                                ?["basicInformation"]
                                             ?["photoUrl"] !=
                                         null
                                     ? Image.network(
                                         widget.product["ok_to_shop"]
-                                                ?["basicInformation"]
-                                            ?["photoUrl"],
+                                            ?["basicInformation"]?["photoUrl"],
                                         height: screenHeight * 0.15,
                                         width: screenHeight * 0.15,
                                         errorBuilder: (BuildContext context,
@@ -144,8 +145,8 @@ class _ProductPopupState extends State<ProductPopup> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.product["ok_to_shop"]?[
-                                                      "basicInformation"]
+                                          widget.product["ok_to_shop"]
+                                                      ?["basicInformation"]
                                                   ?["description"] ??
                                               'not_found',
                                           style: TextStyle(
@@ -157,13 +158,14 @@ class _ProductPopupState extends State<ProductPopup> {
                                           maxLines: 2,
                                         ),
                                         Text(
-                                          (widget.product["ok_to_shop"]?[
-                                                          "basicInformation"]
-                                                      ?["brands"]
-                                                  ?.isNotEmpty ??
-                                              false)
-                                              ? widget.product["ok_to_shop"][
-                                                          "basicInformation"]
+                                          (widget
+                                                      .product["ok_to_shop"]
+                                                          ?["basicInformation"]
+                                                          ?["brands"]
+                                                      ?.isNotEmpty ??
+                                                  false)
+                                              ? widget.product["ok_to_shop"]
+                                                          ["basicInformation"]
                                                       ["brands"][0]["name"] ??
                                                   'not_found'
                                               : 'not_found',
@@ -178,10 +180,10 @@ class _ProductPopupState extends State<ProductPopup> {
                                           padding:
                                               const EdgeInsets.only(top: 8),
                                           child: StarsWidget(
-                                            maxScore: widget.evaluation[
-                                                "puntos_totales"],
-                                            actualScore: widget.evaluation[
-                                                "puntos_obtenidos"],
+                                            maxScore: widget
+                                                .evaluation["puntos_totales"],
+                                            actualScore: widget
+                                                .evaluation["puntos_obtenidos"],
                                             height: 0.03,
                                           ),
                                         ),
@@ -197,12 +199,14 @@ class _ProductPopupState extends State<ProductPopup> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  RoundedButton(
-                                    onPressed: () {
+                                  InkWell(
+                                    onTap: () {
                                       _showProductDetails(context);
                                     },
-                                    buttonText: "Ver Producto",
-                                    size: 180,
+                                    child: Image.asset(
+                                      'lib/assets/botones/ver_producto.png',
+                                      width: screenWidth * 0.5,
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {

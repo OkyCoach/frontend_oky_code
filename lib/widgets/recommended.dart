@@ -56,22 +56,27 @@ class _RecommendedState extends State<Recommended> {
             widget.recommendedProducts.isNotEmpty
               ? SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: widget.recommendedProducts.map((product) {
-                      return buildProduct(product, context); 
-                    }).toList(), 
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: widget.recommendedProducts.map((product) {
+                        return buildProduct(product, context); 
+                      }).toList(), 
+                    )
                   )
                 )
               : const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [  
-                    DummyProduct(),
-                    DummyProduct(),
-                    DummyProduct(),
-                    DummyProduct(),
-                    DummyProduct(),
-                  ], 
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: [  
+                      DummyProduct(),
+                      DummyProduct(),
+                      DummyProduct(),
+                      DummyProduct(),
+                    ], 
+                  )
                 )
               )
                 

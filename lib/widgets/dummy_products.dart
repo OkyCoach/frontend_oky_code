@@ -52,7 +52,7 @@ class DummyProduct extends StatelessWidget {
             const SizedBox(height: 3),
             Container(// Reemplaza con la ruta de tu imagen por defecto
               height: screenHeight * 0.02,
-              width: 50,
+              width: screenWidth / 4,
               decoration: BoxDecoration(
                 color: const Color(0xFFE8E4F4),
                 borderRadius: BorderRadius.circular(2.0), // Ajusta el valor según sea necesario
