@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/custom_input.dart';
 import 'package:frontend_oky_code/pages/add_product/front_image.dart';
 import 'package:frontend_oky_code/main.dart';
-import 'package:frontend_oky_code/widgets/custom_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NewProductPage extends StatefulWidget {
   final String? barcode;
@@ -20,6 +20,7 @@ class _NewProductPageState extends State<NewProductPage> {
   @override
   void initState() {
     super.initState();
+    
     // Agregar oyentes a los controladores para que se llame a _checkButtonStatus cuando cambien los valores.
     productNameController.addListener(_checkButtonStatus);
     brandController.addListener(_checkButtonStatus);

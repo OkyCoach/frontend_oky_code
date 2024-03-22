@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
-import 'package:frontend_oky_code/widgets/product_detail.dart';
+import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
+import 'package:frontend_oky_code/widgets/dummy_products.dart';
 
 class Recommended extends StatefulWidget {
-  final dynamic product;
+  final List<dynamic> recommendedProducts;
+  final bool ready;
 
   const Recommended({
     Key? key,
-    required this.product,
+    required this.recommendedProducts,
+    required this.ready,
   }) : super(key: key);
 
   @override
@@ -16,34 +18,13 @@ class Recommended extends StatefulWidget {
 }
 
 class _RecommendedState extends State<Recommended> {
-  List<dynamic> recommendedProducts = [];
-  bool ready = false;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    try {
-      List<dynamic> products =
-          await fetchRecommendedProducts(widget.product["barcode"]);
-      setState(() {
-        recommendedProducts = products;
-        ready = true;
-      });
-    } catch (error) {
-      print("Error al obtener los productos recomendados: $error");
-    }
-  }
-
   void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
+      barrierColor: Colors.white.withOpacity(0),
       context: context,
       builder: (BuildContext context) {
-        return ProductDetail(
+        return ProductDetailV2(
           product: product["product"],
           evaluation: product["algorithm"],
         );
@@ -53,79 +34,94 @@ class _RecommendedState extends State<Recommended> {
 
   @override
   Widget build(BuildContext context) {
-    double containerWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double itemWidth = containerWidth / 3;
+    double itemWidth = screenWidth / 3;
 
-    return Expanded(
-      child: Container(
-        width: containerWidth,
-        color: const Color(0xFFF9F9FA), // Fondo blanco
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Text(
-                  "Te recomendamos",
-                  style: TextStyle(
-                    fontSize: screenHeight * 0.022,
-                    fontFamily: "Gilroy-Bold",
-                    color: const Color(0xFF201547),
-                  ),
-                ),
+    return Container(
+      width: screenWidth,
+      color: const Color(0xFFF9F9FA), // Fondo blanco
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Te recomendamos",
+              style: TextStyle(
+                fontSize: screenHeight * 0.022,
+                fontFamily: "Gilroy-Bold",
+                color: const Color(0xFF201547),
               ),
-              if (!ready)
-                const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-              if (ready && recommendedProducts.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: recommendedProducts.length,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: itemWidth,
-                        child: buildProduct(
-                            screenHeight, recommendedProducts[index], context),
-                      );
-                    },
-                  ),
-                ),
-              if (ready && !recommendedProducts.isNotEmpty)
-                Expanded(
-                  child: Center(
+            ),
+            if(widget.ready && widget.recommendedProducts.isNotEmpty)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: widget.recommendedProducts.map((product) {
+                      return buildProduct(product, context); 
+                    }).toList(), 
+                  )
+                )
+              ),
+            if(widget.ready && !widget.recommendedProducts.isNotEmpty)
+              SizedBox(
+                width: screenWidth,
+                height: 100,
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      "Mejor producto de la categoría",
+                      "Mejor producto de la categoria.",
                       style: TextStyle(
-                        fontSize: screenHeight * 0.018,
+                        fontSize: 12,
                         fontFamily: "Gilroy-Regular",
-                        color: const Color(0xFF201547),
+                        color: Color(0xFF201547),
                       ),
                     ),
-                  ),
-                ),
-            ],
-          ),
+                  )
+                )
+              ),
+
+            if(!widget.ready) 
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: [  
+                      DummyProduct(),
+                      DummyProduct(),
+                      DummyProduct(),
+                      DummyProduct(),
+                    ], 
+                  )
+                )
+              )
+            
+                
+          ],
         ),
       ),
     );
   }
 
-  Widget buildProduct(
-      double screenHeight, dynamic product, BuildContext context) {
-    return GestureDetector(
+  Widget buildProduct(dynamic product, BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return SizedBox(
+      width: screenWidth / 3,
+      child:GestureDetector(
         onTap: () {
           _showProductDetails(context, product);
         },
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,21 +134,21 @@ class _RecommendedState extends State<Recommended> {
                       ? Image.network(
                           product["product"]["ok_to_shop"]?["basicInformation"]
                               ?["photoUrl"],
-                          height: 50,
-                          width: 50,
+                          height: 70,
+                          width: 70,
                           errorBuilder: (BuildContext context, Object error,
                               StackTrace? stackTrace) {
                             return Image.asset(
                               'lib/assets/image_not_found.png',
-                              height: 50,
-                              width: 50,
+                              height: 70,
+                              width: 70,
                             );
                           },
                         )
                       : Image.asset(
                           'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-                          height: 50,
-                          width: 50,
+                          height: 70,
+                          width: 70,
                         ),
                 ),
                 const SizedBox(height: 8),
@@ -168,6 +164,7 @@ class _RecommendedState extends State<Recommended> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                const SizedBox(height: 2),
                 Text(
                   (product["product"]["ok_to_shop"]?["basicInformation"]
                                   ?["brands"]
@@ -185,11 +182,16 @@ class _RecommendedState extends State<Recommended> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                const SizedBox(height: 2),
                 StarsWidget(
                     maxScore: product["algorithm"]["puntos_totales"],
                     actualScore: product["algorithm"]["puntos_obtenidos"],
                     height: 0.02),
               ],
-            )));
+            ))));
   }
+
+  
 }
+
+

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:frontend_oky_code/pages/add_product/image_preview.dart';
-import 'package:frontend_oky_code/widgets/new_product_image_popup.dart';
-
+import 'package:frontend_oky_code/pages/add_product/new_product_image_popup.dart';
+import 'package:frontend_oky_code/widgets/permission_popup.dart';
 
 class FrontImageCapture extends StatefulWidget {
   final dynamic data;
@@ -38,6 +38,10 @@ class _CameraScreenState extends State<FrontImageCapture> {
       if (e is CameraException) {
         switch (e.code) {
           case 'CameraAccessDenied':
+            _showAlert();
+            break;
+          case 'AudioAccessDenied':
+            _showAlert();
             break;
           default:
             // Handle other errors here.
@@ -45,6 +49,15 @@ class _CameraScreenState extends State<FrontImageCapture> {
         }
       }
     }
+  }
+
+  void _showAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const PermissionDialogWidget();
+      },
+    );
   }
 
   @override
@@ -60,11 +73,8 @@ class _CameraScreenState extends State<FrontImageCapture> {
   }
 
   void _nextStep(BuildContext context) async {
-  
     XFile picture = await controller.takePicture();
-    
-    
-    
+
     dynamic newData = {
       'barcode': widget.data['barcode'],
       'productName': widget.data['productName'],
@@ -72,7 +82,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
       'type': "frontal",
       'frontImagePath': picture.path,
     };
-    
+
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -92,7 +102,6 @@ class _CameraScreenState extends State<FrontImageCapture> {
         },
       ),
     );
-    
   }
 
   @override
@@ -121,7 +130,6 @@ class _CameraScreenState extends State<FrontImageCapture> {
             bottom: screenHeight * 0.07,
             child: GestureDetector(
               onTap: () {
-                
                 _nextStep(context);
               },
               child: Container(

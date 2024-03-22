@@ -5,7 +5,6 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
-import 'package:frontend_oky_code/widgets/picture_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
@@ -150,12 +149,10 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     var evaluation = await fetchEvaluationData(data);
     await showDialog(
+        barrierColor: Colors.white.withOpacity(0),
         context: context,
         builder: (_) => (product["barcode"] != null && evaluation["puntos_obtenidos"] != null)
-            ? ProductPopup(
-                product: product,
-                evaluation: evaluation,
-              )
+            ? ProductPopup(product: product, evaluation: evaluation,)
             : NotFoundPopup(barcode: data));
     _barcodeCapture.isEnabled = true;
   }

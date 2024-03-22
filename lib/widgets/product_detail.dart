@@ -5,7 +5,7 @@ import 'package:frontend_oky_code/widgets/details_components/product_tabs.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs_content.dart';
 
 class ProductDetail extends StatelessWidget {
-  final dynamic product; 
+  final dynamic product; // Objeto con atributos variables
   final dynamic evaluation;
 
   const ProductDetail({
@@ -19,32 +19,27 @@ class ProductDetail extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Dismissible(
-      direction: DismissDirection.down,
-      dismissThresholds: const {DismissDirection.down: 0.25},
-      key: const Key('key'),
-      onDismissed: (_) => Navigator.of(context).pop(),
-      child:  Container(
+    return Container(
         margin: EdgeInsets.only(
             bottom: screenHeight *
-                0.07), 
+                0.07), // Puedes ajustar el valor según tus necesidades
         child: Column(children: [
           DefaultTabController(
             length:
-                1, 
+                1, // Número de pestañas (Nutricionistas y Tabla Nutricional)
             child: Dialog(
               insetPadding: const EdgeInsets.only(top: 0, left: 10, right: 10),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(
-                      25), 
+                      25), // Solo los bordes superiores son redondeados
                 ),
               ),
               elevation: 10,
               backgroundColor: const Color(0xFFFFFFFF),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                  maxHeight: MediaQuery.of(context).size.height * 0.9,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -54,9 +49,9 @@ class ProductDetail extends StatelessWidget {
                       height: 4.5, // Grosor de la línea
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
-                            2), 
+                            2), // Establecer el radio de los bordes
                         color: const Color.fromARGB(
-                            255, 201, 200, 200), 
+                            255, 201, 200, 200), // Color de la línea
                       ),
                       margin: EdgeInsets.only(
                           bottom: 10,
@@ -91,16 +86,13 @@ class ProductDetail extends StatelessWidget {
                       ),
                       */
                     const ProductTabs(),
-                    ProductTabsContent(evaluation: evaluation),
+                    //ProductTabsContent(evaluation: evaluation, recommendedProducts: re,),
                   ],
                 ),
               ),
             ),
           ),
-          Recommended(product: product)
-        ]
-        )
-      )
-    );
+          //Recommended(recommendedProducts: product)
+        ]));
   }
 }
