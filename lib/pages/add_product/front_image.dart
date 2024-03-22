@@ -44,7 +44,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
             _showAlert();
             break;
           default:
-            // Handle other errors here.
+            _showAlert();
             break;
         }
       }

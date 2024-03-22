@@ -45,7 +45,7 @@ class _CameraScreenState extends State<NutritionalImageCapture> {
             _showAlert();
             break;
           default:
-            // Handle other errors here.
+            _showAlert();
             break;
         }
       }
