@@ -42,7 +42,7 @@ class NotFoundPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double popupHeight = 310;
+    double popupHeight = 330;
 
     double logoWidth = 70;
 
