@@ -22,6 +22,7 @@ class ProductTabsContent extends StatelessWidget {
     return TabBarView(
       children: [
         ListView(
+          physics: const ClampingScrollPhysics(),
           children: [
             Container(
               margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),

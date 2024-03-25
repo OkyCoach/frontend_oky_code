@@ -6,6 +6,7 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
+import 'package:frontend_oky_code/widgets/no_evaluation_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 const String licenseKey =
@@ -149,11 +150,19 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     var evaluation = await fetchEvaluationData(data);
     await showDialog(
-        barrierColor: Colors.white.withOpacity(0),
-        context: context,
-        builder: (_) => (product["barcode"] != null && evaluation["puntos_obtenidos"] != null)
-            ? ProductPopup(product: product, evaluation: evaluation,)
-            : NotFoundPopup(barcode: data));
+      barrierColor: Colors.white.withOpacity(0),
+      context: context,
+      builder: (_) {
+        if (product["barcode"] != null && evaluation["puntos_obtenidos"] != null) {
+          return ProductPopup(product: product, evaluation: evaluation);
+        } else if (product["barcode"] != null && evaluation["puntos_obtenidos"] == null) {
+          return NoEvaluationPopup(product: product);
+        } else {
+          return NotFoundPopup(barcode: data);
+        }
+      }
+    );
+
     _barcodeCapture.isEnabled = true;
   }
 
