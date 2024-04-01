@@ -128,12 +128,10 @@ class _RecommendedState extends State<Recommended> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  child: product["product"]["ok_to_shop"]?["basicInformation"]
-                              ?["photoUrl"] !=
+                  child: product["product"]?["photoUrl"] !=
                           null
                       ? Image.network(
-                          product["product"]["ok_to_shop"]?["basicInformation"]
-                              ?["photoUrl"],
+                          product["product"]?["photoUrl"],
                           height: 70,
                           width: 70,
                           errorBuilder: (BuildContext context, Object error,
@@ -153,8 +151,7 @@ class _RecommendedState extends State<Recommended> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  product["product"]["ok_to_shop"]?["basicInformation"]
-                          ?["description"] ??
+                  product["product"]?["name"] ??
                       'not_found',
                   style: TextStyle(
                     fontSize: screenHeight * 0.015,

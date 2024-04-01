@@ -113,13 +113,10 @@ class _ProductPopupState extends State<ProductPopup> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                widget.product["ok_to_shop"]
-                                                ?["basicInformation"]
-                                            ?["photoUrl"] !=
+                                widget.product["photoUrl"] !=
                                         null
                                     ? Image.network(
-                                        widget.product["ok_to_shop"]
-                                            ?["basicInformation"]?["photoUrl"],
+                                        widget.product["photoUrl"],
                                         height: screenHeight * 0.15,
                                         width: screenHeight * 0.15,
                                         errorBuilder: (BuildContext context,
@@ -147,9 +144,7 @@ class _ProductPopupState extends State<ProductPopup> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.product["ok_to_shop"]
-                                                      ?["basicInformation"]
-                                                  ?["description"] ??
+                                          widget.product["name"] ??
                                               'not_found',
                                           style: TextStyle(
                                             fontFamily: "Gilroy-SemiBold",

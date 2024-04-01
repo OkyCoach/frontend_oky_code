@@ -3,14 +3,14 @@ import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 
 class ProductInfoRow extends StatelessWidget {
   final String photoUrl;
-  final String description;
+  final String name;
   final String brandName;
   final dynamic evaluation;
 
   const ProductInfoRow({
     Key? key,
     required this.photoUrl,
-    required this.description,
+    required this.name,
     required this.brandName,
     required this.evaluation,
   }) : super(key: key);
@@ -51,7 +51,7 @@ class ProductInfoRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    description,
+                    name,
                     style: TextStyle(
                       fontFamily: "Gilroy-Bold",
                       fontSize: screenHeight * 0.022,
