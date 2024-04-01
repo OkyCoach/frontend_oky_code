@@ -10,7 +10,7 @@ import 'package:frontend_oky_code/widgets/no_evaluation_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 const String licenseKey =
-    'AU8E2TzeGEWSMhLrXxXUakpAGjRuCo5uHGKeLCtPdKRVLiVPL3cf6FV0/4zRXcA9qlo/aB5GYHKVNeE6OkSntEJwuHCtbX9rAx+TFzgSKKJ5BviiiSxZMGF28VSF11DthKFf6BkB8DBXRo8ZDfz0XqaES02kCxuyGgJIwRM78hqcNCjb3yFY93axLZDBga5jhXwwtWmnujKVCiMbU3HtL8lwIt4s5dOs0q4gdzOp0sKBWe7N7aUmTNLoBjx3FRwTygWySNNLFq7JZxXgstFdicUlngOaRGvU1nqihSYqsXy8H+IM+p5sJYfnPoiZ6UUEOcAxKRUj+Rp+vK6WWjjZPxoIOE1sXroV2cQ30fIjJksbmGkx68V611fn7We4fcnHfJLMbvFo4cdyoKMQMHnXMB28mxLacw/Zappabz+N5nNuVOtgTZ9TI00iJcyJzuJqjGtRg/xgD7iylynZGldP5anDF0c44QqysfKjQVVITioizgM6laHq+oDtToTvBEks9XRLEtL4hvrgyGXxx9nPMVKg4p7qWCCY9q6JTLdJWg5gsWqj7O/VlzC+iDoRUuu4n2L7F91Mr0673ELv9OeL65rNtETjVWSPOXdFq02945i6giY7xMtMs80SG5Ta6wKPUsVz8PtU0vowCvBW7xxrAYYYrgvKfwdjjVuTdLRVci5UPmtyyz104Yq/C//0OMYA2C4SmmnrX3ljddld60ipDY2Gt18y4hYYff8f2p9gqV0R0mIHYoXO7rnGPmiP2ieZiLSY6198yXrr+vHCDwNnbtTj6vKPdjs5';
+    'AUjUqjLeFlQDOOOzAhjZXiIxYoXuBI5/wEN2hTlXwRTrXmNEMWu9YlZ2u35cSZ3jMGjaseVfcp0qQcYiAXZlVLRipwTFDPfrQQFRVIU11bQoF7nXqjEq62NQEzB5pq2Q3LqHMt1Lvp/DiB4I03mUcv/qbzg+oOzxUZIXTu1zhKHi790SH7w0sLBbcOQJmDawrWgTHY5CwmDTEcvFeCuhQM6Ir8h0Ty1OZSLim8WSJD45mUWCzw36BoLWaZRYy0xRqQ4ohXgAR2EaLlVjA0EQUIj7CwQ5LPXm8kOvvPyCjHnqbaJE2dQXZije2pTlYrwV9gAX+sMH/bgj6DcIq/i/uwgF/ooYU6bOX0N0fj/8QEWLlpi1x0LwSfVWy9JHL23YlaoX105drUM9Mw2qVsF1exF57L8opLA1FkW5/F2viC+3ikbgw13YEAUl/fg9LPVxmCPvVVPPLs2YXFaUamuZ5EchP//oocLtXks3ViwKh3waOYKHmjTeBZQtvpIuRsohYUTC31+cvIaF/8XexAjGVubqk9ihwnLqpo0sM0LTENJMdndmYMJRN5a878PUxk69DbXPf5+q3uWYbPyiV34/Gs/FRa87GBHaEJt1vtWUTZ8aqrfKi8xk+70RvIOILLCp4UBvXZBd/z2gZ7JHmBq+4Ttu0in2yxx8msdtI39yg7ANbv4bmxXlblzAWWVbZ6iFt/ldNVWYfDHTwv0PVyRLitAwvDbgpwSKAdoO1xm3hnllahrAI5I/rEsZRfwlcnRnSogS862dMH/7YygSdskFERMA/5gRtlNi';
 
 class BarcodeScannerScreen extends StatefulWidget {
   // Create data capture context using your license key.
@@ -150,18 +150,19 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     var evaluation = await fetchEvaluationData(data);
     await showDialog(
-      barrierColor: Colors.white.withOpacity(0),
-      context: context,
-      builder: (_) {
-        if (product["barcode"] != null && evaluation["puntos_obtenidos"] != null) {
-          return ProductPopup(product: product, evaluation: evaluation);
-        } else if (product["barcode"] != null && evaluation["puntos_obtenidos"] == null) {
-          return NoEvaluationPopup(product: product);
-        } else {
-          return NotFoundPopup(barcode: data);
-        }
-      }
-    );
+        barrierColor: Colors.white.withOpacity(0),
+        context: context,
+        builder: (_) {
+          if (product["barcode"] != null &&
+              evaluation["puntos_obtenidos"] != null) {
+            return ProductPopup(product: product, evaluation: evaluation);
+          } else if (product["barcode"] != null &&
+              evaluation["puntos_obtenidos"] == null) {
+            return NoEvaluationPopup(product: product);
+          } else {
+            return NotFoundPopup(barcode: data);
+          }
+        });
 
     _barcodeCapture.isEnabled = true;
   }
