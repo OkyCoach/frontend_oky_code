@@ -38,9 +38,9 @@ class NoEvaluationPopup extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      product["ok_to_shop"]?["basicInformation"]?["photoUrl"] != null
+                      product["photoUrl"] != null
                     ? Image.network(
-                        product["ok_to_shop"]?["basicInformation"]?["photoUrl"],
+                        product["photoUrl"],
                         height: screenHeight * 0.12,
                         width: screenHeight * 0.12,
                         errorBuilder: (BuildContext context,
@@ -68,7 +68,7 @@ class NoEvaluationPopup extends StatelessWidget {
                                 CrossAxisAlignment.start,
                             children: [
                               Text(
-                                product["ok_to_shop"]?["basicInformation"]?["description"] ?? 'not_found',
+                                product["name"] ?? 'not_found',
                                 style: TextStyle(
                                   fontFamily: "Gilroy-SemiBold",
                                   fontSize: screenHeight * 0.025,
@@ -78,8 +78,8 @@ class NoEvaluationPopup extends StatelessWidget {
                                 maxLines: 2,
                               ),
                               Text(
-                                (product["ok_to_shop"]?["basicInformation"]?["brands"]?.isNotEmpty ?? false)
-                                    ? product["ok_to_shop"]["basicInformation"]["brands"][0]["name"] ?? 'not_found'
+                                (product["brands"]?.isNotEmpty ?? false)
+                                    ? product["brands"][0]["name"] ?? 'not_found'
                                     : 'not_found',
                                 style: TextStyle(
                                   fontFamily: "Gilroy-Medium",

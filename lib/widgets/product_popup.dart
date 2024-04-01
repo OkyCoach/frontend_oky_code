@@ -161,14 +161,10 @@ class _ProductPopupState extends State<ProductPopup> {
                                         ),
                                         Text(
                                           (widget
-                                                      .product["ok_to_shop"]
-                                                          ?["basicInformation"]
-                                                          ?["brands"]
+                                                      .product?["brands"]
                                                       ?.isNotEmpty ??
                                                   false)
-                                              ? widget.product["ok_to_shop"]
-                                                          ["basicInformation"]
-                                                      ["brands"][0]["name"] ??
+                                              ? widget.product["brands"][0]["name"] ??
                                                   'not_found'
                                               : 'not_found',
                                           style: TextStyle(

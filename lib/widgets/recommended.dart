@@ -166,12 +166,10 @@ class _RecommendedState extends State<Recommended> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  (product["product"]["ok_to_shop"]?["basicInformation"]
-                                  ?["brands"]
+                  (product["product"]?["brands"]
                               ?.isNotEmpty ??
                           false)
-                      ? product["product"]["ok_to_shop"]["basicInformation"]
-                              ["brands"][0]["name"] ??
+                      ? product["product"]["brands"][0]["name"] ??
                           'not_found'
                       : 'not_found',
                   style: TextStyle(

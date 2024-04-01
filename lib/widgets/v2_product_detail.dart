@@ -48,20 +48,9 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     
-    String photoUrl = widget.product["ok_to_shop"]?["basicInformation"]
-            ?["photoUrl"] ??
-        "not_found";
-    String description = widget.product["ok_to_shop"]?["basicInformation"]
-            ?["description"] ??
-        "not_found";
-    String brandName = (widget.product["ok_to_shop"]?["basicInformation"]
-                ?["brands"]
-                ?.isNotEmpty ??
-            false)
-        ? (widget.product["ok_to_shop"]["basicInformation"]["brands"][0]
-                ["name"] ??
-            'not_found')
-        : 'not_found';
+    String photoUrl = widget.product["photoURL"] ?? "not_found";
+    String description = widget.product["name"] ?? "not_found";
+    String brandName = (widget.product["brands"]?.isNotEmpty ??false)? (widget.product["brands"][0]["name"] ??'not_found'): 'not_found';
     
     return DefaultTabController(
       length: 1,
