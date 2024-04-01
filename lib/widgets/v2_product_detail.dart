@@ -47,64 +47,67 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    
-    String photoUrl = widget.product["photoURL"] ?? "not_found";
+
+    String photoUrl = widget.product["photoUrl"] ?? "not_found";
     String name = widget.product["name"] ?? "not_found";
-    String brandName = (widget.product["brands"]?.isNotEmpty ??false)? (widget.product["brands"][0]["name"] ??'not_found'): 'not_found';
-    
+    String brandName = (widget.product["brands"]?.isNotEmpty ?? false)
+        ? (widget.product["brands"][0]["name"] ?? 'not_found')
+        : 'not_found';
+
     return DefaultTabController(
       length: 1,
       child: Dialog(
-        backgroundColor: Colors.transparent, // Fondo azul
-        insetPadding: EdgeInsets.only(bottom: screenHeight*0.07),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // Ajusta el radio según tu preferencia
-        ),
-        child: Dismissible(
-          direction: DismissDirection.down,
-          dismissThresholds: const {DismissDirection.down: 0.25},
-          key: const Key('key'),
-          onDismissed: (_) => Navigator.of(context).pop(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IntrinsicHeight(
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * margins),
-                  padding: const EdgeInsets.only(
-                      top: 10, left: 5, right: 5),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
+          backgroundColor: Colors.transparent, // Fondo azul
+          insetPadding: EdgeInsets.only(bottom: screenHeight * 0.07),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                0), // Ajusta el radio según tu preferencia
+          ),
+          child: Dismissible(
+            direction: DismissDirection.down,
+            dismissThresholds: const {DismissDirection.down: 0.25},
+            key: const Key('key'),
+            onDismissed: (_) => Navigator.of(context).pop(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IntrinsicHeight(
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: screenWidth * margins),
+                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const DismissibleBar(width: 40),
+                        ProductInfoRow(
+                          photoUrl: photoUrl,
+                          name: name,
+                          brandName: brandName,
+                          evaluation: widget.evaluation,
+                        ),
+                        const ProductTabs(),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const DismissibleBar(width: 40),
-                      ProductInfoRow(
-                        photoUrl: photoUrl,
-                        name: name,
-                        brandName: brandName,
-                        evaluation: widget.evaluation,
-                      ),
-                      const ProductTabs(),
-                    ],
-                  ),
                 ),
-              ),
-              Expanded(
-                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts, ready: ready),
-              ), 
-            ],
-          ),
-        )
-      ),
+                Expanded(
+                  child: ProductTabsContent(
+                      evaluation: widget.evaluation,
+                      recommendedProducts: recommendedProducts,
+                      ready: ready),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
-

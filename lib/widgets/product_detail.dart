@@ -60,15 +60,10 @@ class ProductDetail extends StatelessWidget {
                           top: 8),
                     ),
                     ProductInfoRow(
-                      photoUrl: product["photoUrl"] ??
-                          "not_found",
-                      name: product["name"] ??
-                          "not_found",
-                      brandName: (product["brands"]
-                                  ?.isNotEmpty ??
-                              false)
-                          ? (product["brands"][0]["name"] ??
-                              'not_found')
+                      photoUrl: product["photoUrl"] ?? "not_found",
+                      name: product["name"] ?? "not_found",
+                      brandName: (product["brands"]?.isNotEmpty ?? false)
+                          ? (product["brands"][0]["name"] ?? 'not_found')
                           : 'not_found',
                       evaluation: evaluation,
                     ),

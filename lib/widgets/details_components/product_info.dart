@@ -26,23 +26,24 @@ class ProductInfoRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           photoUrl != "not_found"
-          ? Image.network(
-              photoUrl, 
-              height: screenHeight * 0.15,
-              width: screenHeight * 0.15,
-              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                return Image.asset(
-                  'lib/assets/image_not_found.png',
+              ? Image.network(
+                  photoUrl,
                   height: screenHeight * 0.15,
                   width: screenHeight * 0.15,
-                );
-              },
-            )
-          : Image.asset(
-              'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-              height: screenHeight * 0.15,
-              width: screenHeight * 0.15,
-            ),
+                  errorBuilder: (BuildContext context, Object error,
+                      StackTrace? stackTrace) {
+                    return Image.asset(
+                      'lib/assets/image_not_found.png',
+                      height: screenHeight * 0.15,
+                      width: screenHeight * 0.15,
+                    );
+                  },
+                )
+              : Image.asset(
+                  'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
+                  height: screenHeight * 0.15,
+                  width: screenHeight * 0.15,
+                ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),
@@ -68,7 +69,9 @@ class ProductInfoRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +80,6 @@ class ProductInfoRow extends StatelessWidget {
                         maxScore: evaluation["puntos_totales"],
                         actualScore: evaluation["puntos_obtenidos"],
                         height: 0.03,
-                  
                       ),
                     ],
                   )

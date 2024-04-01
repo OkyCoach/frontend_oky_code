@@ -113,8 +113,7 @@ class _ProductPopupState extends State<ProductPopup> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                widget.product["photoUrl"] !=
-                                        null
+                                widget.product["photoUrl"] != null
                                     ? Image.network(
                                         widget.product["photoUrl"],
                                         height: screenHeight * 0.15,
@@ -144,8 +143,7 @@ class _ProductPopupState extends State<ProductPopup> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.product["name"] ??
-                                              'not_found',
+                                          widget.product["name"] ?? 'not_found',
                                           style: TextStyle(
                                             fontFamily: "Gilroy-SemiBold",
                                             fontSize: screenHeight * 0.025,
@@ -155,11 +153,11 @@ class _ProductPopupState extends State<ProductPopup> {
                                           maxLines: 2,
                                         ),
                                         Text(
-                                          (widget
-                                                      .product?["brands"]
+                                          (widget.product?["brands"]
                                                       ?.isNotEmpty ??
                                                   false)
-                                              ? widget.product["brands"][0]["name"] ??
+                                              ? widget.product["brands"][0]
+                                                      ["name"] ??
                                                   'not_found'
                                               : 'not_found',
                                           style: TextStyle(
