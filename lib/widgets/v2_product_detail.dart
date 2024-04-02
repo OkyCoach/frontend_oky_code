@@ -48,12 +48,6 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    String photoUrl = widget.product["photoUrl"] ?? "not_found";
-    String name = widget.product["name"] ?? "not_found";
-    String brandName = (widget.product["brands"]?.isNotEmpty ?? false)
-        ? (widget.product["brands"][0]["name"] ?? 'not_found')
-        : 'not_found';
-
     return DefaultTabController(
       length: 1,
       child: Dialog(
@@ -89,9 +83,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                       children: [
                         const DismissibleBar(width: 40),
                         ProductInfoRow(
-                          photoUrl: photoUrl,
-                          name: name,
-                          brandName: brandName,
+                          product: widget.product,
                           evaluation: widget.evaluation,
                         ),
                         const ProductTabs(),

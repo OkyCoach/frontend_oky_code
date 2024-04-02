@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 
 class ProductInfoRow extends StatelessWidget {
-  final String photoUrl;
-  final String name;
-  final String brandName;
+  final dynamic product;
   final dynamic evaluation;
 
   const ProductInfoRow({
     Key? key,
-    required this.photoUrl,
-    required this.name,
-    required this.brandName,
+    required this.product,
     required this.evaluation,
   }) : super(key: key);
 
@@ -25,25 +21,26 @@ class ProductInfoRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          photoUrl != "not_found"
-              ? Image.network(
-                  photoUrl,
-                  height: screenHeight * 0.15,
-                  width: screenHeight * 0.15,
-                  errorBuilder: (BuildContext context, Object error,
-                      StackTrace? stackTrace) {
-                    return Image.asset(
-                      'lib/assets/image_not_found.png',
-                      height: screenHeight * 0.15,
-                      width: screenHeight * 0.15,
-                    );
-                  },
-                )
-              : Image.asset(
-                  'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-                  height: screenHeight * 0.15,
-                  width: screenHeight * 0.15,
-                ),
+          product["photoUrl"] != null
+            ? Image.network(
+                product["photoUrl"],
+                height: screenHeight * 0.15,
+                width: screenHeight * 0.15,
+                errorBuilder: (BuildContext context,
+                    Object error,
+                    StackTrace? stackTrace) {
+                  return Image.asset(
+                    'lib/assets/image_not_found.png',
+                    height: screenHeight * 0.1,
+                    width: screenHeight * 0.1,
+                  );
+                },
+              )
+            : Image.asset(
+                'lib/assets/image_not_found.png',
+                height: screenHeight * 0.1,
+                width: screenHeight * 0.1,
+              ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),
@@ -52,7 +49,7 @@ class ProductInfoRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    product["name"] ?? 'not_found',
                     style: TextStyle(
                       fontFamily: "Gilroy-Bold",
                       fontSize: screenHeight * 0.022,
@@ -61,7 +58,11 @@ class ProductInfoRow extends StatelessWidget {
                     maxLines: 2,
                   ),
                   Text(
-                    brandName,
+                    (product?["brands"]?.isNotEmpty ?? false)
+                      ? product["brands"][0]
+                              ["name"] ??
+                          'not_found'
+                      : 'not_found',
                     style: TextStyle(
                       fontFamily: "Gilroy-Medium",
                       fontSize: screenHeight * 0.022,
