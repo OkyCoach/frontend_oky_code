@@ -7,11 +7,13 @@ import 'package:frontend_oky_code/widgets/recommended.dart';
 class ProductPopup extends StatefulWidget {
   final dynamic product; // Objeto con atributos variables
   final dynamic evaluation;
+  bool canScan;
 
-  const ProductPopup({
+  ProductPopup({
     Key? key,
     required this.product,
     required this.evaluation,
+    required this.canScan
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class _ProductPopupState extends State<ProductPopup> {
         return ProductDetailV2(
           product: widget.product,
           evaluation: widget.evaluation,
+          canScan: widget.canScan,
         );
       },
     );
@@ -239,7 +242,7 @@ class _ProductPopupState extends State<ProductPopup> {
               ),
             ),
           ),
-          Recommended(recommendedProducts: recommendedProducts, ready: ready)
+          Recommended(recommendedProducts: recommendedProducts, ready: ready, canScan: widget.canScan,)
         ],
       ),
     );

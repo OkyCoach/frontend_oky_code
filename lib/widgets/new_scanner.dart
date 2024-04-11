@@ -8,6 +8,8 @@ class MyScannerWidget extends StatefulWidget {
 }
 
 class _MyScannerWidgetState extends State<MyScannerWidget> {
+  bool scanning = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,18 +21,24 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
           returnImage: false,
         ),
         onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          
-          
-          showDialog(
-            barrierColor: Colors.white.withOpacity(0),
-            context: context,
-            builder: (_) {
-              
-              return NotFoundPopup(barcode: "3234234234234");
-              
-            }
-    );
+          if (!scanning) {
+            setState(() {
+              scanning = true;
+            });
+
+            final List<Barcode> barcodes = capture.barcodes;
+            showDialog(
+              barrierColor: Colors.white.withOpacity(0),
+              context: context,
+              builder: (_) {
+                return NotFoundPopup(barcode: "3483494");
+              },
+            ).then((_) {
+              setState(() {
+                scanning = false;
+              });
+            });
+          }
         },
       ),
     );

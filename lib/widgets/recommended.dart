@@ -6,11 +6,13 @@ import 'package:frontend_oky_code/widgets/dummy_products.dart';
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
   final bool ready;
+  bool canScan;
 
-  const Recommended({
+  Recommended({
     Key? key,
     required this.recommendedProducts,
     required this.ready,
+    required this.canScan
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class _RecommendedState extends State<Recommended> {
         return ProductDetailV2(
           product: product["product"],
           evaluation: product["algorithm"],
+          canScan: widget.canScan,
         );
       },
     );

@@ -10,7 +10,7 @@ class NotFoundPopup extends StatelessWidget {
   }) : super(key: key);
 
   void _addProduct(BuildContext context) {
-    Navigator.pop(context);
+    //Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,
@@ -34,7 +34,7 @@ class NotFoundPopup extends StatelessWidget {
   }
 
   void _notifyMissing(BuildContext context) async {
-    notifyMissingProduct(barcode);
+    //notifyMissingProduct(barcode);
     Navigator.pop(context);
   }
 

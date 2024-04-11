@@ -35,6 +35,8 @@ class _NewProductPageState extends State<NewProductPage> {
   }
 
   void _goBack(BuildContext context) async {
+    Navigator.pop(context);
+    /*
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -54,6 +56,7 @@ class _NewProductPageState extends State<NewProductPage> {
         },
       ),
     );
+    */
   }
 
   void _nextStep(BuildContext context) async {

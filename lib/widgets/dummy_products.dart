@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 
 class DummyProduct extends StatelessWidget {
 

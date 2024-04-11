@@ -9,9 +9,10 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 class ProductDetailV2 extends StatefulWidget {
   final dynamic product;
   final dynamic evaluation;
+  bool canScan;
 
-  const ProductDetailV2(
-      {Key? key, required this.product, required this.evaluation})
+  ProductDetailV2(
+      {Key? key, required this.product, required this.evaluation, required this.canScan})
       : super(key: key);
 
   @override
@@ -75,7 +76,10 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
           direction: DismissDirection.down,
           dismissThresholds: const {DismissDirection.down: 0.25},
           key: const Key('key'),
-          onDismissed: (_) => Navigator.of(context).pop(),
+          onDismissed: (_) {
+            
+            Navigator.of(context).pop();
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +113,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                 ),
               ),
               Expanded(
-                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts, ready: ready),
+                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts, ready: ready, canScan: widget.canScan),
               ), 
             ],
           ),
