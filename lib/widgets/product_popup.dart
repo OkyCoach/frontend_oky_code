@@ -116,13 +116,9 @@ class _ProductPopupState extends State<ProductPopup> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                widget.product["ok_to_shop"]
-                                                ?["basicInformation"]
-                                            ?["photoUrl"] !=
-                                        null
+                                widget.product["photoUrl"] != null
                                     ? Image.network(
-                                        widget.product["ok_to_shop"]
-                                            ?["basicInformation"]?["photoUrl"],
+                                        widget.product["photoUrl"],
                                         height: screenHeight * 0.15,
                                         width: screenHeight * 0.15,
                                         errorBuilder: (BuildContext context,
@@ -150,10 +146,7 @@ class _ProductPopupState extends State<ProductPopup> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.product["ok_to_shop"]
-                                                      ?["basicInformation"]
-                                                  ?["description"] ??
-                                              'not_found',
+                                          widget.product["name"] ?? 'not_found',
                                           style: TextStyle(
                                             fontFamily: "Gilroy-SemiBold",
                                             fontSize: screenHeight * 0.025,
@@ -163,15 +156,11 @@ class _ProductPopupState extends State<ProductPopup> {
                                           maxLines: 2,
                                         ),
                                         Text(
-                                          (widget
-                                                      .product["ok_to_shop"]
-                                                          ?["basicInformation"]
-                                                          ?["brands"]
+                                          (widget.product?["brands"]
                                                       ?.isNotEmpty ??
                                                   false)
-                                              ? widget.product["ok_to_shop"]
-                                                          ["basicInformation"]
-                                                      ["brands"][0]["name"] ??
+                                              ? widget.product["brands"][0]
+                                                      ["name"] ??
                                                   'not_found'
                                               : 'not_found',
                                           style: TextStyle(

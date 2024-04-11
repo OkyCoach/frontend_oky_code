@@ -58,55 +58,46 @@ class _RecommendedState extends State<Recommended> {
                 color: const Color(0xFF201547),
               ),
             ),
-            if(widget.ready && widget.recommendedProducts.isNotEmpty)
+            if (widget.ready && widget.recommendedProducts.isNotEmpty)
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    children: widget.recommendedProducts.map((product) {
-                      return buildProduct(product, context); 
-                    }).toList(), 
-                  )
-                )
-              ),
-            if(widget.ready && !widget.recommendedProducts.isNotEmpty)
-              SizedBox(
-                width: screenWidth,
-                height: 100,
-                child: const Align(
-                  alignment: Alignment.center,
+                  scrollDirection: Axis.horizontal,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      "Mejor producto de la categoria.",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: "Gilroy-Regular",
-                        color: Color(0xFF201547),
-                      ),
-                    ),
-                  )
-                )
-              ),
-
-            if(!widget.ready) 
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        children: widget.recommendedProducts.map((product) {
+                          return buildProduct(product, context);
+                        }).toList(),
+                      ))),
+            if (widget.ready && !widget.recommendedProducts.isNotEmpty)
+              SizedBox(
+                  width: screenWidth,
+                  height: 100,
+                  child: const Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          "Mejor producto de la categoria.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: "Gilroy-Regular",
+                            color: Color(0xFF201547),
+                          ),
+                        ),
+                      ))),
+            if (!widget.ready)
               const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    children: [  
-                      DummyProduct(),
-                      DummyProduct(),
-                      DummyProduct(),
-                      DummyProduct(),
-                    ], 
-                  )
-                )
-              )
-            
-                
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        children: [
+                          DummyProduct(),
+                          DummyProduct(),
+                          DummyProduct(),
+                          DummyProduct(),
+                        ],
+                      )))
           ],
         ),
       ),
@@ -118,83 +109,70 @@ class _RecommendedState extends State<Recommended> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return SizedBox(
-      width: screenWidth / 3,
-      child:GestureDetector(
-        onTap: () {
-          _showProductDetails(context, product);
-        },
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: product["product"]["ok_to_shop"]?["basicInformation"]
-                              ?["photoUrl"] !=
-                          null
-                      ? Image.network(
-                          product["product"]["ok_to_shop"]?["basicInformation"]
-                              ?["photoUrl"],
-                          height: 70,
-                          width: 70,
-                          errorBuilder: (BuildContext context, Object error,
-                              StackTrace? stackTrace) {
-                            return Image.asset(
-                              'lib/assets/image_not_found.png',
+        width: screenWidth / 3,
+        child: GestureDetector(
+            onTap: () {
+              _showProductDetails(context, product);
+            },
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: product["product"]?["photoUrl"] != null
+                          ? Image.network(
+                              product["product"]?["photoUrl"],
                               height: 70,
                               width: 70,
-                            );
-                          },
-                        )
-                      : Image.asset(
-                          'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
-                          height: 70,
-                          width: 70,
-                        ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  product["product"]["ok_to_shop"]?["basicInformation"]
-                          ?["description"] ??
-                      'not_found',
-                  style: TextStyle(
-                    fontSize: screenHeight * 0.015,
-                    fontFamily: "Gilroy-Bold",
-                    color: const Color(0xFF201547),
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  (product["product"]["ok_to_shop"]?["basicInformation"]
-                                  ?["brands"]
-                              ?.isNotEmpty ??
-                          false)
-                      ? product["product"]["ok_to_shop"]["basicInformation"]
-                              ["brands"][0]["name"] ??
-                          'not_found'
-                      : 'not_found',
-                  style: TextStyle(
-                    fontSize: screenHeight * 0.015,
-                    fontFamily: "Gilroy-Medium",
-                    color: const Color(0xFF201547),
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-                const SizedBox(height: 2),
-                StarsWidget(
-                    maxScore: product["algorithm"]["puntos_totales"],
-                    actualScore: product["algorithm"]["puntos_obtenidos"],
-                    height: 0.02),
-              ],
-            ))));
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return Image.asset(
+                                  'lib/assets/image_not_found.png',
+                                  height: 70,
+                                  width: 70,
+                                );
+                              },
+                            )
+                          : Image.asset(
+                              'lib/assets/image_not_found.png', // Reemplaza con la ruta de tu imagen por defecto
+                              height: 70,
+                              width: 70,
+                            ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      product["product"]?["name"] ?? 'not_found',
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.015,
+                        fontFamily: "Gilroy-Bold",
+                        color: const Color(0xFF201547),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      (product["product"]?["brands"]?.isNotEmpty ?? false)
+                          ? product["product"]["brands"][0]["name"] ??
+                              'not_found'
+                          : 'not_found',
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.015,
+                        fontFamily: "Gilroy-Medium",
+                        color: const Color(0xFF201547),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: 2),
+                    StarsWidget(
+                        maxScore: product["algorithm"]["puntos_totales"],
+                        actualScore: product["algorithm"]["puntos_obtenidos"],
+                        height: 0.02),
+                  ],
+                ))));
   }
-
-  
 }
-
-

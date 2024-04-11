@@ -60,20 +60,7 @@ class ProductDetail extends StatelessWidget {
                           top: 8),
                     ),
                     ProductInfoRow(
-                      photoUrl: product["ok_to_shop"]?["basicInformation"]
-                              ?["photoUrl"] ??
-                          "not_found",
-                      description: product["ok_to_shop"]?["basicInformation"]
-                              ?["description"] ??
-                          "not_found",
-                      brandName: (product["ok_to_shop"]?["basicInformation"]
-                                      ?["brands"]
-                                  ?.isNotEmpty ??
-                              false)
-                          ? (product["ok_to_shop"]["basicInformation"]["brands"]
-                                  [0]["name"] ??
-                              'not_found')
-                          : 'not_found',
+                      product: product,
                       evaluation: evaluation,
                     ),
                     /*
