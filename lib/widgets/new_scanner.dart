@@ -4,6 +4,7 @@ import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/widgets/no_evaluation_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
+import 'package:vibration/vibration.dart';
 
 class MyScannerWidget extends StatefulWidget {
   @override
@@ -39,25 +40,38 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
               });
 
               final List<Barcode> barcodes = capture.barcodes;
+              bool? hasVibrator = await Vibration.hasVibrator();
+
+              // Realizar vibración leve si el dispositivo tiene vibrador
+              if (hasVibrator == true) {
+                // Verifica que hasVibrator sea true, no nulo
+                Vibration.vibrate(duration: 100);
+              }
               var scanResult = await _didScan(barcodes[0].rawValue);
 
               showDialog(
-                barrierColor: Colors.white.withOpacity(0),
-                context: context,
-                builder: (_) {
-                  if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] != null) {
-                    return ProductPopup(product: scanResult["product"], evaluation: scanResult["evaluation"]);
-                  } else if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] == null) {
-                    return NoEvaluationPopup(product: scanResult["product"]);
-                  } else {
-                    return NotFoundPopup(barcode: barcodes[0].rawValue);
-                  }
-                }
-              ).then((_) {
-                setState(() {
-                  scanning = false;
-                });
-              });
+                  barrierColor: Colors.white.withOpacity(0),
+                  context: context,
+                  builder: (_) {
+                    if (scanResult["product"]["barcode"] != null &&
+                        scanResult["evaluation"]["puntos_obtenidos"] != null) {
+                      return ProductPopup(
+                        product: scanResult["product"],
+                        evaluation: scanResult["evaluation"],
+                        scanning: scanning,
+                        controlScan: (newValue) {
+                          setState(() {
+                            scanning = newValue;
+                          });
+                        },
+                      );
+                    } else if (scanResult["product"]["barcode"] != null &&
+                        scanResult["evaluation"]["puntos_obtenidos"] == null) {
+                      return NoEvaluationPopup(product: scanResult["product"]);
+                    } else {
+                      return NotFoundPopup(barcode: barcodes[0].rawValue);
+                    }
+                  });
             }
           },
         ),

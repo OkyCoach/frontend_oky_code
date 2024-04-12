@@ -18,6 +18,7 @@ class Recommended extends StatefulWidget {
 }
 
 class _RecommendedState extends State<Recommended> {
+  /*
   void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
@@ -31,6 +32,7 @@ class _RecommendedState extends State<Recommended> {
       },
     );
   }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,7 @@ class _RecommendedState extends State<Recommended> {
         width: screenWidth / 3,
         child: GestureDetector(
             onTap: () {
-              _showProductDetails(context, product);
+              //_showProductDetails(context, product);
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),

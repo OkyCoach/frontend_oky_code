@@ -7,11 +7,15 @@ import 'package:frontend_oky_code/widgets/recommended.dart';
 class ProductPopup extends StatefulWidget {
   final dynamic product; // Objeto con atributos variables
   final dynamic evaluation;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
 
   ProductPopup({
     Key? key,
     required this.product,
     required this.evaluation,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   @override
@@ -31,6 +35,8 @@ class _ProductPopupState extends State<ProductPopup> {
         return ProductDetailV2(
           product: widget.product,
           evaluation: widget.evaluation,
+          scanning: widget.scanning,
+          controlScan: widget.controlScan,
         );
       },
     );
@@ -88,6 +94,7 @@ class _ProductPopupState extends State<ProductPopup> {
                         color: Color(0xFF7448ED),
                       ),
                       onPressed: () {
+                        widget.controlScan(false);
                         Navigator.pop(context);
                       },
                     ),

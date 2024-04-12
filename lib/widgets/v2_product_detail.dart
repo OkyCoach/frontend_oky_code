@@ -9,10 +9,16 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 class ProductDetailV2 extends StatefulWidget {
   final dynamic product;
   final dynamic evaluation;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
 
-  const ProductDetailV2(
-      {Key? key, required this.product, required this.evaluation})
-      : super(key: key);
+  const ProductDetailV2({
+    Key? key,
+    required this.product,
+    required this.evaluation,
+    required this.scanning,
+    required this.controlScan,
+  }) : super(key: key);
 
   @override
   _ProductDetailV2State createState() => _ProductDetailV2State();
@@ -61,7 +67,10 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
             direction: DismissDirection.down,
             dismissThresholds: const {DismissDirection.down: 0.25},
             key: const Key('key'),
-            onDismissed: (_) => Navigator.of(context).pop(),
+            onDismissed: (_) => {
+              widget.controlScan(false),
+              Navigator.of(context).pop()
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
