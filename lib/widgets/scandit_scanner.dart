@@ -156,7 +156,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       context: context,
       builder: (_) {
         if (product["barcode"] != null && evaluation["puntos_obtenidos"] != null) {
-          return ProductPopup(product: product, evaluation: evaluation, canScan: canScan,);
+          return ProductPopup(product: product, evaluation: evaluation);
         } else if (product["barcode"] != null && evaluation["puntos_obtenidos"] == null) {
           return NoEvaluationPopup(product: product);
         } else {

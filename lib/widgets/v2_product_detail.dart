@@ -9,10 +9,9 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 class ProductDetailV2 extends StatefulWidget {
   final dynamic product;
   final dynamic evaluation;
-  bool canScan;
 
-  ProductDetailV2(
-      {Key? key, required this.product, required this.evaluation, required this.canScan})
+  const ProductDetailV2(
+      {Key? key, required this.product, required this.evaluation})
       : super(key: key);
 
   @override
@@ -52,45 +51,31 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     return DefaultTabController(
       length: 1,
       child: Dialog(
-        backgroundColor: Colors.transparent, // Fondo azul
-        insetPadding: EdgeInsets.only(bottom: screenHeight*0.07),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // Ajusta el radio según tu preferencia
-        ),
-        child: Dismissible(
-          direction: DismissDirection.down,
-          dismissThresholds: const {DismissDirection.down: 0.25},
-          key: const Key('key'),
-          onDismissed: (_) {
-            
-            Navigator.of(context).pop();
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IntrinsicHeight(
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * margins),
-                  padding: const EdgeInsets.only(
-                      top: 10, left: 5, right: 5),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const DismissibleBar(width: 40),
-                      ProductInfoRow(
-                        photoUrl: photoUrl,
-                        description: description,
-                        brandName: brandName,
-                        evaluation: widget.evaluation,
+          backgroundColor: Colors.transparent, // Fondo azul
+          insetPadding: EdgeInsets.only(bottom: screenHeight * 0.07),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                0), // Ajusta el radio según tu preferencia
+          ),
+          child: Dismissible(
+            direction: DismissDirection.down,
+            dismissThresholds: const {DismissDirection.down: 0.25},
+            key: const Key('key'),
+            onDismissed: (_) => Navigator.of(context).pop(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IntrinsicHeight(
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: screenWidth * margins),
+                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
                       ),
                     ),
                     child: Column(
@@ -106,16 +91,6 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                     ),
                   ),
                 ),
-<<<<<<< HEAD
-              ),
-              Expanded(
-                child: ProductTabsContent(evaluation: widget.evaluation, recommendedProducts: recommendedProducts, ready: ready, canScan: widget.canScan),
-              ), 
-            ],
-          ),
-        )
-      ),
-=======
                 Expanded(
                   child: ProductTabsContent(
                       evaluation: widget.evaluation,
@@ -125,7 +100,6 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
               ],
             ),
           )),
->>>>>>> develop
     );
   }
 }

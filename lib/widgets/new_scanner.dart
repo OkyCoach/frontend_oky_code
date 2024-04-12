@@ -22,41 +22,45 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MobileScanner(
-        fit: BoxFit.contain,
-        controller: MobileScannerController(
-          // facing: CameraFacing.back,
-          // torchEnabled: false,
-          returnImage: false,
-        ),
-        onDetect: (capture) async {
-          if (!scanning) {
-            setState(() {
-              scanning = true;
-            });
-
-            final List<Barcode> barcodes = capture.barcodes;
-            var scanResult = await _didScan(barcodes[0].rawValue);
-
-            showDialog(
-              barrierColor: Colors.white.withOpacity(0),
-              context: context,
-              builder: (_) {
-                if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] != null) {
-                  return ProductPopup(product: scanResult["product"], evaluation: scanResult["evaluation"], canScan: true,);
-                } else if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] == null) {
-                  return NoEvaluationPopup(product: scanResult["product"]);
-                } else {
-                  return NotFoundPopup(barcode: barcodes[0].rawValue);
-                }
-              }
-            ).then((_) {
+      body: SizedBox(
+        width: double.infinity, // Ocupa todo el ancho de la pantalla
+        height: double.infinity, // Ocupa todo el alto de la pantalla
+        child: MobileScanner(
+          fit: BoxFit.fill, // Para que el escáner llene el contenedor
+          controller: MobileScannerController(
+            // facing: CameraFacing.back,
+            // torchEnabled: false,
+            returnImage: false,
+          ),
+          onDetect: (capture) async {
+            if (!scanning) {
               setState(() {
-                scanning = false;
+                scanning = true;
               });
-            });
-          }
-        },
+
+              final List<Barcode> barcodes = capture.barcodes;
+              var scanResult = await _didScan(barcodes[0].rawValue);
+
+              showDialog(
+                barrierColor: Colors.white.withOpacity(0),
+                context: context,
+                builder: (_) {
+                  if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] != null) {
+                    return ProductPopup(product: scanResult["product"], evaluation: scanResult["evaluation"]);
+                  } else if (scanResult["product"]["barcode"] != null && scanResult["evaluation"]["puntos_obtenidos"] == null) {
+                    return NoEvaluationPopup(product: scanResult["product"]);
+                  } else {
+                    return NotFoundPopup(barcode: barcodes[0].rawValue);
+                  }
+                }
+              ).then((_) {
+                setState(() {
+                  scanning = false;
+                });
+              });
+            }
+          },
+        ),
       ),
     );
   }
