@@ -4,9 +4,14 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class NotFoundPopup extends StatelessWidget {
   final String? barcode;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
+
   const NotFoundPopup({
     Key? key,
     required this.barcode,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   void _addProduct(BuildContext context) {
@@ -93,6 +98,7 @@ class NotFoundPopup extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
+                      controlScan(false);
                       _addProduct(context);
                     },
                     child: Image.asset(
@@ -104,6 +110,7 @@ class NotFoundPopup extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 5),
                       child: InkWell(
                         onTap: () {
+                          controlScan(false);
                           _notifyMissing(context);
                         },
                         child: Text(

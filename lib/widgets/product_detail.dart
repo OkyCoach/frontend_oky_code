@@ -73,13 +73,11 @@ class ProductDetail extends StatelessWidget {
                       ),
                       */
                     const ProductTabs(),
-                    //ProductTabsContent(evaluation: evaluation, recommendedProducts: re,),
                   ],
                 ),
               ),
             ),
           ),
-          //Recommended(recommendedProducts: product)
         ]));
   }
 }

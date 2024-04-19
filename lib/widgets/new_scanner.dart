@@ -50,6 +50,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
               var scanResult = await _didScan(barcodes[0].rawValue);
 
               showDialog(
+                  barrierDismissible: false,
                   barrierColor: Colors.white.withOpacity(0),
                   context: context,
                   builder: (_) {
@@ -63,13 +64,29 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
                           setState(() {
                             scanning = newValue;
                           });
-                        },
+                        }
                       );
                     } else if (scanResult["product"]["barcode"] != null &&
                         scanResult["evaluation"]["puntos_obtenidos"] == null) {
-                      return NoEvaluationPopup(product: scanResult["product"]);
+                      return NoEvaluationPopup(
+                        product: scanResult["product"],
+                        scanning: scanning,
+                        controlScan: (newValue) {
+                          setState(() {
+                            scanning = newValue;
+                          });
+                        }
+                      );
                     } else {
-                      return NotFoundPopup(barcode: barcodes[0].rawValue);
+                      return NotFoundPopup(
+                        barcode: barcodes[0].rawValue,
+                        scanning: scanning,
+                        controlScan: (newValue) {
+                          setState(() {
+                            scanning = newValue;
+                          });
+                        }
+                      );
                     }
                   });
             }

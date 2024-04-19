@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 class NoEvaluationPopup extends StatelessWidget {
   final dynamic product;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
+
   const NoEvaluationPopup({
     Key? key,
     required this.product,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   @override
@@ -103,6 +108,7 @@ class NoEvaluationPopup extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
+                      controlScan(false);
                       Navigator.pop(context);
                     },
                     child: Image.asset(

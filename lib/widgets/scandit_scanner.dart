@@ -152,19 +152,21 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     var product = await fetchBarcodeData(data);
     var evaluation = await fetchEvaluationData(data);
     await showDialog(
-      barrierColor: Colors.white.withOpacity(0),
-      context: context,
-      builder: (_) {
-        if (product["barcode"] != null && evaluation["puntos_obtenidos"] != null) {
-          //return ProductPopup(product: product, evaluation: evaluation);
-          return NoEvaluationPopup(product: product);
-        } else if (product["barcode"] != null && evaluation["puntos_obtenidos"] == null) {
-          return NoEvaluationPopup(product: product);
-        } else {
-          return NotFoundPopup(barcode: data);
-        }
-      }
-    );
+        barrierColor: Colors.white.withOpacity(0),
+        context: context,
+        builder: (_) {
+          return Column();
+          if (product["barcode"] != null &&
+              evaluation["puntos_obtenidos"] != null) {
+            //return ProductPopup(product: product, evaluation: evaluation);
+            //return NoEvaluationPopup(product: product);
+          } else if (product["barcode"] != null &&
+              evaluation["puntos_obtenidos"] == null) {
+            //return NoEvaluationPopup(product: product);
+          } else {
+            //return NotFoundPopup(barcode: data);
+          }
+        });
 
     _barcodeCapture.isEnabled = canScan;
   }
