@@ -98,8 +98,8 @@ class NotFoundPopup extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      controlScan(false);
                       _addProduct(context);
+                      controlScan(false);
                     },
                     child: Image.asset(
                       'lib/assets/botones/oky.png', // Ruta de tu imagen

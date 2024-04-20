@@ -79,7 +79,7 @@ class TableEvaluation extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Según la dosis diaria recomendada",
+                          "Según la porción recomendada.",
                           style: TextStyle(
                             fontFamily: "Gilroy-Medium",
                             fontSize: screenHeight * 0.015,
