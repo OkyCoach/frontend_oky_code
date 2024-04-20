@@ -39,6 +39,7 @@ class _SendProductPageState extends State<SendProductPage> {
   }
 
   void sendInfo(BuildContext context) async {
+    _goToScanner(context);
     setState(() {
       _isLoading = true;
     });
@@ -54,8 +55,7 @@ class _SendProductPageState extends State<SendProductPage> {
         backImageUrl);
     setState(() {
       _isLoading = false;
-    });
-    _goToScanner(context);
+    });  
   }
 
   @override

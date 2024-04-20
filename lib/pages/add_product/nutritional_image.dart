@@ -28,7 +28,7 @@ class _CameraScreenState extends State<NutritionalImageCapture> {
 
   Future<void> initializeCamera() async {
     _cameras = await availableCameras();
-    controller = CameraController(_cameras[0], ResolutionPreset.max);
+    controller = CameraController(_cameras[0], ResolutionPreset.medium);
 
     try {
       await controller.initialize();
