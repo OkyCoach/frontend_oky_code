@@ -19,12 +19,13 @@ class _ProfileState extends State<ProfilePage> {
     // Initialize the future for user data
     _userDataFuture = AuthManager().getSession();
   }
+
   void _logout() async {
     // Perform logout logic
     await AuthManager().clearSession();
     // Navigate to login screen
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MyApp(isFirstTime: false, isLogged: false)));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => MyApp(isFirstTime: false, isLogged: false)));
   }
 
   @override
@@ -55,42 +56,54 @@ class _ProfileState extends State<ProfilePage> {
             } else if (snapshot.hasData) {
               // When we have the data, display it
               final userData = snapshot.data!;
-              Map<String, dynamic> userInfo = json.decode(userData['userInfo']!); 
+              if (userData.containsKey('userInfo') && userData['userInfo'] != null) {
+                Map<String, dynamic> userInfo =
+                    json.decode(userData['userInfo']!);
 
-              
-
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Nombre: ${userInfo['cognito:username']}', // Replace with actual data key
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Nombre: ${userInfo['cognito:username']}',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Email: ${userInfo['email']}', // Replace with actual data key
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _logout,
-                      child: const Text(
-                        'Cerrar sesión',
-                        style: TextStyle(
+                      Text(
+                        'Email: ${userInfo['email']}',
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         ),
                       ),
+                      TextButton(
+                        onPressed: _logout,
+                        child: const Text(
+                          'Cerrar sesión',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                // If user data is not found or is null, show appropriate message
+                return Center(
+                  child: Text(
+                    'No se ha iniciado sesión.',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              );
+                  ),
+                );
+              }
             } else {
               // If there is no data, prompt the user
               return const Center(child: Text('No user data found.'));

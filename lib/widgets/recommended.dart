@@ -6,11 +6,15 @@ import 'package:frontend_oky_code/widgets/dummy_products.dart';
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
   final bool ready;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
 
-  const Recommended({
+  Recommended({
     Key? key,
     required this.recommendedProducts,
     required this.ready,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   @override
@@ -18,6 +22,7 @@ class Recommended extends StatefulWidget {
 }
 
 class _RecommendedState extends State<Recommended> {
+  
   void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
@@ -27,10 +32,13 @@ class _RecommendedState extends State<Recommended> {
         return ProductDetailV2(
           product: product["product"],
           evaluation: product["algorithm"],
+          scanning: widget.scanning,
+          controlScan: widget.controlScan,
         );
       },
     );
   }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 class NoEvaluationPopup extends StatelessWidget {
   final dynamic product;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
+
   const NoEvaluationPopup({
     Key? key,
     required this.product,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double popupHeight = 300;
+    double popupHeight = 350;
 
     double logoWidth = 70;
 
@@ -29,7 +34,8 @@ class NoEvaluationPopup extends StatelessWidget {
           child: SizedBox(
             height: popupHeight,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 40, bottom: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,21 +47,21 @@ class NoEvaluationPopup extends StatelessWidget {
                         product["photoUrl"] != null
                             ? Image.network(
                                 product["photoUrl"],
-                                height: screenHeight * 0.12,
-                                width: screenHeight * 0.12,
+                                height: screenWidth * 0.22,
+                                width: screenWidth * 0.22,
                                 errorBuilder: (BuildContext context,
                                     Object error, StackTrace? stackTrace) {
                                   return Image.asset(
                                     'lib/assets/image_not_found.png',
-                                    height: screenHeight * 0.12,
-                                    width: screenHeight * 0.12,
+                                    height: screenWidth * 0.22,
+                                    width: screenWidth * 0.22,
                                   );
                                 },
                               )
                             : Image.asset(
                                 'lib/assets/image_not_found.png',
-                                height: screenHeight * 0.12,
-                                width: screenHeight * 0.12,
+                                height: screenWidth * 0.22,
+                                width: screenWidth * 0.22,
                               ),
                         Expanded(
                             child: Padding(
@@ -68,7 +74,7 @@ class NoEvaluationPopup extends StatelessWidget {
                                       product["name"] ?? 'not_found',
                                       style: TextStyle(
                                         fontFamily: "Gilroy-SemiBold",
-                                        fontSize: screenHeight * 0.025,
+                                        fontSize: screenWidth * 0.06,
                                         color: const Color(0xFF7448ED),
                                       ),
                                       overflow: TextOverflow.ellipsis,
@@ -81,7 +87,7 @@ class NoEvaluationPopup extends StatelessWidget {
                                           : 'not_found',
                                       style: TextStyle(
                                         fontFamily: "Gilroy-Medium",
-                                        fontSize: screenHeight * 0.025,
+                                        fontSize: screenWidth * 0.05,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
@@ -95,13 +101,14 @@ class NoEvaluationPopup extends StatelessWidget {
                       "No tenemos evaluación para la categoría de este producto por el momento.",
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
-                        fontSize: screenHeight * 0.02,
+                        fontSize: screenWidth * 0.045,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   InkWell(
                     onTap: () {
+                      controlScan(false);
                       Navigator.pop(context);
                     },
                     child: Image.asset(

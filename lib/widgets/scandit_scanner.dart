@@ -29,6 +29,8 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
   late BarcodeCapture _barcodeCapture;
   late DataCaptureView _captureView;
 
+  bool canScan = false;
+
   bool _isPermissionMessageVisible = false;
 
   _BarcodeScannerScreenState(this._context);
@@ -142,7 +144,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
   @override
   void didScan(
       BarcodeCapture barcodeCapture, BarcodeCaptureSession session) async {
-    _barcodeCapture.isEnabled = false;
+    _barcodeCapture.isEnabled = canScan;
     var code = session.newlyRecognizedBarcodes.first;
     var data = (code.data == null || code.data?.isEmpty == true)
         ? code.rawData
@@ -153,18 +155,20 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
         barrierColor: Colors.white.withOpacity(0),
         context: context,
         builder: (_) {
+          return Column();
           if (product["barcode"] != null &&
               evaluation["puntos_obtenidos"] != null) {
-            return ProductPopup(product: product, evaluation: evaluation);
+            //return ProductPopup(product: product, evaluation: evaluation);
+            //return NoEvaluationPopup(product: product);
           } else if (product["barcode"] != null &&
               evaluation["puntos_obtenidos"] == null) {
-            return NoEvaluationPopup(product: product);
+            //return NoEvaluationPopup(product: product);
           } else {
-            return NotFoundPopup(barcode: data);
+            //return NotFoundPopup(barcode: data);
           }
         });
 
-    _barcodeCapture.isEnabled = true;
+    _barcodeCapture.isEnabled = canScan;
   }
 
   @override

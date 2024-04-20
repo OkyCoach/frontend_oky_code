@@ -6,12 +6,16 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
+  final bool scanning;
+  final ValueChanged<bool> controlScan;
 
-  const ProductTabsContent({
+  ProductTabsContent({
     Key? key,
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
+    required this.scanning,
+    required this.controlScan,
   }) : super(key: key);
 
   @override
@@ -28,7 +32,12 @@ class ProductTabsContent extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
               child: TableEvaluation(evaluation: evaluation),
             ),
-            Recommended(recommendedProducts: recommendedProducts, ready: ready)
+            Recommended(
+              recommendedProducts: recommendedProducts, 
+              ready: ready,
+              scanning: scanning,
+              controlScan: controlScan,
+            )
           ],
         ),
         

@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend_oky_code/widgets/new_scanner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,7 +76,8 @@ class _MainState extends State<MainPage> {
     final pages = [
       const HomePage(),
       const ProfilePage(),
-      BarcodeScannerScreen(),
+      MyScannerWidget(),
+      //BarcodeScannerScreen(),
       const NutricoachPage(),
       const SearchPage(),
     ];

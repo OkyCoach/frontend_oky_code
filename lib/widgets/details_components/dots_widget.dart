@@ -12,9 +12,9 @@ class DotsWidget extends StatelessWidget {
       required this.display})
       : super(key: key);
 
-  List<int> getMaxValue(List<dynamic> ranges) {
-    int maxValue = 0;
-    int minValue = 0;
+  List<num> getRangeValues(List<dynamic> ranges) {
+    num maxValue = 0;
+    num minValue = 0;
     for (var range in ranges) {
       if (range["max"] == 1000) {
         maxValue = range["min"];
@@ -28,9 +28,9 @@ class DotsWidget extends StatelessWidget {
     return [minValue, maxValue];
   }
 
-  double calculateSelectedDot(int score) {
+  double calculateSelectedDot(num score) {
     int maxDots = 11;
-    List<int> limits = getMaxValue(ranges);
+    List<num> limits = getRangeValues(ranges);
     score = score.toInt().clamp(limits[0], limits[1]);
     double selectedDot = (((score- limits[0]) / (limits[1]- limits[0])) * maxDots).roundToDouble();
     if (display == 1) {
