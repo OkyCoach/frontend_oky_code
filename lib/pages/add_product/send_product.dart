@@ -6,7 +6,7 @@ import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class SendProductPage extends StatefulWidget {
   final dynamic data;
-  
+
   const SendProductPage({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -15,19 +15,8 @@ class SendProductPage extends StatefulWidget {
 
 class _SendProductPageState extends State<SendProductPage> {
   bool _isLoading = false;
-  
 
-  void sendInfo(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-    var frontImageUrl = await uploadImage(widget.data["frontImagePath"], "front");
-    var backImageUrl = await uploadImage(widget.data["nutritionalImagePath"], "back");
-    String status = await requestProduct(widget.data["barcode"], widget.data["productName"],
-        widget.data["brand"], frontImageUrl, backImageUrl);
-    setState(() {
-      _isLoading = false;
-    });
+  void _goToScanner(BuildContext context) async {
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -47,8 +36,26 @@ class _SendProductPageState extends State<SendProductPage> {
         },
       ),
     );
+  }
 
-    
+  void sendInfo(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    var frontImageUrl =
+        await uploadImage(widget.data["frontImagePath"], "front");
+    var backImageUrl =
+        await uploadImage(widget.data["nutritionalImagePath"], "back");
+    String status = await requestProduct(
+        widget.data["barcode"],
+        widget.data["productName"],
+        widget.data["brand"],
+        frontImageUrl,
+        backImageUrl);
+    setState(() {
+      _isLoading = false;
+    });
+    _goToScanner(context);
   }
 
   @override
@@ -141,19 +148,16 @@ class _SendProductPageState extends State<SendProductPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: LoadingButton(
-                  buttonText: "Enviar",
-                  onPressed: () {
-                    sendInfo(context);
-                  },
-                  size: 130,
-                  isLoading: _isLoading,
-                  color: 'green'
-                )
-              )
-            ]
-          ),
+                  padding: const EdgeInsets.only(top: 25),
+                  child: LoadingButton(
+                      buttonText: "Enviar",
+                      onPressed: () {
+                        sendInfo(context);
+                      },
+                      size: 130,
+                      isLoading: _isLoading,
+                      color: 'green'))
+            ]),
       ),
     );
   }

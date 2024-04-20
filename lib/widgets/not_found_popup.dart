@@ -15,7 +15,7 @@ class NotFoundPopup extends StatelessWidget {
   }) : super(key: key);
 
   void _addProduct(BuildContext context) {
-    //Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,
