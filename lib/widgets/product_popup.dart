@@ -29,6 +29,7 @@ class _ProductPopupState extends State<ProductPopup> {
   void _showProductDetails(context) {
     Navigator.pop(context);
     showDialog(
+      barrierDismissible: false,
       barrierColor: Colors.white.withOpacity(0),
       context: context,
       builder: (BuildContext context) {
