@@ -26,6 +26,7 @@ class _RecommendedState extends State<Recommended> {
   void _showProductDetails(BuildContext context, dynamic product) {
     Navigator.pop(context);
     showDialog(
+      barrierDismissible: false,
       barrierColor: Colors.white.withOpacity(0),
       context: context,
       builder: (BuildContext context) {

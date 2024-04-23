@@ -31,7 +31,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
     // Handle the case when no cameras are available
     return;
   }
-    controller = CameraController(_cameras[0], ResolutionPreset.medium);
+    controller = CameraController(_cameras[0], ResolutionPreset.max, enableAudio: false);
 
     try {
       await controller.initialize();
