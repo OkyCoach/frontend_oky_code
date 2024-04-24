@@ -209,7 +209,7 @@ class _ProductPopupState extends State<ProductPopup> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pop();
+                                      //Navigator.of(context).pop();
                                     },
                                     child: ClipOval(
                                       child: ColorFiltered(
