@@ -48,6 +48,7 @@ dependencies:
   permission_handler: ^11.3.0
   mobile_scanner: ^4.0.1
   vibration: ^1.8.4
+  image: ^4.1.7
   
 
 dev_dependencies:
