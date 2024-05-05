@@ -49,6 +49,7 @@ dependencies:
   mobile_scanner: ^4.0.1
   vibration: ^1.8.4
   image: ^4.1.7
+  crop_image: ^1.0.12
   
 
 dev_dependencies:

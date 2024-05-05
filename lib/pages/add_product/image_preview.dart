@@ -5,6 +5,8 @@ import 'package:frontend_oky_code/pages/add_product/nutritional_image.dart';
 import 'package:frontend_oky_code/pages/add_product/send_product.dart';
 import 'package:frontend_oky_code/main.dart';
 import 'package:frontend_oky_code/helpers/image_converter.dart';
+import 'package:crop_image/crop_image.dart' as crop_image;
+
 
 class ImagePreviewPage extends StatefulWidget {
   final dynamic data;
@@ -90,6 +92,18 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
     setState(() {
       rotationAngle += 90.0;
       if (rotationAngle == 360.0) rotationAngle = 0.0;
+    });
+  }
+
+  void cropImage() async {
+    File croppedFile = await crop_image.croppedImage(
+      file: _imageFile,
+      area: Rect.fromLTWH(50, 50, 200, 200), // área de recorte (x, y, ancho, alto)
+    );
+
+    // Actualiza la imagen recortada
+    setState(() {
+      _imageFile = croppedFile;
     });
   }
 
