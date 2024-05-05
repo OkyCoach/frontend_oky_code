@@ -63,7 +63,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 2;
+  int _currentIndex = 0;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -74,12 +74,12 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const HomePage(),
-      const ProfilePage(),
+      //const HomePage(),
       MyScannerWidget(),
+      const ProfilePage(),
       //BarcodeScannerScreen(),
-      const NutricoachPage(),
-      const SearchPage(),
+      //const NutricoachPage(),
+      //const SearchPage(),
     ];
     return Scaffold(
         body: pages[_currentIndex],

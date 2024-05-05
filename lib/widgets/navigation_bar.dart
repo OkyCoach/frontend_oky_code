@@ -29,6 +29,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         widget.onUpdateIndex(index);
       },
       destinations: [
+        /*
         NavigationDestination(
           icon: Container(
             margin: const EdgeInsets.fromLTRB(
@@ -37,6 +38,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             child: Image.asset('lib/assets/logos/logo_borde_morado.png'),
           ),
           label: "",
+        ),*/
+        NavigationDestination(
+          icon: SizedBox(
+            width: screenHeight * 0.035,
+            child: Image.asset('lib/assets/scanner.png'),
+          ),
+          label: "Scanner",
         ),
         NavigationDestination(
           icon: SizedBox(
@@ -45,13 +53,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           ),
           label: "Perfil",
         ),
-        NavigationDestination(
-          icon: SizedBox(
-            width: screenHeight * 0.035,
-            child: Image.asset('lib/assets/scanner.png'),
-          ),
-          label: "Scanner",
-        ),
+        /*
         NavigationDestination(
           icon: SizedBox(
             width: screenHeight * 0.035,
@@ -66,6 +68,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           ),
           label: "Buscar", 
         ),
+        */
       ],
     );
   }
