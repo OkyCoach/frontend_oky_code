@@ -55,7 +55,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: Dialog(
           backgroundColor: Colors.transparent, // Fondo azul
           insetPadding: EdgeInsets.only(bottom: screenHeight * 0.07),
@@ -77,9 +77,8 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
               children: [
                 IntrinsicHeight(
                   child: Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: screenWidth * margins),
-                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                    margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
+                    padding: const EdgeInsets.only(top: 10),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(

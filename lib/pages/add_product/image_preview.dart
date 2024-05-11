@@ -95,18 +95,6 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
     });
   }
 
-  void cropImage() async {
-    File croppedFile = await crop_image.croppedImage(
-      file: _imageFile,
-      area: Rect.fromLTWH(50, 50, 200, 200), // área de recorte (x, y, ancho, alto)
-    );
-
-    // Actualiza la imagen recortada
-    setState(() {
-      _imageFile = croppedFile;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -204,61 +192,33 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        Column(
                           children: [
-                            Column(
-                              children: [
-                                ClipOval(
-                                  child: ColorFiltered(
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFFE8E4F4),
-                                      BlendMode.color,
-                                    ),
-                                    child: Image.asset(
-                                      'lib/assets/botones/recortar.png',
-                                      width: screenWidth * 0.1,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Recortar",
-                                  style: TextStyle(
-                                    fontFamily: "Gilroy-Medium",
-                                    fontSize: screenHeight * 0.015,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: rotateImage,
-                                  child: Column(
-                                    children: [
-                                      ClipOval(
-                                        child: ColorFiltered(
-                                          colorFilter: const ColorFilter.mode(
-                                            Color(0xFFE8E4F4),
-                                            BlendMode.color,
-                                          ),
-                                          child: Image.asset(
-                                            'lib/assets/botones/rotar.png',
-                                            width: screenWidth * 0.1,
-                                          ),
-                                        ),
+                            InkWell(
+                              onTap: rotateImage,
+                              child: Column(
+                                children: [
+                                  ClipOval(
+                                    child: ColorFiltered(
+                                      colorFilter: const ColorFilter.mode(
+                                        Color(0xFFE8E4F4),
+                                        BlendMode.color,
                                       ),
-                                      Text(
-                                        "Rotar",
-                                        style: TextStyle(
-                                          fontFamily: "Gilroy-Medium",
-                                          fontSize: screenHeight * 0.015,
-                                        ),
+                                      child: Image.asset(
+                                        'lib/assets/botones/rotar.png',
+                                        width: screenWidth * 0.1,
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    "Rotar",
+                                    style: TextStyle(
+                                      fontFamily: "Gilroy-Medium",
+                                      fontSize: screenHeight * 0.015,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),

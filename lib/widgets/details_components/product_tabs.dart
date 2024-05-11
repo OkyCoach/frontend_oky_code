@@ -12,10 +12,10 @@ class ProductTabs extends StatelessWidget {
 
     return TabBar(
       indicatorSize: TabBarIndicatorSize.tab,
-      indicatorColor: const Color(0xFF76FDB1),
+      indicator: const BoxDecoration( // Personaliza el indicador con un color de fondo verde
+        color: Color(0xFF76FDB1),
+      ),
       labelColor: Colors.black,
-      indicatorWeight: 8.0,
-      labelPadding: const EdgeInsets.symmetric(horizontal: 1.0),
       tabs: [
         Tab(
           child: Text(
@@ -26,7 +26,6 @@ class ProductTabs extends StatelessWidget {
             ),
           ),
         ),
-        /*
         Tab(
           child: Text(
             "Oky Tips",
@@ -36,7 +35,6 @@ class ProductTabs extends StatelessWidget {
             ),
           ),
         ),
-        */
       ],
     );
   }

@@ -40,7 +40,15 @@ class ProductTabsContent extends StatelessWidget {
             )
           ],
         ),
-        
+        Container( 
+          color: Colors.white,
+          margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
+          child: const Expanded(
+            child: Center(
+              child: Text("HOla"),
+            )
+          )
+        )
       ],
     );
   }
