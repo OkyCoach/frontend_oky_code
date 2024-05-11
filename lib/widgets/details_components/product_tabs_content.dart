@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/table_evaluation.dart';
+import 'package:frontend_oky_code/widgets/details_components/okytips.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class ProductTabsContent extends StatelessWidget {
@@ -40,15 +41,7 @@ class ProductTabsContent extends StatelessWidget {
             )
           ],
         ),
-        Container( 
-          color: Colors.white,
-          margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-          child: const Expanded(
-            child: Center(
-              child: Text("HOla"),
-            )
-          )
-        )
+        const OkyTips()
       ],
     );
   }

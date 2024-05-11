@@ -12,6 +12,7 @@ class ProductTabs extends StatelessWidget {
 
     return TabBar(
       indicatorSize: TabBarIndicatorSize.tab,
+      
       indicator: const BoxDecoration( // Personaliza el indicador con un color de fondo verde
         color: Color(0xFF76FDB1),
       ),
