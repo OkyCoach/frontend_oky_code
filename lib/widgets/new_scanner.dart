@@ -3,6 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:frontend_oky_code/widgets/product_popup.dart';
 import 'package:frontend_oky_code/widgets/not_found_popup.dart';
 import 'package:frontend_oky_code/widgets/no_evaluation_popup.dart';
+import 'package:frontend_oky_code/widgets/bad_connection_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:vibration/vibration.dart';
 
@@ -54,7 +55,16 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
                   barrierColor: Colors.white.withOpacity(0),
                   context: context,
                   builder: (_) {
-                    if (scanResult["product"]["barcode"] != null &&
+                    if(scanResult["product"].containsKey('timeout') || scanResult["evaluation"].containsKey('timeout')){
+                      return BadConnetionPopup(
+                        scanning: scanning,
+                        controlScan: (newValue) {
+                          setState(() {
+                            scanning = newValue;
+                          });
+                        }
+                      );
+                    } else if (scanResult["product"]["barcode"] != null &&
                         scanResult["evaluation"]["puntos_obtenidos"] != null) {
                       return ProductPopup(
                         product: scanResult["product"],
