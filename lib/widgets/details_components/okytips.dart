@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class OkyTips extends StatefulWidget {
+  final dynamic product;
   const OkyTips({
     Key? key,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -10,6 +13,37 @@ class OkyTips extends StatefulWidget {
 }
 
 class _OkyTipsState extends State<OkyTips> {
+  late String okyTip = "";
+  late String nutricionista = "";
+  late String sabiasQue = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _getOkyTip();
+  }
+
+  void _getOkyTip() {
+    if (widget.product != null) {
+      if (widget.product.containsKey("oky_tips") &&
+          widget.product["oky_tips"].isNotEmpty) {
+        List tips = widget.product["oky_tips"];
+        Random random = Random();
+        int randomIndex = random.nextInt(tips.length);
+        okyTip = tips[randomIndex]["oky_tip"];
+        nutricionista = 'Nutri ${tips[randomIndex]["nutritionist_name"]}';
+      } else {
+        okyTip = "No tenemos OkyTips para este producto aún :(";
+      }
+
+      if (widget.product.containsKey("sabias_que")) {
+        sabiasQue = widget.product["sabias_que"];
+      } else {
+        sabiasQue = "No tenemos información de este producto aún :(";
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double margins = 0.04;
@@ -20,62 +54,58 @@ class _OkyTipsState extends State<OkyTips> {
       margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
       padding: const EdgeInsets.all(8),
       child: Expanded(
-        child: Column(
+          child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: screenWidth * 0.8,
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15.0), 
-            ),
-            child: const Column(
-              children: [
-                Text(
-                  "Son bajos en calorías y ricos en fibra y nutrientes.",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: "Gilroy-Medium",
-                    color: Color(0xFF201547),
+              width: screenWidth * 0.8,
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    okyTip,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: "Gilroy-Medium",
+                      color: Color(0xFF201547),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    "Nutri Romina",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: "Gilroy-Normal",
-                      color: Color(0xFF7448ED),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      nutricionista,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: "Gilroy-Normal",
+                        color: Color(0xFF7448ED),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
-          ),
+                ],
+              )),
           Align(
-            alignment: Alignment.bottomRight,
-            child:Padding(
-              padding: const EdgeInsets.only(right: 40),
-              child: TriangleWidget()
-            )
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround, 
-            children: [
-              Container(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                  padding: const EdgeInsets.only(right: 40),
+                  child: TriangleWidget())),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            Container(
                 width: screenWidth * 0.5,
-                padding: const EdgeInsets.all(8.0), // Establece un relleno de 5 píxeles alrededor del contenido
+                padding: const EdgeInsets.all(
+                    8.0), // Establece un relleno de 5 píxeles alrededor del contenido
                 decoration: BoxDecoration(
-                  color: Colors.white, 
-                  borderRadius: BorderRadius.circular(20.0), 
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: const Column(
+                child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Sabías que...",
                       style: TextStyle(
                         fontSize: 20,
@@ -84,24 +114,21 @@ class _OkyTipsState extends State<OkyTips> {
                       ),
                     ),
                     Text(
-                      "Están hechos generalmente de puré de manzana y arándanos, a veces mezclados con otros ingredientes como cereales, semillas o frutos secos.",
+                      sabiasQue,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontFamily: "Gilroy-Medium",
                         color: Color(0xFF201547),
                       ),
                     ),
                   ],
-                )
-              ),
-              
-              Image.asset(
-                'lib/assets/nutria_2_sin_cola.png',
-                height: screenWidth * 0.6,
-              ),
-            ]
-          )
+                )),
+            Image.asset(
+              'lib/assets/nutria_2_sin_cola.png',
+              height: screenWidth * 0.6,
+            ),
+          ])
         ],
       )),
     );
@@ -118,7 +145,8 @@ class TrianglePainter extends CustomPainter {
     final path = Path();
     path.moveTo(0, 0); // Mueve el lápiz al punto superior izquierdo
     path.lineTo(size.width, 0); // Dibuja una línea al punto superior derecho
-    path.lineTo(size.width / 2, size.height); // Dibuja una línea al punto inferior central
+    path.lineTo(size.width / 2,
+        size.height); // Dibuja una línea al punto inferior central
     path.close(); // Cierra el camino para formar un triángulo invertido
 
     canvas.drawPath(path, paint);
@@ -134,7 +162,7 @@ class TriangleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(35, 35), // Tamaño del triángulo invertido
+      size: const Size(35, 35), // Tamaño del triángulo invertido
       painter: TrianglePainter(),
     );
   }

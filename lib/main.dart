@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
-import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';

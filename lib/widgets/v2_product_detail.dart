@@ -101,6 +101,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                 ),
                 Expanded(
                   child: ProductTabsContent(
+                      product: widget.product,
                       evaluation: widget.evaluation,
                       recommendedProducts: recommendedProducts,
                       ready: ready,

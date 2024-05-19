@@ -21,7 +21,7 @@ class ProductTabs extends StatelessWidget {
         tabs: [
           Tab(
             child: Text(
-              "Evaluación Nutricional",
+              "Ev. Nutricional",
               style: TextStyle(
                 fontFamily: "Gilroy-SemiBold",
                 fontSize: screenHeight * 0.02,
