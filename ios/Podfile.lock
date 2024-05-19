@@ -4,8 +4,6 @@ PODS:
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - flutter_barcode_scanner (2.0.0):
-    - Flutter
   - flutter_secure_storage (3.3.1):
     - Flutter
   - GoogleDataTransport (9.4.1):
@@ -74,21 +72,6 @@ PODS:
   - permission_handler_apple (9.3.0):
     - Flutter
   - PromisesObjC (2.4.0)
-  - scandit-datacapture-frameworks-barcode (6.21.1):
-    - scandit-datacapture-frameworks-core (= 6.21.1)
-    - ScanditBarcodeCapture (= 6.21.1)
-  - scandit-datacapture-frameworks-core (6.21.1):
-    - ScanditCaptureCore (= 6.21.1)
-  - scandit_flutter_datacapture_barcode (6.21.1):
-    - Flutter
-    - scandit-datacapture-frameworks-barcode (= 6.21.1)
-    - scandit_flutter_datacapture_core
-  - scandit_flutter_datacapture_core (6.21.1):
-    - Flutter
-    - scandit-datacapture-frameworks-core (= 6.21.1)
-  - ScanditBarcodeCapture (6.21.1):
-    - ScanditCaptureCore (= 6.21.1)
-  - ScanditCaptureCore (6.21.1)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -101,13 +84,10 @@ DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
-  - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - mobile_scanner (from `.symlinks/plugins/mobile_scanner/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
-  - scandit_flutter_datacapture_barcode (from `.symlinks/plugins/scandit_flutter_datacapture_barcode/ios`)
-  - scandit_flutter_datacapture_core (from `.symlinks/plugins/scandit_flutter_datacapture_core/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - vibration (from `.symlinks/plugins/vibration/ios`)
@@ -126,10 +106,6 @@ SPEC REPOS:
     - MLKitVision
     - nanopb
     - PromisesObjC
-    - scandit-datacapture-frameworks-barcode
-    - scandit-datacapture-frameworks-core
-    - ScanditBarcodeCapture
-    - ScanditCaptureCore
 
 EXTERNAL SOURCES:
   camera_avfoundation:
@@ -138,8 +114,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
-  flutter_barcode_scanner:
-    :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   mobile_scanner:
@@ -148,10 +122,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
-  scandit_flutter_datacapture_barcode:
-    :path: ".symlinks/plugins/scandit_flutter_datacapture_barcode/ios"
-  scandit_flutter_datacapture_core:
-    :path: ".symlinks/plugins/scandit_flutter_datacapture_core/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   url_launcher_ios:
@@ -162,8 +132,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   camera_avfoundation: 8b8d780bcfb6a4a02b0fbe2b4bd17b5b71946e68
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleMLKit: 2bd0dc6253c4d4f227aad460f69215a504b2980e
@@ -180,16 +149,10 @@ SPEC CHECKSUMS:
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: 036b856153a2b1f61f21030ff725f3e6fece2b78
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  scandit-datacapture-frameworks-barcode: b8ed12989116f0e10b7ceb413edfc1a6ee1dea6e
-  scandit-datacapture-frameworks-core: 358ebc2978f3fa92a12705605c57bbfc1e2084fa
-  scandit_flutter_datacapture_barcode: cf3037f2bb67b7f33c272e6f9b6e4064d0a954e4
-  scandit_flutter_datacapture_core: 9a5dc40283580d9b96c69cf6501548236b2dacd1
-  ScanditBarcodeCapture: d964418083359e7e5089046cfed547c9f1f56dae
-  ScanditCaptureCore: 3abfce1cc31f48c3d365aba46580748f4dc495c7
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
 
 PODFILE CHECKSUM: 698cfc93f1ca84b649c7e608e26dad5860f0e2b3
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
