@@ -30,8 +30,8 @@ class _OkyTipsState extends State<OkyTips> {
         List tips = widget.product["oky_tips"];
         Random random = Random();
         int randomIndex = random.nextInt(tips.length);
-        okyTip = tips[randomIndex]["oky_tip"];
-        nutricionista = 'Nutri ${tips[randomIndex]["nutritionist_name"]}';
+        okyTip = tips[randomIndex]["oky_tip"] ?? "Ocurrió un problema inesperado";
+        nutricionista = 'Nutri ${tips[randomIndex]["nutritionist_name"] ?? "undefined"}';
       } else {
         okyTip = "No tenemos OkyTips para este producto aún :(";
       }
