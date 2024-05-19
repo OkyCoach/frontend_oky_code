@@ -8,14 +8,12 @@ import 'package:frontend_oky_code/pages/tutorial_1.dart';
 import 'package:frontend_oky_code/pages/user/login.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_oky_code/widgets/new_scanner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ScanditFlutterDataCaptureBarcode.initialize();
   await dotenv.load(fileName:'lib/.env');
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
