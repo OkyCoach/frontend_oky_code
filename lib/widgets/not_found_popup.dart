@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/new_product.dart';
-import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class NotFoundPopup extends StatelessWidget {
-  final String? barcode;
+  final String barcode;
   final bool scanning;
   final ValueChanged<bool> controlScan;
 
@@ -73,7 +72,7 @@ class NotFoundPopup extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10, top: 20),
                     child: Text(
-                      "No pudimos encontrar el producto :(",
+                      barcode,
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
                           fontSize: popupHeight * 0.08,
