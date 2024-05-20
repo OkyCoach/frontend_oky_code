@@ -72,7 +72,7 @@ class NotFoundPopup extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10, top: 20),
                     child: Text(
-                      barcode,
+                      "No pudimos encontrar el producto :(",
                       style: TextStyle(
                           fontFamily: "Gilroy-SemiBold",
                           fontSize: popupHeight * 0.08,
