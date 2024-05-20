@@ -37,7 +37,7 @@ class _OkyTipsState extends State<OkyTips> {
       }
 
       if (widget.product.containsKey("sabias_que")) {
-        sabiasQue = widget.product["sabias_que"];
+        sabiasQue = widget.product["sabias_que"] ?? "Ocurrió un problema inesperado";
       } else {
         sabiasQue = "No tenemos información de este producto aún :(";
       }
