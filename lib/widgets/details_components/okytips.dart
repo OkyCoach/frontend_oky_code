@@ -52,30 +52,49 @@ class _OkyTipsState extends State<OkyTips> {
     return Container(
       color: const Color(0xFFE8E4F4),
       margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
       child: Row(
         children: [
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   width: screenWidth * 0.8,
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
+                    border: Border.all(
+                      color: const Color(0xFF7448ED),
+                      width: 2.0, 
+                    )
+                
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        okyTip,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontFamily: "Gilroy-Medium",
-                          color: Color(0xFF201547),
-                        ),
+                      RichText(
                         textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'OkyTip: ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: "Gilroy-Bold",
+                                color: Color(0xFF7448ED),
+                              ),
+                            ),
+                            TextSpan(
+                              text: okyTip,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: "Gilroy-Medium",
+                                color: Color(0xFF201547),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Align(
                         alignment: Alignment.bottomRight,
@@ -93,13 +112,14 @@ class _OkyTipsState extends State<OkyTips> {
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 40),
+                  child: Transform.translate(
+                    offset: const Offset(-40, -2),
                     child: TriangleWidget()
                   )
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround, 
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: screenWidth * 0.5,
@@ -107,11 +127,15 @@ class _OkyTipsState extends State<OkyTips> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          color: const Color(0xFF7448ED),
+                          width: 2.0, 
+                        )
                       ),
                       child: Column(
                         children: [
                           const Text(
-                            "Sabías que...",
+                            "¿Sabías que?...",
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: "Gilroy-Bold",
@@ -131,8 +155,8 @@ class _OkyTipsState extends State<OkyTips> {
                       )
                     ),
                     Image.asset(
-                      'lib/assets/nutria_2_sin_cola.png',
-                      height: screenWidth * 0.6,
+                      'lib/assets/nutria_recortada.png',
+                      height: screenWidth * 0.8,
                     ),
                   ]
                 )
@@ -148,18 +172,31 @@ class _OkyTipsState extends State<OkyTips> {
 class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    final paintFill = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
+
+    final paintBorder = Paint()
+      ..color = const Color(0xFF7448ED) // Cambia este color al que desees para los bordes
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0; // Cambia este valor al grosor del borde deseado
 
     final path = Path();
     path.moveTo(0, 0); // Mueve el lápiz al punto superior izquierdo
     path.lineTo(size.width, 0); // Dibuja una línea al punto superior derecho
-    path.lineTo(size.width / 2,
-        size.height); // Dibuja una línea al punto inferior central
-    path.close(); // Cierra el camino para formar un triángulo invertido
+    path.lineTo(size.width / 2, size.height); // Dibuja una línea al punto inferior central
+    path.close(); // Cierra el camino para formar un triángulo
 
-    canvas.drawPath(path, paint);
+    // Dibuja el relleno del triángulo
+    canvas.drawPath(path, paintFill);
+
+    // Dibuja los bordes inferiores
+    final borderPath = Path();
+    borderPath.moveTo(0, 0);
+    borderPath.lineTo(size.width / 2, size.height);
+    borderPath.lineTo(size.width, 0);
+
+    canvas.drawPath(borderPath, paintBorder);
   }
 
   @override

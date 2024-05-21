@@ -52,14 +52,19 @@ class ProductTabsContent extends StatelessWidget {
                 ),
               ],
             ),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: minHeight, // Establece la altura mínima al espacio disponible
-              ),
-              child: OkyTips(
-                product: product,
-              ),
-            ),
+            ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                  ),
+                  child: OkyTips(
+                    product: product,
+                  ),
+                ),
+              ]
+            )
           ],
         );
       },

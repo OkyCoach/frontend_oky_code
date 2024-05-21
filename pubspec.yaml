@@ -111,6 +111,7 @@ flutter:
 
     - lib/assets/nutria_1.png
     - lib/assets/nutria_2.png
+    - lib/assets/nutria_recortada.png
     - lib/assets/nutria_2_sin_cola.png
     - lib/assets/scanner_tutorial.png
     - lib/assets/image_not_found.png
