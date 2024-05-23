@@ -16,6 +16,7 @@ class _OkyTipsState extends State<OkyTips> {
   late String okyTip = "";
   late String nutricionista = "";
   late String sabiasQue = "";
+  bool showFullText = false;
 
   @override
   void initState() {
@@ -36,8 +37,12 @@ class _OkyTipsState extends State<OkyTips> {
         okyTip = "No tenemos OkyTips para este producto aún :(";
       }
 
-      if (widget.product.containsKey("sabias_que")) {
-        sabiasQue = widget.product["sabias_que"];
+      if (widget.product.containsKey("sabias_que") &&
+          widget.product["sabias_que"].isNotEmpty) {
+        List allSabiasQue = widget.product["sabias_que"];
+        Random random = Random();
+        int randomIndex = random.nextInt(allSabiasQue.length);
+        sabiasQue = allSabiasQue[randomIndex]["message"] ?? "Ocurrió un problema inesperado";
       } else {
         sabiasQue = "No tenemos información de este producto aún :(";
       }
@@ -69,7 +74,6 @@ class _OkyTipsState extends State<OkyTips> {
                       color: const Color(0xFF7448ED),
                       width: 2.0, 
                     )
-                
                   ),
                   child: Column(
                     children: [
@@ -143,7 +147,11 @@ class _OkyTipsState extends State<OkyTips> {
                             ),
                           ),
                           Text(
-                            sabiasQue,
+                            showFullText
+                              ? sabiasQue
+                              : sabiasQue.length > 100
+                                ? '${sabiasQue.substring(0, 100)}...'
+                                : sabiasQue,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16,
@@ -151,8 +159,23 @@ class _OkyTipsState extends State<OkyTips> {
                               color: Color(0xFF201547),
                             ),
                           ),
+                          if (sabiasQue.length > 100)
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  showFullText = !showFullText;
+                                });
+                              },
+                              child: Text(
+                                showFullText ? "Ver menos" : "Ver más",
+                                style: const TextStyle(
+                                  color: Color(0xFF7448ED),
+                                  fontFamily: "Gilroy-Bold",
+                                ),
+                              ),
+                            ),
                         ],
-                      )
+                      ),
                     ),
                     Image.asset(
                       'lib/assets/nutria_recortada.png',
