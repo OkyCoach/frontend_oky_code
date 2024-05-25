@@ -33,9 +33,9 @@ class ProductTabs extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                "Evaluación Nutri.",
+                "Evaluación Nutri",
                 style: TextStyle(
-                  fontFamily: "Gilroy-SemiBold",
+                  fontFamily: "Gilroy-Bold",
                   fontSize: screenHeight * 0.02,
                 ),
               ),
@@ -47,7 +47,7 @@ class ProductTabs extends StatelessWidget {
               child: Text(
                 "Oky Tips",
                 style: TextStyle(
-                  fontFamily: "Gilroy-SemiBold",
+                  fontFamily: "Gilroy-Bold",
                   fontSize: screenHeight * 0.02,
                 ),
               ),
