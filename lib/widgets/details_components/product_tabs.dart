@@ -45,7 +45,7 @@ class ProductTabs extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                "Oky Tips",
+                "OkyTips",
                 style: TextStyle(
                   fontFamily: "Gilroy-Bold",
                   fontSize: screenHeight * 0.02,
