@@ -57,16 +57,16 @@ class _OkyTipsState extends State<OkyTips> {
     return Container(
       color: const Color(0xFFE8E4F4),
       margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+      padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: screenWidth * 0.8,
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
@@ -117,17 +117,19 @@ class _OkyTipsState extends State<OkyTips> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Transform.translate(
-                    offset: const Offset(-40, -2),
+                    offset: const Offset(-60, -2),
                     child: TriangleWidget()
                   )
                 ),
+                const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround, 
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: screenWidth * 0.5,
+                      width: screenWidth * 0.48,
                       padding: const EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
@@ -177,10 +179,13 @@ class _OkyTipsState extends State<OkyTips> {
                         ],
                       ),
                     ),
-                    Image.asset(
-                      'lib/assets/nutria_recortada.png',
-                      height: screenWidth * 0.8,
-                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child:Image.asset(
+                        'lib/assets/nutria_2.png',
+                        height: screenWidth * 0.8,
+                      ),
+                    )
                   ]
                 )
               ]
