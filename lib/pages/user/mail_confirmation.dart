@@ -5,8 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MailConfirmationPage extends StatefulWidget {
   final String mail;
-  final String username;
-  const MailConfirmationPage({super.key, required this.mail, required this.username});
+  const MailConfirmationPage({super.key, required this.mail});
 
   @override
   _MailConfirmationPageState createState() => _MailConfirmationPageState();
@@ -23,10 +22,8 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
     );
 
 
-    final cognitoUser = CognitoUser(widget.username, userPool);
+    final cognitoUser = CognitoUser(widget.mail, userPool);
     try {
-      print(cognitoUser.username);
-      print(code);
       final confirmationResult = await cognitoUser.confirmRegistration(code);
       if (confirmationResult) {
         // The email was successfully confirmed

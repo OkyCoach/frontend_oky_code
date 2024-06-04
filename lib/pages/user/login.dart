@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
-                "Nombre de usuario",
+                "Email",
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
