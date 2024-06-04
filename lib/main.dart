@@ -71,7 +71,7 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      //const HomePage(),
+      //const HomePage(),|
       MyScannerWidget(),
       const ProfilePage(),
       //BarcodeScannerScreen(),
