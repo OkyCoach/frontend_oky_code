@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ProductTabs extends StatelessWidget {
-
   const ProductTabs({
     Key? key,
   }) : super(key: key);
@@ -10,34 +9,52 @@ class ProductTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return TabBar(
-      indicatorSize: TabBarIndicatorSize.tab,
-      indicatorColor: const Color(0xFF76FDB1),
-      labelColor: Colors.black,
-      indicatorWeight: 8.0,
-      labelPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-      tabs: [
-        Tab(
-          child: Text(
-            "Evaluación Nutricional",
-            style: TextStyle(
-              fontFamily: "Gilroy-SemiBold",
-              fontSize: screenHeight * 0.02,
-            ),
+    return Container(
+      height: 35,
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(color: Color(0xFF7448ED)),
+          bottom: BorderSide(color: Color(0xFF7448ED)),
+        ),
+      ),
+      child: TabBar(
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: const BoxDecoration(
+          color: Color(0xFF76FDB1),
+          border: Border(
+            left: BorderSide(color: Color(0xFF7448ED)),
+            right: BorderSide(color: Color(0xFF7448ED)),
           ),
         ),
-        /*
-        Tab(
-          child: Text(
-            "Oky Tips",
-            style: TextStyle(
-              fontFamily: "Gilroy-SemiBold",
-              fontSize: screenHeight * 0.02,
+        labelColor: Colors.black,
+        unselectedLabelColor: Colors.black,
+        tabs: [
+          Tab(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "Evaluación Nutri",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Bold",
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
             ),
           ),
-        ),
-        */
-      ],
+          Tab(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "OkyTips",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Bold",
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

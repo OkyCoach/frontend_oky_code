@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'dart:convert';
 import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/widgets/custom_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -56,16 +57,25 @@ class _ProfileState extends State<ProfilePage> {
             } else if (snapshot.hasData) {
               // When we have the data, display it
               final userData = snapshot.data!;
-              if (userData.containsKey('userInfo') && userData['userInfo'] != null) {
+              if (userData.containsKey('userInfo') &&
+                  userData['userInfo'] != null) {
                 Map<String, dynamic> userInfo =
                     json.decode(userData['userInfo']!);
 
-                return Center(
-                  child: Column(
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  
+                  child:  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Image.asset(
+                        'lib/assets/nutria_1.png',
+                        width: 200,
+                      ),
+                      const SizedBox(height: 40,),
                       Text(
-                        'Nombre: ${userInfo['cognito:username']}',
+                        userInfo['cognito:username'],
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -73,24 +83,20 @@ class _ProfileState extends State<ProfilePage> {
                         ),
                       ),
                       Text(
-                        'Email: ${userInfo['email']}',
+                        userInfo['email'],
                         style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         ),
                       ),
-                      TextButton(
+                      const SizedBox(height: 40,),
+                      RoundedButton(
                         onPressed: _logout,
-                        child: const Text(
-                          'Cerrar sesión',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                        buttonText: "Cerrar sesión",
+                        size: 200,
+                      )
                     ],
-                  ),
+                  )
                 );
               } else {
                 // If user data is not found or is null, show appropriate message

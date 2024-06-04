@@ -1,16 +1,26 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/nutritional_image.dart';
 import 'package:frontend_oky_code/pages/add_product/send_product.dart';
 import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/helpers/image_converter.dart';
+import 'package:crop_image/crop_image.dart' as crop_image;
 
-class ImagePreviewPage extends StatelessWidget {
+
+class ImagePreviewPage extends StatefulWidget {
   final dynamic data;
+
   const ImagePreviewPage({
     Key? key,
     required this.data,
   }) : super(key: key);
 
+  @override
+  _ImagePreviewPageState createState() => _ImagePreviewPageState();
+}
+
+class _ImagePreviewPageState extends State<ImagePreviewPage> {
   void _goToScanner(BuildContext context) async {
     Navigator.push(
       context,
@@ -34,14 +44,21 @@ class ImagePreviewPage extends StatelessWidget {
   }
 
   void _nextStep(BuildContext context) async {
+    String rotatedImage = await rotateFile(_imageFile.path, rotationAngle);
+    if (widget.data["type"] == "frontal") {
+      widget.data["frontImagePath"] = rotatedImage;
+    } else {
+      widget.data["nutritionalImagePath"] = rotatedImage;
+    }
+    
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            data["type"] == "frontal"
-                ? NutritionalImageCapture(data: data)
+            widget.data["type"] == "frontal"
+                ? NutritionalImageCapture(data: widget.data)
                 : SendProductPage(
-                    data: data,
+                    data: widget.data,
                   ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0); // starting offset from right
@@ -57,6 +74,25 @@ class ImagePreviewPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  double rotationAngle = 0.0;
+  late File _imageFile;
+
+  @override
+  void initState() {
+    super.initState();
+    // Convierte el XFile a File
+    _imageFile = File(widget.data["type"] == "frontal"
+        ? widget.data["frontImagePath"]
+        : widget.data["nutritionalImagePath"]);
+  }
+
+  void rotateImage() {
+    setState(() {
+      rotationAngle += 90.0;
+      if (rotationAngle == 360.0) rotationAngle = 0.0;
+    });
   }
 
   @override
@@ -79,6 +115,7 @@ class ImagePreviewPage extends StatelessWidget {
         ),
         child: Container(
           margin: const EdgeInsets.only(top: 50, left: 15, right: 15),
+          clipBehavior: Clip.hardEdge,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -93,7 +130,7 @@ class ImagePreviewPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
                   child: Text(
-                    data["type"] == "frontal"
+                    widget.data["type"] == "frontal"
                         ? "Asi se verá la foto frontal"
                         : "Asi se verá la foto de la Información Nutricional",
                     style: TextStyle(
@@ -139,13 +176,12 @@ class ImagePreviewPage extends StatelessWidget {
                   child: Container(
                     width: screenWidth,
                     color: Color(0xFFE8E4F4),
-                    child: Image.file(
-                      File(data["type"] == "frontal"
-                          ? data["frontImagePath"]
-                          : data[
-                              "nutritionalImagePath"]), // Reemplaza 'tu_imagen.jpg' con la ruta correcta de tu imagen
-                      fit: BoxFit
-                          .cover, // Puedes ajustar el modo de ajuste según tus necesidades
+                    child: Transform.rotate(
+                      angle: rotationAngle * (pi / 180),
+                      child: Image.file(
+                        _imageFile,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -156,54 +192,33 @@ class ImagePreviewPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        Column(
                           children: [
-                            Column(
-                              children: [
-                                ClipOval(
-                                  child: ColorFiltered(
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFFE8E4F4),
-                                      BlendMode.color,
-                                    ),
-                                    child: Image.asset(
-                                      'lib/assets/botones/recortar.png',
-                                      width: screenWidth * 0.1,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Recortar",
-                                  style: TextStyle(
-                                    fontFamily: "Gilroy-Medium",
-                                    fontSize: screenHeight * 0.015,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Column(
-                              children: [
-                                ClipOval(
-                                  child: ColorFiltered(
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFFE8E4F4),
-                                      BlendMode.color,
-                                    ),
-                                    child: Image.asset(
-                                      'lib/assets/botones/rotar.png',
-                                      width: screenWidth * 0.1,
+                            InkWell(
+                              onTap: rotateImage,
+                              child: Column(
+                                children: [
+                                  ClipOval(
+                                    child: ColorFiltered(
+                                      colorFilter: const ColorFilter.mode(
+                                        Color(0xFFE8E4F4),
+                                        BlendMode.color,
+                                      ),
+                                      child: Image.asset(
+                                        'lib/assets/botones/rotar.png',
+                                        width: screenWidth * 0.1,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  "Rotar",
-                                  style: TextStyle(
-                                    fontFamily: "Gilroy-Medium",
-                                    fontSize: screenHeight * 0.015,
+                                  Text(
+                                    "Rotar",
+                                    style: TextStyle(
+                                      fontFamily: "Gilroy-Medium",
+                                      fontSize: screenHeight * 0.015,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),

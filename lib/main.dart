@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
-import 'package:frontend_oky_code/widgets/scandit_scanner.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
@@ -9,14 +8,12 @@ import 'package:frontend_oky_code/pages/tutorial_1.dart';
 import 'package:frontend_oky_code/pages/user/login.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_oky_code/widgets/new_scanner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ScanditFlutterDataCaptureBarcode.initialize();
   await dotenv.load(fileName:'lib/.env');
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -63,7 +60,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 2;
+  int _currentIndex = 0;
 
   void updateIndex(int newIndex) {
     setState(() {
@@ -74,12 +71,12 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const HomePage(),
-      const ProfilePage(),
+      //const HomePage(),|
       MyScannerWidget(),
+      const ProfilePage(),
       //BarcodeScannerScreen(),
-      const NutricoachPage(),
-      const SearchPage(),
+      //const NutricoachPage(),
+      //const SearchPage(),
     ];
     return Scaffold(
         body: pages[_currentIndex],

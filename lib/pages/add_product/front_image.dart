@@ -28,10 +28,11 @@ class _CameraScreenState extends State<FrontImageCapture> {
   Future<void> initializeCamera() async {
     _cameras = await availableCameras();
     if (_cameras.isEmpty) {
-    // Handle the case when no cameras are available
-    return;
-  }
-    controller = CameraController(_cameras[0], ResolutionPreset.max, enableAudio: false);
+      // Handle the case when no cameras are available
+      return;
+    }
+    controller =
+        CameraController(_cameras[0], ResolutionPreset.max, enableAudio: false);
 
     try {
       await controller.initialize();
@@ -86,6 +87,7 @@ class _CameraScreenState extends State<FrontImageCapture> {
       'type': "frontal",
       'frontImagePath': picture.path,
     };
+    
 
     Navigator.push(
       context,
