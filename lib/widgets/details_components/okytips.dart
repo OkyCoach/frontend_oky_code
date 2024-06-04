@@ -92,7 +92,7 @@ class _OkyTipsState extends State<OkyTips> {
                             TextSpan(
                               text: okyTip,
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontFamily: "Gilroy-Medium",
                                 color: Color(0xFF201547),
                               ),
@@ -117,7 +117,7 @@ class _OkyTipsState extends State<OkyTips> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Transform.translate(
-                    offset: const Offset(-60, -2),
+                    offset: const Offset(-30, -2),
                     child: TriangleWidget()
                   )
                 ),
@@ -127,7 +127,7 @@ class _OkyTipsState extends State<OkyTips> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: screenWidth * 0.48,
+                      width: screenWidth * 0.55,
                       padding: const EdgeInsets.all(8.0),
                       margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
@@ -182,7 +182,7 @@ class _OkyTipsState extends State<OkyTips> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child:Image.asset(
-                        'lib/assets/nutria_2.png',
+                        'lib/assets/nutria_2_sin_cola.png',
                         height: screenWidth * 0.8,
                       ),
                     )

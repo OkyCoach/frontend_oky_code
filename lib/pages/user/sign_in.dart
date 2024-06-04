@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/main.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
-import 'package:frontend_oky_code/pages/user/signup.dart';
+import 'package:frontend_oky_code/pages/user/sign_up.dart';
 import 'package:frontend_oky_code/widgets/loading_button.dart';
+import 'package:frontend_oky_code/pages/user/forgot_password.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
@@ -38,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = false;
     });
   }
-
+  void _forgotPassword(){
+    Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ForgotPasswordPage()));
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -154,53 +158,66 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.06),
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "¿Aún no tienes una cuenta?",
-                          style: TextStyle(
-                            fontFamily: "Gilroy-Regular",
-                            fontSize: screenHeight * 0.018,
-                            color: const Color(0xFF97999B),
-                          ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20, top: 5),
+                    child: InkWell(
+                      onTap: (){
+                        _forgotPassword();
+                      },
+                      child: Text(
+                        "¿Olvidaste tu contraseña?",
+                        style: TextStyle(
+                          fontFamily: "Gilroy-Regular",
+                          fontSize: screenHeight * 0.02,
+                          color: const Color(0xFF97999B),
                         ),
-                        //enlace a la página de registro
-                        Padding(
-                          padding: EdgeInsets.only(top: 3),
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUpPage())),
-                            child: Text(
-                              "Registrate aquí",
-                              style: TextStyle(
-                                fontFamily: "Gilroy-Regular",
-                                fontSize: screenHeight * 0.018,
-                                color: const Color(0xFF97999B),
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(top: screenHeight * 0.04),
-                            child: LoadingButton(
-                                buttonText: "inicia sesión",
-                                onPressed: () {
-                                  _signIn();
-                                },
-                                size: 200,
-                                isLoading: _isLoading,
-                                color: 'purple',
-                                enabled: true))
-                      ])),
-            )
+                      ),
+                    ),
+                  )
+                ),
+                Text(
+                  "¿Aún no tienes una cuenta?",
+                  style: TextStyle(
+                    fontFamily: "Gilroy-Regular",
+                    fontSize: screenHeight * 0.02,
+                    color: const Color(0xFF97999B),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUpPage())),
+                    child: Text(
+                      "Registrate aquí",
+                      style: TextStyle(
+                        fontFamily: "Gilroy-Regular",
+                        fontSize: screenHeight * 0.02,
+                        color: const Color(0xFF97999B),
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: screenHeight * 0.04),
+                  child: LoadingButton(
+                      buttonText: "inicia sesión",
+                      onPressed: () {
+                        _signIn();
+                      },
+                      size: 200,
+                      isLoading: _isLoading,
+                      color: 'purple',
+                      enabled: true))
+              ]),
           ],
         ),
       ),

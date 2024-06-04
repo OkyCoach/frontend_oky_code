@@ -67,13 +67,12 @@ class SignInResult {
 }
 
 Future<SignInResult> signIn(String email, String password) async {
-  final cognitoUser = CognitoUser(email, userPool);
-  final authDetails = AuthenticationDetails(
-    username: email,
-    password: password,
-  );
-
   try {
+    final cognitoUser = CognitoUser(email, userPool);
+    final authDetails = AuthenticationDetails(
+      username: email,
+      password: password,
+    );
     var userSession = await cognitoUser.authenticateUser(authDetails);
     if (userSession != null) {
       await AuthManager().saveSession({
@@ -85,34 +84,58 @@ Future<SignInResult> signIn(String email, String password) async {
 
       const storage = FlutterSecureStorage();
       await storage.write(
-        key: 'session', 
-        value: jsonEncode(userSession.toString())
-      );
-      return SignInResult(
-        verified: true, 
-        session: userSession
-      );
+          key: 'session', value: jsonEncode(userSession.toString()));
+      return SignInResult(verified: true, session: userSession);
     } else {
       return SignInResult(
-        verified: false, 
-        message: "An unexpected error occurred"
-      );
+          verified: false, message: "An unexpected error occurred");
     }
   } on CognitoUserException catch (e) {
-    return SignInResult(
-      verified: false, 
-      message: e.message
-    );
+    return SignInResult(verified: false, message: e.message);
   } on CognitoClientException catch (e) {
-    return SignInResult(
-      verified: false, 
-      message: e.message
-    );
+    return SignInResult(verified: false, message: e.message);
   } catch (e) {
     return SignInResult(
-      verified: false, 
-      message: "An unexpected error occurred"
+        verified: false, message: "An unexpected error occurred");
+  }
+}
+
+Future<CognitoUserPoolData?> signUp(
+    String email, String password, String name, String familyName) async {
+  try {
+    final signUpResult = await userPool.signUp(
+      email,
+      password,
+      userAttributes: [
+        AttributeArg(name: 'name', value: name),
+        AttributeArg(name: 'family_name', value: familyName),
+      ],
     );
+    return signUpResult;
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<bool> forgotPassword(String email) async {
+  try {
+    final cognitoUser = CognitoUser(email, userPool);
+    var data = await cognitoUser.forgotPassword();
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> resetPassword(
+    String email, String code, String newPassword) async {
+  try {
+    final cognitoUser = CognitoUser(email, userPool);
+    var passwordConfirmed =
+        await cognitoUser.confirmPassword(code, newPassword);
+    return passwordConfirmed;
+  } catch (e) {
+    return false;
   }
 }
 
@@ -131,4 +154,3 @@ void showError(String? message, BuildContext context) {
     ),
   );
 }
-

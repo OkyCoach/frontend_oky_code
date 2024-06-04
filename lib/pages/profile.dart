@@ -24,7 +24,6 @@ class _ProfileState extends State<ProfilePage> {
   void _logout() async {
     // Perform logout logic
     await AuthManager().clearSession();
-    // Navigate to login screen
     Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => MyApp(isFirstTime: false, isLogged: false)));
   }

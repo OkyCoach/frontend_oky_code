@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:frontend_oky_code/pages/user/sign_in.dart';
 import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -23,14 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _hasDigit = false;
   bool _minimumCharacters = false;
   bool _enabledButton = false;
-
   bool _isLoading = false;
-  var userSession;
-
-  final userPool = CognitoUserPool(
-    dotenv.env['COGNITO_USER_POOL_ID'] ?? '',
-    dotenv.env['COGNITO_CLIENT_ID'] ?? '',
-  );
 
   void _signUp() async {
     setState(() {
@@ -52,9 +46,6 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       if (signUpResult != null) {
-        print('Sign-up successful, confirm user...');
-
-        // Navigate to a confirmation screen or another part of your app
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => MailConfirmationPage(
               mail: email,
@@ -62,31 +53,19 @@ class _SignUpPageState extends State<SignUpPage> {
               )));
       }
     } on CognitoClientException catch (e) {
-      _showError('${e.message}');
+      showError(
+        e.message,
+        context
+      );
     } catch (e) {
-      print('General sign-up error: $e');
+      showError(
+        "Unexpected error, try again later.",
+        context
+      );
     }
     setState(() {
       _isLoading = false;
     });
-  }
-
-  void _showError(String message) {
-    // Use the scaffold key to get the context for the ScaffoldMessenger
-    // and show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: const Color(0xFF7448ED),
-        dismissDirection: DismissDirection.down,
-        margin: const EdgeInsets.all(5),
-        content: Text(
-          message,
-          style: const TextStyle(
-              fontFamily: "Gilroy-Semibold", fontSize: 12, color: Colors.white),
-        ),
-      ),
-    );
   }
 
   void _updatePasswordStatus() {
@@ -362,7 +341,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage())),
+                                  builder: (context) => const SignInPage())),
                           child: Text(
                             "Inicia sesión",
                             style: TextStyle(
