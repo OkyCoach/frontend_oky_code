@@ -1,5 +1,13 @@
-// auth_manager.dart
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+
+final userPool = CognitoUserPool(
+  dotenv.env['COGNITO_USER_POOL_ID'] ?? '',
+  dotenv.env['COGNITO_CLIENT_ID'] ?? '',
+);
 
 class AuthManager {
   static final AuthManager _instance = AuthManager._internal();
@@ -32,8 +40,6 @@ class AuthManager {
     return sessionData;
   }
 
-
-
   Future<String> returnSession() async {
     String? session = await _storage.read(key: 'session');
     return session!;
@@ -51,3 +57,78 @@ class AuthManager {
 
   // Add any other authentication-related logic here, such as refreshing tokens
 }
+
+class SignInResult {
+  final bool verified;
+  final String? message;
+  final CognitoUserSession? session;
+
+  SignInResult({required this.verified, this.message, this.session});
+}
+
+Future<SignInResult> signIn(String email, String password) async {
+  final cognitoUser = CognitoUser(email, userPool);
+  final authDetails = AuthenticationDetails(
+    username: email,
+    password: password,
+  );
+
+  try {
+    var userSession = await cognitoUser.authenticateUser(authDetails);
+    if (userSession != null) {
+      await AuthManager().saveSession({
+        'accessToken': userSession.accessToken.toString(),
+        'refreshToken': userSession.refreshToken.toString(),
+        'idToken': userSession.idToken.toString(),
+        'userInfo': jsonEncode(userSession.idToken.payload),
+      });
+
+      const storage = FlutterSecureStorage();
+      await storage.write(
+        key: 'session', 
+        value: jsonEncode(userSession.toString())
+      );
+      return SignInResult(
+        verified: true, 
+        session: userSession
+      );
+    } else {
+      return SignInResult(
+        verified: false, 
+        message: "An unexpected error occurred"
+      );
+    }
+  } on CognitoUserException catch (e) {
+    return SignInResult(
+      verified: false, 
+      message: e.message
+    );
+  } on CognitoClientException catch (e) {
+    return SignInResult(
+      verified: false, 
+      message: e.message
+    );
+  } catch (e) {
+    return SignInResult(
+      verified: false, 
+      message: "An unexpected error occurred"
+    );
+  }
+}
+
+void showError(String? message, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: const Color(0xFF7448ED),
+      dismissDirection: DismissDirection.down,
+      margin: const EdgeInsets.all(5),
+      content: Text(
+        message!,
+        style: const TextStyle(
+            fontFamily: "Gilroy-Semibold", fontSize: 12, color: Colors.white),
+      ),
+    ),
+  );
+}
+

@@ -16,12 +16,13 @@ class _SignUpPageState extends State<SignUpPage> {
   final _nameController = TextEditingController();
   final _familyNameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailController = TextEditingController(); 
+  final _emailController = TextEditingController();
   bool _obscureText = true;
 
   bool _hasUppercase = false;
   bool _hasDigit = false;
   bool _minimumCharacters = false;
+  bool _enabledButton = false;
 
   bool _isLoading = false;
   var userSession;
@@ -38,36 +39,32 @@ class _SignUpPageState extends State<SignUpPage> {
     final name = _nameController.text.trim();
     final familyName = _familyNameController.text.trim();
     final password = _passwordController.text.trim();
-    final email = _emailController.text.trim(); 
+    final email = _emailController.text.trim();
 
     try {
       final signUpResult = await userPool.signUp(
         email,
         password,
         userAttributes: [
-          AttributeArg(
-            name: 'name', value: name
-          ),
-          AttributeArg(
-            name: 'family_name', value: familyName
-          ),
-        ], 
+          AttributeArg(name: 'name', value: name),
+          AttributeArg(name: 'family_name', value: familyName),
+        ],
       );
 
       if (signUpResult != null) {
         print('Sign-up successful, confirm user...');
-        
+
         // Navigate to a confirmation screen or another part of your app
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) =>
-                MailConfirmationPage(mail: email)));
+            builder: (context) => MailConfirmationPage(
+              mail: email,
+              password: password,
+              )));
       }
     } on CognitoClientException catch (e) {
-      print('Cognito sign-up error: ${e.message}');
       _showError('${e.message}');
     } catch (e) {
       print('General sign-up error: $e');
-      // Handle other errors, such as network errors
     }
     setState(() {
       _isLoading = false;
@@ -98,6 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
       _hasUppercase =
           _passwordController.text.trim().contains(RegExp(r'[A-Z]'));
       _hasDigit = _passwordController.text.trim().contains(RegExp(r'[0-9]'));
+      _enabledButton = _minimumCharacters && _hasUppercase && _hasDigit;
     });
   }
 
@@ -377,17 +375,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
 
                         Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.038),
-                          child: LoadingButton(
-                              buttonText: "regístrate",
-                              onPressed: () {
-                                _signUp();
-                              },
-                              size: 200,
-                              isLoading: _isLoading,
-                              color: 'purple'
-                            )
-                        )
+                            padding: EdgeInsets.only(top: screenHeight * 0.038),
+                            child: LoadingButton(
+                                buttonText: "regístrate",
+                                onPressed: () {
+                                  _enabledButton ? _signUp() : null;
+                                },
+                                size: 200,
+                                isLoading: _isLoading,
+                                color: 'purple',
+                                enabled: _enabledButton,
+                                )
+                              )
                       ])),
             )
           ],

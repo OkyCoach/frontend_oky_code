@@ -6,6 +6,7 @@ class LoadingButton extends StatelessWidget {
   final bool isLoading;
   final double size;
   final String color;
+  final bool enabled;
 
   LoadingButton({
     required this.onPressed,
@@ -13,14 +14,13 @@ class LoadingButton extends StatelessWidget {
     required this.isLoading,
     required this.size,
     required this.color,
+    required this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: isLoading ? 0.7 : 1.0, // Cambia la opacidad si está cargando
-      child: ElevatedButton(
-        onPressed: onPressed,
+    return ElevatedButton(
+        onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: color == 'purple' ? Color(0xFF7448ED) : Color(0xFF76FDB1), // Color de fondo morado
           shape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class LoadingButton extends StatelessWidget {
                   ),
           ),
         ),
-      ),
+      
     );
   }
 }

@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:frontend_oky_code/pages/user/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:frontend_oky_code/main.dart';
 
 class MailConfirmationPage extends StatefulWidget {
   final String mail;
-  const MailConfirmationPage({super.key, required this.mail});
+  final String password;
+  const MailConfirmationPage({
+    super.key, 
+    required this.mail, 
+    required this.password
+  });
 
   @override
   _MailConfirmationPageState createState() => _MailConfirmationPageState();
@@ -16,25 +23,29 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
 
   void _verify() async {
     final code = _codeController.text.trim();
-    final userPool = CognitoUserPool(
-      dotenv.env['COGNITO_USER_POOL_ID']??'',
-      dotenv.env['COGNITO_CLIENT_ID']??'',
-    );
-
-
+    
     final cognitoUser = CognitoUser(widget.mail, userPool);
     try {
       final confirmationResult = await cognitoUser.confirmRegistration(code);
       if (confirmationResult) {
-        // The email was successfully confirmed
-        print('Email confirmed successfully.');
-        // Navigate to the sign-in page or home page as appropriate
-
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginPage()));
+        var result = await signIn(
+          widget.mail, 
+          widget.password
+        );
+        if (result.verified) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const MainPage()));
+        } else {
+          showError(
+            result.message, 
+            context
+          );
+        }
       } else {
-        // Handle the case where confirmation did not succeed
-        print('Failed to confirm email.');
+        showError(
+          "Unable to confirm your account.", 
+          context
+        );
       }
     } on CognitoUserException catch (e) {
       // Handle Cognito-specific exceptions

@@ -63,41 +63,43 @@ class _ProfileState extends State<ProfilePage> {
                     json.decode(userData['userInfo']!);
 
                 return Padding(
-                  padding: const EdgeInsets.all(20),
-                  
-                  child:  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'lib/assets/nutria_1.png',
-                        width: 200,
-                      ),
-                      const SizedBox(height: 40,),
-                      Text(
-                        userInfo['cognito:username'],
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'lib/assets/nutria_1.png',
+                          width: 200,
                         ),
-                      ),
-                      Text(
-                        userInfo['email'],
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
+                        const SizedBox(
+                          height: 40,
                         ),
-                      ),
-                      const SizedBox(height: 40,),
-                      RoundedButton(
-                        onPressed: _logout,
-                        buttonText: "Cerrar sesión",
-                        size: 200,
-                      )
-                    ],
-                  )
-                );
+                        Text(
+                          '${userInfo['name']} ${userInfo['family_name']}',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          userInfo['email'],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        RoundedButton(
+                          onPressed: _logout,
+                          buttonText: "Cerrar sesión",
+                          size: 200,
+                        )
+                      ],
+                    ));
               } else {
                 // If user data is not found or is null, show appropriate message
                 return Center(
