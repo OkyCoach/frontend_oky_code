@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
 
 final Map<String, dynamic> stringDisplay = {
@@ -35,7 +37,39 @@ class TableEvaluation extends StatelessWidget {
                   .toInt(), // Ajusta según la estructura real de tus datos
               screenHeight: screenHeight,
             );
-          }).toList(),
+          }).toList()
+          ..add(
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Nota: Información de Productos proporcionada por ",
+                      style: TextStyle(
+                        fontFamily: "Gilroy-Medium",
+                        fontSize: screenHeight * 0.018,
+                        color: const Color(0xFF201547),
+                      ),
+                    ),
+                    TextSpan(
+                      text: "Ok to Shop SpA",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: screenHeight * 0.018,
+                        color: Colors.blue, // Color del enlace
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launchUrl(Uri.parse('https://www.oktoshop.cl'));
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          )
         ),
       ),
     );
