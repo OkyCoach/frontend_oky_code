@@ -3,6 +3,8 @@ import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'dart:convert';
 import 'package:frontend_oky_code/main.dart';
 import 'package:frontend_oky_code/widgets/custom_button.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -62,46 +64,128 @@ class _ProfileState extends State<ProfilePage> {
                     json.decode(userData['userInfo']!);
 
                 return Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          'lib/assets/nutria_1.png',
-                          width: 200,
+                        Center(
+                          child: Image.asset(
+                            'lib/assets/logos/full_logo.png',
+                            width: 200,
+                          )
                         ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        Text(
-                          '${userInfo['name']} ${userInfo['family_name']}',
-                          style: const TextStyle(
+                        const Text(
+                          'Tu Perfil:',
+                          style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          userInfo['email'],
-                          style: const TextStyle(
-                            fontSize: 20,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white), // Añade un borde blanco
+                            borderRadius: BorderRadius.circular(10), // Opcional: Añade bordes redondeados
+                            color: const Color(0xFF7448ED), // Fondo transparente
+                          ),
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${userInfo['name']} ${userInfo['family_name']}',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              
+                              Text(
+                                userInfo['email'],
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          'Acerca de Okylife:',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                         const SizedBox(
-                          height: 40,
+                          height: 10,
                         ),
-                        RoundedButton(
-                          onPressed: _logout,
-                          buttonText: "Cerrar sesión",
-                          size: 200,
+                        Column(
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.justify,
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "- Si deseas saber como respaldamos nuestra evaluacion, te invitamos a ver nuestro ",
+                                    style: TextStyle(
+                                      fontFamily: "Gilroy-Medium",
+                                      fontSize: 18,
+                                      color: const Color(0xFF201547),
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "algoritmo de evaluación de productos.",
+                                    style: const TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 18,
+                                      color: Colors.blue, // Color del enlace
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(Uri.parse('https://www.okylife.cl/algoritmo/'));
+                                      },
+                                  ),
+                                  
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              '- Consulta a un profesional de la salud antes de tomar una decisión sobre tu bienestar.',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                        ]
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: RoundedButton(
+                            onPressed: _logout,
+                            buttonText: "Cerrar sesión",
+                            size: 200,
+                          )
                         )
+                        
                       ],
                     ));
               } else {
-                // If user data is not found or is null, show appropriate message
-                return Center(
+                return const Center(
                   child: Text(
                     'No se ha iniciado sesión.',
                     style: TextStyle(
@@ -112,7 +196,7 @@ class _ProfileState extends State<ProfilePage> {
                 );
               }
             } else {
-              // If there is no data, prompt the user
+
               return const Center(child: Text('No user data found.'));
             }
           },

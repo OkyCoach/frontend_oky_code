@@ -62,7 +62,7 @@ class TableEvaluation extends StatelessWidget {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          launchUrl(Uri.parse('https://www.oktoshop.cl'));
+                          launchUrl(Uri.parse('https://okto.shop/'));
                         },
                     ),
                   ],
