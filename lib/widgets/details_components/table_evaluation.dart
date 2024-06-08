@@ -46,7 +46,7 @@ class TableEvaluation extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Nota: Información de Productos proporcionada por ",
+                      text: "Para más información sobre nuestra evaluación ",
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
                         fontSize: screenHeight * 0.018,
@@ -54,7 +54,7 @@ class TableEvaluation extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: "Ok to Shop SpA",
+                      text: "dirígete aquí.",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: screenHeight * 0.018,
@@ -62,7 +62,7 @@ class TableEvaluation extends StatelessWidget {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          launchUrl(Uri.parse('https://okto.shop/'));
+                          launchUrl(Uri.parse('https://www.okylife.cl/algoritmo/'));
                         },
                     ),
                   ],

@@ -37,6 +37,7 @@ class _ProfileState extends State<ProfilePage> {
       children: [
         Expanded(
           child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child:  Container(
               width: screenWidth,
               decoration: const BoxDecoration(
