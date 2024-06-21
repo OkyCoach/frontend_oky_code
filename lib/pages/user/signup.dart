@@ -13,9 +13,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _usernameController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _familyNameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailController = TextEditingController(); // Email controller for Cognito sign-up
+  final _emailController = TextEditingController(); 
   bool _obscureText = true;
 
   bool _hasUppercase = false;
@@ -34,17 +35,23 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _isLoading = true;
     });
-    final username = _usernameController.text.trim();
+    final name = _nameController.text.trim();
+    final familyName = _familyNameController.text.trim();
     final password = _passwordController.text.trim();
     final email = _emailController.text.trim(); 
 
     try {
       final signUpResult = await userPool.signUp(
-        username,
+        email,
         password,
         userAttributes: [
-          AttributeArg(name: 'email', value: email)
-        ], // Add other attributes as needed
+          AttributeArg(
+            name: 'name', value: name
+          ),
+          AttributeArg(
+            name: 'family_name', value: familyName
+          ),
+        ], 
       );
 
       if (signUpResult != null) {
@@ -53,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
         // Navigate to a confirmation screen or another part of your app
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) =>
-                MailConfirmationPage(mail: email, username: username)));
+                MailConfirmationPage(mail: email)));
       }
     } on CognitoClientException catch (e) {
       print('Cognito sign-up error: ${e.message}');
@@ -149,7 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
-                "Nombre de usuario",
+                "Nombre",
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
@@ -160,7 +167,33 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
                 obscureText: false,
-                controller: _usernameController,
+                controller: _nameController,
+                style: const TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: 16,
+                  color: Color(0xFF201547),
+                ),
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                "Apellido",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 40, // Ajusta la altura del SizedBox según tus necesidades
+              child: TextField(
+                obscureText: false,
+                controller: _familyNameController,
                 style: const TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: 16,
