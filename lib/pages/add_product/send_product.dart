@@ -156,7 +156,8 @@ class _SendProductPageState extends State<SendProductPage> {
                       },
                       size: 130,
                       isLoading: _isLoading,
-                      color: 'green'))
+                      color: 'green',
+                      enabled: true))
             ]),
       ),
     );

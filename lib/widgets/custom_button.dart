@@ -15,6 +15,7 @@ class RoundedButton extends StatelessWidget {
         backgroundColor: const Color(0xFF7448ED), 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60.0), 
+          
         ),
       ),
       child: SizedBox(

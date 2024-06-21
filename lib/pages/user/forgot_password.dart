@@ -1,71 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
-import 'package:frontend_oky_code/main.dart';
 import 'package:frontend_oky_code/widgets/loading_button.dart';
+import 'package:frontend_oky_code/pages/user/sign_in.dart';
+import 'package:frontend_oky_code/pages/user/new_password.dart';
 
-class MailConfirmationPage extends StatefulWidget {
-  final String mail;
-  final String password;
-  const MailConfirmationPage({
-    super.key, 
-    required this.mail, 
-    required this.password
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({
+    super.key,
   });
 
   @override
-  _MailConfirmationPageState createState() => _MailConfirmationPageState();
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
 }
 
-class _MailConfirmationPageState extends State<MailConfirmationPage> {
-  final _codeController = TextEditingController();
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final _emailController = TextEditingController();
   bool _isLoading = false;
 
-  void _verify() async {
+  void _return() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const SignInPage()));
+  }
+
+  void _forgotPassword() async {
     setState(() {
       _isLoading = true;
     });
-    final code = _codeController.text.trim();
-    
-    final cognitoUser = CognitoUser(widget.mail, userPool);
-    try {
-      final confirmationResult = await cognitoUser.confirmRegistration(code);
-      if (confirmationResult) {
-        var result = await signIn(
-          widget.mail, 
-          widget.password
-        );
-        if (result.verified) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const MainPage()));
-        } else {
-          showError(
-            result.message, 
-            context
-          );
-        }
-      } else {
-        showError(
-          "Unable to confirm your account.", 
-          context
-        );
-      }
-    } on CognitoUserException catch (e) {
-      showError(
-        e.message, 
-        context
-      );
-    } catch (e) {
-      showError(
-        "Unable to confirm your account.", 
-        context
-      );
+    final email = _emailController.text.trim();
+    var requested = await forgotPassword(email);
+    if (requested) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => NewPasswordPage(mail: email)));
+    } else {
+      showError("Unexpected error ocurred.", context);
     }
     setState(() {
       _isLoading = false;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -84,10 +57,15 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ElevatedButton(
+                onPressed: () {
+                  _return();
+                },
+                child: const Text("Volver")),
             Padding(
               padding: EdgeInsets.only(top: screenHeight * 0.06),
               child: Text(
-                "Confirma tu email",
+                "Restablecer contraseña",
                 style: TextStyle(
                   fontFamily: "Gilroy-Semibold",
                   fontSize: screenHeight * 0.035,
@@ -98,7 +76,7 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
               padding: EdgeInsets.only(
                   top: screenHeight * 0.02, bottom: screenHeight * 0.04),
               child: Text(
-                "Te hemos enviado un código de 6 dígitos a ${widget.mail}. Ingresa ese código aquí.",
+                "Ingresa tu correo y te enviaremos un código de recuperación.",
                 style: TextStyle(
                   fontFamily: "Gilroy-Regular",
                   fontSize: screenHeight * 0.025,
@@ -108,39 +86,35 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
             SizedBox(
               height: 40, // Ajusta la altura del SizedBox según tus necesidades
               child: TextField(
-                controller: _codeController,
+                controller: _emailController,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
-                  fontSize: screenHeight * 0.035,
+                  fontSize: screenHeight * 0.022,
                   color: Color(0xFF201547),
                 ),
                 decoration: const InputDecoration(
                   contentPadding:
                       EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
                 ),
-                keyboardType: TextInputType.number,
               ),
             ),
             Center(
               child: Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.06),
-                child: LoadingButton(
-                  buttonText: "confirmar",
-                  onPressed: () {
-                    _verify();
-                  },
-                  size: 200,
-                  isLoading: _isLoading,
-                  color: 'purple',
-                  enabled: true
-                )
-              ),
+                  padding: EdgeInsets.only(top: screenHeight * 0.06),
+                  child: LoadingButton(
+                      buttonText: "enviar",
+                      onPressed: () {
+                        _forgotPassword();
+                      },
+                      size: 200,
+                      isLoading: _isLoading,
+                      color: 'purple',
+                      enabled: true)),
             )
           ],
         ),
       ),
     )));
   }
-
 }

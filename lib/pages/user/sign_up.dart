@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:frontend_oky_code/pages/user/sign_in.dart';
 import 'package:frontend_oky_code/pages/user/mail_confirmation.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,20 +17,14 @@ class _SignUpPageState extends State<SignUpPage> {
   final _nameController = TextEditingController();
   final _familyNameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailController = TextEditingController(); 
+  final _emailController = TextEditingController();
   bool _obscureText = true;
 
   bool _hasUppercase = false;
   bool _hasDigit = false;
   bool _minimumCharacters = false;
-
+  bool _enabledButton = false;
   bool _isLoading = false;
-  var userSession;
-
-  final userPool = CognitoUserPool(
-    dotenv.env['COGNITO_USER_POOL_ID'] ?? '',
-    dotenv.env['COGNITO_CLIENT_ID'] ?? '',
-  );
 
   void _signUp() async {
     setState(() {
@@ -38,58 +33,39 @@ class _SignUpPageState extends State<SignUpPage> {
     final name = _nameController.text.trim();
     final familyName = _familyNameController.text.trim();
     final password = _passwordController.text.trim();
-    final email = _emailController.text.trim(); 
+    final email = _emailController.text.trim();
 
     try {
       final signUpResult = await userPool.signUp(
         email,
         password,
         userAttributes: [
-          AttributeArg(
-            name: 'name', value: name
-          ),
-          AttributeArg(
-            name: 'family_name', value: familyName
-          ),
-        ], 
+          AttributeArg(name: 'name', value: name),
+          AttributeArg(name: 'family_name', value: familyName),
+        ],
       );
 
       if (signUpResult != null) {
-        print('Sign-up successful, confirm user...');
-        
-        // Navigate to a confirmation screen or another part of your app
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) =>
-                MailConfirmationPage(mail: email)));
+            builder: (context) => MailConfirmationPage(
+              mail: email,
+              password: password,
+              )));
       }
     } on CognitoClientException catch (e) {
-      print('Cognito sign-up error: ${e.message}');
-      _showError('${e.message}');
+      showError(
+        e.message,
+        context
+      );
     } catch (e) {
-      print('General sign-up error: $e');
-      // Handle other errors, such as network errors
+      showError(
+        "Unexpected error, try again later.",
+        context
+      );
     }
     setState(() {
       _isLoading = false;
     });
-  }
-
-  void _showError(String message) {
-    // Use the scaffold key to get the context for the ScaffoldMessenger
-    // and show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: const Color(0xFF7448ED),
-        dismissDirection: DismissDirection.down,
-        margin: const EdgeInsets.all(5),
-        content: Text(
-          message,
-          style: const TextStyle(
-              fontFamily: "Gilroy-Semibold", fontSize: 12, color: Colors.white),
-        ),
-      ),
-    );
   }
 
   void _updatePasswordStatus() {
@@ -98,6 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
       _hasUppercase =
           _passwordController.text.trim().contains(RegExp(r'[A-Z]'));
       _hasDigit = _passwordController.text.trim().contains(RegExp(r'[0-9]'));
+      _enabledButton = _minimumCharacters && _hasUppercase && _hasDigit;
     });
   }
 
@@ -364,7 +341,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage())),
+                                  builder: (context) => const SignInPage())),
                           child: Text(
                             "Inicia sesión",
                             style: TextStyle(
@@ -377,17 +354,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
 
                         Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.038),
-                          child: LoadingButton(
-                              buttonText: "regístrate",
-                              onPressed: () {
-                                _signUp();
-                              },
-                              size: 200,
-                              isLoading: _isLoading,
-                              color: 'purple'
-                            )
-                        )
+                            padding: EdgeInsets.only(top: screenHeight * 0.038),
+                            child: LoadingButton(
+                                buttonText: "regístrate",
+                                onPressed: () {
+                                  _enabledButton ? _signUp() : null;
+                                },
+                                size: 200,
+                                isLoading: _isLoading,
+                                color: 'purple',
+                                enabled: _enabledButton,
+                                )
+                              )
                       ])),
             )
           ],

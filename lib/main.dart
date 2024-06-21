@@ -5,7 +5,7 @@ import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
-import 'package:frontend_oky_code/pages/user/login.dart';
+import 'package:frontend_oky_code/pages/user/sign_in.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(useMaterial3: true),
       home: isFirstTime
           ? FirstTutorialPage()
-          : (isLogged ? MainPage() : LoginPage()),
+          : (isLogged ? MainPage() : SignInPage()),
     );
   }
 }
