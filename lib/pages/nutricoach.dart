@@ -10,14 +10,30 @@ class NutricoachPage extends StatefulWidget {
 class _NutricoachState extends State<NutricoachPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Nutricoach'),
-          ],
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Container(
+        width: screenWidth,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFF201547),
+              Color(0xFF7448ED),
+            ],
+          ),
         ),
+        child: const Center(
+          child: Text(
+            "NutriCoach",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        )
       ),
     );
   }

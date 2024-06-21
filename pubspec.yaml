@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+6
 
 environment:
   sdk: '>=3.1.1 <4.0.0'
@@ -36,7 +36,19 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^1.1.0
-  simple_barcode_scanner: ^0.0.8
+  shared_preferences: ^2.2.2
+  url_launcher: ^6.2.3
+  amazon_cognito_identity_dart_2: ^3.6.2
+  flutter_secure_storage: ^4.2.1
+  flutter_dotenv: ^5.1.0
+  camera: ^0.10.5+9
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.0
+  mobile_scanner: ^4.0.1
+  vibration: ^1.8.4
+  image: ^4.1.7
+  crop_image: ^1.0.12
+  
 
 dev_dependencies:
   flutter_test:
@@ -62,14 +74,86 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/Logo-blanco.png
-    - lib/assets/Lupa.png
-    - lib/assets/Perfil.png
-    - lib/assets/Preguntas.png
-    - lib/assets/Scanner.png
-    - lib/assets/botones/Ver_producto.png
-    - lib/assets/Favorito.png
-    - lib/assets/Estrella_completa.png
+    - lib/.env
+    - lib/assets/logos/logo_blanco.png
+    - lib/assets/logos/logo_degrade.png
+    - lib/assets/logos/full_logo.png
+    - lib/assets/logos/logo_borde_morado.png
+    - lib/assets/logos/mano_oky.png
+    
+    - lib/assets/lupa.png
+    - lib/assets/perfil.png
+    - lib/assets/preguntas.png
+    - lib/assets/scanner.png
+    - lib/assets/favorito.png
+
+    - lib/assets/estrellas/estrella_0_8.png
+    - lib/assets/estrellas/estrella_1_8.png
+    - lib/assets/estrellas/estrella_2_8.png
+    - lib/assets/estrellas/estrella_3_8.png
+    - lib/assets/estrellas/estrella_4_8.png
+    - lib/assets/estrellas/estrella_5_8.png
+    - lib/assets/estrellas/estrella_6_8.png
+    - lib/assets/estrellas/estrella_7_8.png
+    - lib/assets/estrellas/estrella_8_8.png
+    
+  
+    - lib/assets/calidad_ingredientes.png
+    - lib/assets/numero_ingredientes.png
+    - lib/assets/naturalidad.png
+    - lib/assets/azucares.png
+    - lib/assets/calorias.png
+    - lib/assets/grasas.png
+    - lib/assets/proteinas.png
+    - lib/assets/sodio.png
+    - lib/assets/fibra.png
+    - lib/assets/hidratos.png
+
+    - lib/assets/nutria_1.png
+    - lib/assets/nutria_2.png
+    - lib/assets/cara_nutria.png
+    - lib/assets/nutria_recortada.png
+    - lib/assets/nutria_2_sin_cola.png
+    - lib/assets/scanner_tutorial.png
+    - lib/assets/image_not_found.png
+
+    - lib/assets/botones/ver_producto.png
+    - lib/assets/botones/agregar.png
+    - lib/assets/botones/continuar.png
+    - lib/assets/botones/comenzar.png
+    - lib/assets/botones/siguiente.png
+    - lib/assets/botones/rotar.png
+    - lib/assets/botones/recortar.png
+    - lib/assets/botones/enviar.png
+    - lib/assets/botones/oky.png
+    - lib/assets/botones/iniciar_sesion.png
+    - lib/assets/botones/registrate.png
+
+    - lib/assets/puntos/punto_0.png
+    - lib/assets/puntos/punto_1.png
+    - lib/assets/puntos/punto_2.png
+    - lib/assets/puntos/punto_3.png
+    - lib/assets/puntos/punto_4.png
+    - lib/assets/puntos/punto_5.png
+    - lib/assets/puntos/punto_6.png
+    - lib/assets/puntos/punto_7.png
+    - lib/assets/puntos/punto_8.png
+    - lib/assets/puntos/punto_9.png
+    - lib/assets/puntos/punto_10.png
+    - lib/assets/puntos/punto_11.png
+    
+    - lib/assets/puntos/punto_0_selected.png
+    - lib/assets/puntos/punto_1_selected.png
+    - lib/assets/puntos/punto_2_selected.png
+    - lib/assets/puntos/punto_3_selected.png
+    - lib/assets/puntos/punto_4_selected.png
+    - lib/assets/puntos/punto_5_selected.png
+    - lib/assets/puntos/punto_6_selected.png
+    - lib/assets/puntos/punto_7_selected.png
+    - lib/assets/puntos/punto_8_selected.png
+    - lib/assets/puntos/punto_9_selected.png
+    - lib/assets/puntos/punto_10_selected.png
+    - lib/assets/puntos/punto_11_selected.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -82,12 +166,25 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Gilroy-Regular
+      fonts:
+        - asset: fonts/Gilroy-Regular.ttf
+        
+    - family: Gilroy-Medium
+      fonts:
+        - asset: fonts/Gilroy-Medium.ttf
+    - family: Gilroy-SemiBold
+      fonts:
+        - asset: fonts/Gilroy-SemiBold.ttf
+    - family: Gilroy-Bold
+      fonts:
+        - asset: fonts/Gilroy-Bold.ttf
+    - family: Gilroy-Black
+      fonts:
+        - asset: fonts/Gilroy-Black.ttf
+
+          
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
