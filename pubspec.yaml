@@ -85,7 +85,8 @@ flutter:
     - lib/assets/perfil.png
     - lib/assets/preguntas.png
     - lib/assets/scanner.png
-    - lib/assets/favorito.png
+    - lib/assets/me_gusta.png
+    - lib/assets/no_me_gusta.png
 
     - lib/assets/estrellas/estrella_0_8.png
     - lib/assets/estrellas/estrella_1_8.png

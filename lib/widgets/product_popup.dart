@@ -5,7 +5,7 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class ProductPopup extends StatefulWidget {
-  final dynamic product; // Objeto con atributos variables
+  final dynamic product;
   final dynamic evaluation;
   final bool scanning;
   final ValueChanged<bool> controlScan;
@@ -25,6 +25,8 @@ class ProductPopup extends StatefulWidget {
 class _ProductPopupState extends State<ProductPopup> {
   List<dynamic> recommendedProducts = [];
   bool ready = false;
+  late bool isLiked;
+  late int likes;
 
   void _showProductDetails(context) {
     Navigator.pop(context);
@@ -43,9 +45,21 @@ class _ProductPopupState extends State<ProductPopup> {
     );
   }
 
+  void _toggleLike() {
+    setState(() {
+      likeProduct(widget.product["id"], isLiked);
+      isLiked = !isLiked;
+      isLiked 
+        ? likes += 1 
+        : likes -= 1;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    isLiked = widget.product["liked"] ?? false;
+    likes = widget.product["totalLikes"] ?? 0;
     fetchData();
   }
 
@@ -193,10 +207,11 @@ class _ProductPopupState extends State<ProductPopup> {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 30),
+                              padding: const EdgeInsets.only(top: 20),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   InkWell(
                                     onTap: () {
@@ -207,22 +222,36 @@ class _ProductPopupState extends State<ProductPopup> {
                                       width: screenWidth * 0.5,
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      //Navigator.of(context).pop();
-                                    },
-                                    child: ClipOval(
-                                      child: ColorFiltered(
-                                        colorFilter: const ColorFilter.mode(
-                                          Color(0xFFE8E4F4),
-                                          BlendMode.color,
-                                        ),
-                                        child: Image.asset(
-                                          'lib/assets/favorito.png',
-                                          height: screenHeight * 0.05,
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '$likes',
+                                        style: const TextStyle(
+                                          fontFamily: "Gilroy-Bold",
                                         ),
                                       ),
-                                    ),
+                                      InkWell(
+                                        onTap: () {
+                                          _toggleLike();
+                                        },
+                                        child: ClipOval(
+                                          child: ColorFiltered(
+                                            colorFilter: ColorFilter.mode(
+                                              (isLiked)
+                                                  ? Colors.transparent
+                                                  : Color(0xFFE8E4F4),
+                                              BlendMode.color,
+                                            ),
+                                            child: Image.asset(
+                                              (isLiked)
+                                                  ? 'lib/assets/me_gusta.png'
+                                                  : 'lib/assets/no_me_gusta.png',
+                                              height: screenHeight * 0.045,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -237,7 +266,7 @@ class _ProductPopupState extends State<ProductPopup> {
             ),
           ),
           Recommended(
-            recommendedProducts: recommendedProducts, 
+            recommendedProducts: recommendedProducts,
             ready: ready,
             scanning: widget.scanning,
             controlScan: widget.controlScan,
