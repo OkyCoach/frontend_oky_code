@@ -83,11 +83,9 @@ class NoEvaluationPopup extends StatelessWidget {
                               product["name"] ?? 'not_found',
                               style: TextStyle(
                                 fontFamily: "Gilroy-SemiBold",
-                                fontSize: screenWidth * 0.06,
+                                fontSize: screenWidth * 0.07,
                                 color: const Color(0xFF7448ED),
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
                             ),
                             Text(
                               (product["brands"]?.isNotEmpty ?? false)
@@ -98,8 +96,6 @@ class NoEvaluationPopup extends StatelessWidget {
                                 fontFamily: "Gilroy-Medium",
                                 fontSize: screenWidth * 0.05,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
                             ),
                           ],
                         )))
@@ -111,7 +107,7 @@ class NoEvaluationPopup extends StatelessWidget {
               "No tenemos evaluación para la categoría de este producto por el momento.",
               style: TextStyle(
                 fontFamily: "Gilroy-Medium",
-                fontSize: screenWidth * 0.045,
+                fontSize: screenWidth*0.05,
               ),
               textAlign: TextAlign.center,
             ),
