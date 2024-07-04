@@ -10,10 +10,13 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
   try {
     AuthManager authManager = AuthManager();
     Map<String, String> sessionData = await authManager.getSession();
-    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
-    String userId = userInfo["sub"];
+    Map<String, dynamic> userInfo =
+        sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
+    String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
+    print('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}');
     final response = await http
-        .get(Uri.parse('$url$code?user_id=$userId'))
+        .get(Uri.parse(
+            '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}'))
         .timeout(const Duration(seconds: 5));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -157,9 +160,8 @@ Future<String> likeProduct(String productId, bool removeLike) async {
     String userId = userInfo["sub"];
 
     var url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/like/$productId?user_id=$userId&remove_like=$removeLike';
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/like/$productId?user_id=$userId&remove_like=$removeLike';
 
-  
     final response = await http.post(
       Uri.parse(url),
       headers: {
@@ -175,5 +177,4 @@ Future<String> likeProduct(String productId, bool removeLike) async {
   } catch (error) {
     return "Error al buscar los datos: $error";
   }
-
 }

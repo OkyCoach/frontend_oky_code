@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'dart:convert';
 import 'package:frontend_oky_code/main.dart';
+import 'package:frontend_oky_code/pages/user/sign_up.dart';
 import 'package:frontend_oky_code/widgets/custom_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,13 +15,34 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfilePage> {
-  Future<Map<String, String>>? _userDataFuture;
+  Map<String, dynamic> _userData = {};
   bool logged = false;
 
   @override
   void initState() {
     super.initState();
-    _userDataFuture = AuthManager().getSession();
+    _getSession();
+  }
+
+  void _getSession() async {
+    try {
+      var data = await AuthManager().getSession();
+      if (data.containsKey('userInfo') && data['userInfo'] != null) {
+        Map<String, dynamic> userInfo = json.decode(data['userInfo']!);
+        setState(() {
+          _userData = userInfo;
+          logged = true;
+        });
+      } else {
+        setState(() {
+          _userData = {"message": "No se encontro usuario"};
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _userData = {"message": "No se encontro usuario"};
+      });
+    }
   }
 
   void _logout() async {
@@ -32,7 +54,7 @@ class _ProfileState extends State<ProfilePage> {
 
   void _signUp() async {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => MyApp(isFirstTime: false, isLogged: false)));
+        builder: (context) => const SignUpPage()));
   }
 
   @override
@@ -57,7 +79,7 @@ class _ProfileState extends State<ProfilePage> {
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height,
           ),
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,78 +100,60 @@ class _ProfileState extends State<ProfilePage> {
               const SizedBox(
                 height: 10,
               ),
-              FutureBuilder<Map<String, String>>(
-                future: _userDataFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    final userData = snapshot.data!;
-                    if (userData.containsKey('userInfo') &&
-                        userData['userInfo'] != null) {
-                      Map<String, dynamic> userInfo =
-                          json.decode(userData['userInfo']!);
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white), // Añade un borde blanco
-                          borderRadius: BorderRadius.circular(
-                              10), // Opcional: Añade bordes redondeados
-                          color: const Color(0xFF7448ED), // Fondo transparente
+              if(logged)
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: Colors.white), // Añade un borde blanco
+                    borderRadius: BorderRadius.circular(
+                        10), // Opcional: Añade bordes redondeados
+                    color: const Color(0xFF7448ED), // Fondo transparente
+                  ),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${_userData['name']} ${_userData['family_name']}',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
                         ),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${userInfo['name']} ${userInfo['family_name']}',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              userInfo['email'],
-                              style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                      ),
+                      Text(
+                        _userData['email'],
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
-                      );
-                    } else {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            '¿Te gusta la aplicación?',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: RoundedButton(
-                            onPressed: _signUp,
-                            buttonText: "Registrate",
-                            size: 200,
-                          ))
-                        ],
-                      );
-                    }
-                  } else {
-                    return Text('No data available');
-                  }
-                },
-              ),
+                      ),
+                    ],
+                  ),
+                ),
+              if(!logged)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '¿Te gusta la aplicación?',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                        child: RoundedButton(
+                      onPressed: _signUp,
+                      buttonText: "Registrate",
+                      size: 200,
+                    ))
+                  ],
+                ),
               const SizedBox(
                 height: 20,
               ),
@@ -211,7 +215,7 @@ class _ProfileState extends State<ProfilePage> {
               const SizedBox(
                 height: 40,
               ),
-              if(logged)
+              if (logged)
                 Center(
                     child: RoundedButton(
                   onPressed: _logout,
