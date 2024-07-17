@@ -40,34 +40,16 @@ class TableEvaluation extends StatelessWidget {
           }).toList()
           ..add(
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: RichText(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              child:  Text(
+                "Nota: Información de Productos proporcionada por Ok to Shop SpA o proveedores.",
                 textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Para más información sobre nuestra evaluación ",
-                      style: TextStyle(
-                        fontFamily: "Gilroy-Medium",
-                        fontSize: screenHeight * 0.018,
-                        color: const Color(0xFF201547),
-                      ),
-                    ),
-                    TextSpan(
-                      text: "dirígete aquí.",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: screenHeight * 0.018,
-                        color: Colors.blue, // Color del enlace
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          launchUrl(Uri.parse('https://www.okylife.cl/algoritmo/'));
-                        },
-                    ),
-                  ],
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenHeight * 0.015,
+                  color: const Color(0xFF201547),
                 ),
-              ),
+              ),  
             )
           )
         ),

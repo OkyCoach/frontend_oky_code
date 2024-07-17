@@ -6,7 +6,7 @@ import 'package:frontend_oky_code/helpers/auth_manager.dart';
 
 Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/info_producto/';
   try {
     AuthManager authManager = AuthManager();
     Map<String, String> sessionData = await authManager.getSession();
@@ -33,7 +33,7 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
 
 Future<Map<String, dynamic>> fetchEvaluationData(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/algoritmo/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/algoritmo/';
   try {
     final response = await http
         .get(Uri.parse('$url$code'))
@@ -53,7 +53,7 @@ Future<Map<String, dynamic>> fetchEvaluationData(String? code) async {
 
 Future<List<dynamic>> fetchRecommendedProducts(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/recomendacion/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/recomendacion/';
   try {
     final response = await http.get(Uri.parse('$url$code'));
     if (response.statusCode == 200) {
