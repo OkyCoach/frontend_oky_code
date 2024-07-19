@@ -47,7 +47,7 @@ class _ProductPopupState extends State<ProductPopup> {
 
   void _toggleLike() {
     setState(() {
-      likeProduct(widget.product["id"], isLiked);
+      likeProduct(widget.product["_id"], isLiked);
       isLiked = !isLiked;
       isLiked 
         ? likes += 1 
