@@ -56,6 +56,7 @@ class _OkyTipsState extends State<OkyTips> {
       }
 
       if (widget.product.containsKey("sabias_que") &&
+          widget.product["sabias_que"] != null &&
           widget.product["sabias_que"].isNotEmpty) {
         List allSabiasQue = widget.product["sabias_que"];
         Random random = Random();
