@@ -59,6 +59,7 @@ Future<List<dynamic>> fetchRecommendedProducts(String? code) async {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;
+
     } else {
       return [
         {"error": "Error: Error en la solicitud HTTP"}
@@ -160,7 +161,7 @@ Future<String> likeProduct(String productId, bool removeLike) async {
     String userId = userInfo["sub"];
 
     var url =
-        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/like/$productId?user_id=$userId&remove_like=$removeLike';
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/like/product/$productId?user_id=$userId&remove_like=$removeLike';
 
     final response = await http.post(
       Uri.parse(url),
@@ -170,6 +171,35 @@ Future<String> likeProduct(String productId, bool removeLike) async {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      return data["message"];
+    } else {
+      return "Error en la solicitud HTTP: ${response.statusCode}";
+    }
+  } catch (error) {
+    return "Error al buscar los datos: $error";
+  }
+}
+
+Future<String> likeOkytip(
+    String productId, String okytipId, bool removeLike) async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/like/oky_tip/$productId?oky_tip_id=$okytipId&user_id=$userId&remove_like=$removeLike';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+
       return data["message"];
     } else {
       return "Error en la solicitud HTTP: ${response.statusCode}";
