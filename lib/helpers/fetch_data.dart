@@ -2,19 +2,29 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend_oky_code/helpers/image_converter.dart';
+import 'package:frontend_oky_code/helpers/auth_manager.dart';
 
 Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/info_producto/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/info_producto/';
   try {
-    final response = await http.get(Uri.parse('$url$code')).timeout(const Duration(seconds: 5));
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo =
+        sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
+    String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
+    print('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}');
+    final response = await http
+        .get(Uri.parse(
+            '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}'))
+        .timeout(const Duration(seconds: 5));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;
     } else {
       return {"error": "Error en la solicitud HTTP"};
     }
-  } on TimeoutException catch (_) { 
+  } on TimeoutException catch (_) {
     return {"timeout": "La solicitud ha tardado demasiado tiempo en responder"};
   } catch (error) {
     return {"error": "Ocurrió un error al buscar los datos"};
@@ -23,16 +33,18 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
 
 Future<Map<String, dynamic>> fetchEvaluationData(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/algoritmo/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/algoritmo/';
   try {
-    final response = await http.get(Uri.parse('$url$code')).timeout(const Duration(seconds: 5));
+    final response = await http
+        .get(Uri.parse('$url$code'))
+        .timeout(const Duration(seconds: 5));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;
     } else {
       return {"error": "Error en la solicitud HTTP"};
     }
-  } on TimeoutException catch (_) { 
+  } on TimeoutException catch (_) {
     return {"timeout": "La solicitud ha tardado demasiado tiempo en responder"};
   } catch (error) {
     return {"error": "Ocurrió un error al buscar los datos"};
@@ -41,12 +53,13 @@ Future<Map<String, dynamic>> fetchEvaluationData(String? code) async {
 
 Future<List<dynamic>> fetchRecommendedProducts(String? code) async {
   const url =
-      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/dev/recomendacion/';
+      'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/recomendacion/';
   try {
     final response = await http.get(Uri.parse('$url$code'));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;
+
     } else {
       return [
         {"error": "Error: Error en la solicitud HTTP"}
@@ -131,6 +144,62 @@ Future<String> notifyMissingProduct(String? barcode) async {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      return data["message"];
+    } else {
+      return "Error en la solicitud HTTP: ${response.statusCode}";
+    }
+  } catch (error) {
+    return "Error al buscar los datos: $error";
+  }
+}
+
+Future<String> likeProduct(String productId, bool removeLike) async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/like/product/$productId?user_id=$userId&remove_like=$removeLike';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data["message"];
+    } else {
+      return "Error en la solicitud HTTP: ${response.statusCode}";
+    }
+  } catch (error) {
+    return "Error al buscar los datos: $error";
+  }
+}
+
+Future<String> likeOkytip(
+    String productId, String okytipId, bool removeLike) async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/like/oky_tip/$productId?oky_tip_id=$okytipId&user_id=$userId&remove_like=$removeLike';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+
       return data["message"];
     } else {
       return "Error en la solicitud HTTP: ${response.statusCode}";
