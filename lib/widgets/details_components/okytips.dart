@@ -94,9 +94,11 @@ class _OkyTipsState extends State<OkyTips> {
           children: [
             Expanded(
               child:
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Container(
-                    padding: const EdgeInsets.all(20),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start, 
+                    children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15.0),
@@ -105,7 +107,46 @@ class _OkyTipsState extends State<OkyTips> {
                           width: 2.0,
                         )),
                     child: Column(
-                      children: [
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [ 
+                        Padding(
+                          padding:  const EdgeInsets.only(bottom: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Text(
+                                  '$likes',
+                                  style: const TextStyle(
+                                    fontFamily: "Gilroy-Bold",
+                                    ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  _toggleLike();
+                                },
+                                child: ClipOval(
+                                  child: ColorFiltered(
+                                    colorFilter: ColorFilter.mode(
+                                      (isLiked)
+                                          ? Colors.transparent
+                                          : Color(0xFFE8E4F4),
+                                      BlendMode.color,
+                                    ),
+                                    child: Image.asset(
+                                      (isLiked)
+                                          ? 'lib/assets/me_gusta.png'
+                                          : 'lib/assets/no_me_gusta.png',
+                                      height: screenHeight * 0.04,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ), 
+                        ), 
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
@@ -113,7 +154,7 @@ class _OkyTipsState extends State<OkyTips> {
                               const TextSpan(
                                 text: 'OkyTip: ',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontFamily: "Gilroy-Bold",
                                   color: Color(0xFF7448ED),
                                 ),
@@ -130,55 +171,18 @@ class _OkyTipsState extends State<OkyTips> {
                           ),
                         ),
                         if(okyTipId != "")
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10, bottom: 8),
-                              child: Text(
-                                nutricionista,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Gilroy-Normal",
-                                  color: Color(0xFF7448ED),
-                                ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 5),
+                            child: Text(
+                              nutricionista,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "Gilroy-Normal",
+                                color: Color(0xFF7448ED),
                               ),
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  '$likes',
-                                  style: const TextStyle(
-                                    fontFamily: "Gilroy-Bold",
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    _toggleLike();
-                                  },
-                                  child: ClipOval(
-                                    child: ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                        (isLiked)
-                                            ? Colors.transparent
-                                            : Color(0xFFE8E4F4),
-                                        BlendMode.color,
-                                      ),
-                                      child: Image.asset(
-                                        (isLiked)
-                                            ? 'lib/assets/me_gusta.png'
-                                            : 'lib/assets/no_me_gusta.png',
-                                        height: screenHeight * 0.04,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]
-                        )
+                          ), 
                       ],
                     )),
                 Align(
