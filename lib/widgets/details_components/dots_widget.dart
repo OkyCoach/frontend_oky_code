@@ -15,15 +15,18 @@ class DotsWidget extends StatelessWidget {
   List<num> getRangeValues(List<dynamic> ranges) {
     num maxValue = 0;
     num minValue = 0;
+    if (ranges.length == 1) {
+      return [ranges[0]["min"], ranges[0]["max"]];
+    }
     for (var range in ranges) {
       if (range["max"] == 1000) {
         maxValue = range["min"];
-         // Termina el bucle al encontrar el rango con max 1000
+        // Termina el bucle al encontrar el rango con max 1000
       }
       if (range["min"] == 0) {
-        minValue = range["max"]; // Termina el bucle al encontrar el rango con max 1000
+        minValue =
+            range["max"]; // Termina el bucle al encontrar el rango con max 1000
       }
-
     }
     return [minValue, maxValue];
   }
@@ -32,7 +35,9 @@ class DotsWidget extends StatelessWidget {
     int maxDots = 11;
     List<num> limits = getRangeValues(ranges);
     score = score.toInt().clamp(limits[0], limits[1]);
-    double selectedDot = (((score- limits[0]) / (limits[1]- limits[0])) * maxDots).roundToDouble();
+    double selectedDot =
+        (((score - limits[0]) / (limits[1] - limits[0])) * maxDots)
+            .roundToDouble();
     if (display == 1) {
       selectedDot = maxDots - selectedDot;
     }
@@ -43,7 +48,6 @@ class DotsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double selectedDot = calculateSelectedDot(actualScore);
     double screenHeight = MediaQuery.of(context).size.height;
-    
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
