@@ -48,6 +48,7 @@ dependencies:
   vibration: ^1.8.4
   image: ^4.1.7
   crop_image: ^1.0.12
+  posthog_flutter: ^4.0.0
   
 
 dev_dependencies:

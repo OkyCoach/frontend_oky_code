@@ -6,6 +6,7 @@ import 'package:frontend_oky_code/pages/user/sign_up.dart';
 import 'package:frontend_oky_code/widgets/custom_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -56,9 +57,15 @@ class _ProfileState extends State<ProfilePage> {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => const SignUpPage()));
   }
+  void _trackScreenView() async {
+    await Posthog().screen(
+      screenName: 'ProfilePage',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    _trackScreenView();
     double screenWidth = MediaQuery.of(context).size.width;
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Expanded(
