@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend_oky_code/helpers/image_converter.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
   const url =
@@ -14,6 +15,13 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
         sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
     String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
     print('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}');
+    PostHog.capture(
+      'fetchBarcodeData',
+      properties: {
+        'code': code,
+        'userId': userId,
+      },
+    );
     final response = await http
         .get(Uri.parse(
             '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}'))
