@@ -216,3 +216,30 @@ Future<String> likeOkytip(
     return "Error al buscar los datos: $error";
   }
 }
+
+Future<List<dynamic>> scannedProductsHistory() async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/product-history/$userId?limit=30';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data as List;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    return [];
+  }
+}
