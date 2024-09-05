@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
+import 'package:frontend_oky_code/widgets/search/Product.dart';
+import 'package:frontend_oky_code/widgets/search/Searchbar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -9,29 +10,34 @@ class SearchPage extends StatefulWidget {
 }
 
 class _ProfileState extends State<SearchPage> {
+  final _filterController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Container(
-        width: screenWidth,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF201547),
-              Color(0xFF7448ED),
-            ],
-          ),
-        ),
-        child: const Center(
-          child: Text(
-            "Buscar",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+      body: SafeArea(
+        child: Padding(padding: EdgeInsets.only(top: 10),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomSearchBar(
+                  controller: _filterController,
+                ),
+                SizedBox(height: 10,),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Product(product: {}),
+                      Product(product: {}),
+                      Product(product: {})
+                    ],
+                  )
+                )
+              ],
             ),
           ),
         )

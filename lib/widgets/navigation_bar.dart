@@ -33,18 +33,42 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         NavigationDestination(
           icon: Container(
             margin: const EdgeInsets.fromLTRB(
-                0, 14, 0, 0), // Ajusta el margen según sea necesario
+                0, 14, 0, 0),
             height: 60,
             child: Image.asset('lib/assets/logos/logo_borde_morado.png'),
           ),
           label: "",
-        ),*/
+        ),
+         */
+        NavigationDestination(
+          icon: Icon(
+            Icons.history,
+            size: screenHeight * 0.035,
+            color: Colors.white,
+          ),
+          label: "Historial",
+        ),
+        NavigationDestination(
+          icon: Icon(
+            Icons.favorite,
+            size: screenHeight * 0.035,
+            color: Colors.white,
+          ),
+          label: "Favoritos",
+        ),
         NavigationDestination(
           icon: SizedBox(
             width: screenHeight * 0.035,
             child: Image.asset('lib/assets/scanner.png'),
           ),
           label: "Scanner",
+        ),
+        NavigationDestination(
+          icon: SizedBox(
+            width: screenHeight * 0.035,
+            child: Image.asset('lib/assets/lupa.png'),
+          ),
+          label: "Buscar",
         ),
         NavigationDestination(
           icon: SizedBox(
@@ -61,14 +85,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           ),
           label: "Nutricoach",
         ),
-        NavigationDestination(
-          icon: SizedBox(
-            width: screenHeight * 0.035,
-            child: Image.asset('lib/assets/lupa.png'),
-          ),
-          label: "Buscar", 
-        ),
-        */
+
+         */
+
+
       ],
     );
   }

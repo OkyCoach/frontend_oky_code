@@ -60,21 +60,16 @@ class _ProfileState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
       Expanded(
           child: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Container(
           width: screenWidth,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF201547),
-                Color(0xFF7448ED),
-              ],
-            ),
+            color: Colors.white
           ),
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height,
@@ -93,8 +88,7 @@ class _ProfileState extends State<ProfilePage> {
                 'Tu Perfil:',
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontFamily: "Gilroy-SemiBold",
                 ),
               ),
               const SizedBox(
@@ -105,10 +99,9 @@ class _ProfileState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border:
-                        Border.all(color: Colors.white), // Añade un borde blanco
+                        Border.all(color: const Color(0xFF7448ED)),
                     borderRadius: BorderRadius.circular(
-                        10), // Opcional: Añade bordes redondeados
-                    color: const Color(0xFF7448ED), // Fondo transparente
+                        10),
                   ),
                   width: double.infinity,
                   child: Column(
@@ -117,15 +110,15 @@ class _ProfileState extends State<ProfilePage> {
                       Text(
                         '${_userData['name']} ${_userData['family_name']}',
                         style: const TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
+                          fontSize: 22,
+                          fontFamily: "Gilroy-SemiBold",
                         ),
                       ),
                       Text(
                         _userData['email'],
                         style: const TextStyle(
                           fontSize: 20,
-                          color: Colors.white,
+                          fontFamily: "Gilroy-Regular",
                         ),
                       ),
                     ],
@@ -139,8 +132,7 @@ class _ProfileState extends State<ProfilePage> {
                       '¿Te gusta la aplicación?',
                       style: TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontFamily: "Gilroy-SemiBold",
                       ),
                     ),
                     const SizedBox(
@@ -161,57 +153,57 @@ class _ProfileState extends State<ProfilePage> {
                 'Acerca de Okylife:',
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontFamily: "Gilroy-SemiBold",
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Column(children: [
-                RichText(
-                  textAlign: TextAlign.justify,
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text:
-                            "- Si deseas saber como respaldamos nuestra evaluacion, te invitamos a ver nuestro ",
-                        style: TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: 18,
-                          color: Colors.white,
+              Column(
+                children: [
+                  RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text:
+                              "- Si deseas saber como respaldamos nuestra evaluación, te invitamos a ver nuestro ",
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "algoritmo de evaluación de productos.",
-                        style: const TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: 18,
-                          color: Colors.blue, // Color del enlace
+                        TextSpan(
+                          text: "algoritmo de evaluación de productos.",
+                          style: const TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: 18,
+                            color: const Color(0xFF7448ED),// Color del enlace
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrl(
+                                  Uri.parse('https://www.okylife.cl/algoritmo/'));
+                            },
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchUrl(
-                                Uri.parse('https://www.okylife.cl/algoritmo/'));
-                          },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  '- Consulta a un profesional de la salud antes de tomar una decisión sobre tu bienestar.',
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontFamily: "Gilroy-Medium",
-                    fontSize: 18,
-                    color: Colors.white,
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-              ]),
+                  const Text(
+                    '- Consulta a un profesional de la salud antes de tomar una decisión sobre tu bienestar.',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: "Gilroy-Regular",
+                      fontSize: 18,
+                    ),
+                  ),
+                ]
+              ),
               const SizedBox(
                 height: 40,
               ),

@@ -3,6 +3,8 @@ import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
+import 'package:frontend_oky_code/pages/history.dart';
+import 'package:frontend_oky_code/pages/favorites.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
 import 'package:frontend_oky_code/pages/user/sign_in.dart';
@@ -71,12 +73,15 @@ class _MainState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      //const HomePage(),|
+      //const HomePage(),
+      const HistoryPage(),
+      const FavoritesPage(),
       MyScannerWidget(),
+      const SearchPage(),
       const ProfilePage(),
       //BarcodeScannerScreen(),
       //const NutricoachPage(),
-      //const SearchPage(),
+
     ];
     return Scaffold(
         body: pages[_currentIndex],
