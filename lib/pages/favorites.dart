@@ -14,7 +14,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SafeArea(
@@ -22,8 +22,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "Productos favoritos",
+                      style: TextStyle(
+                        fontFamily: "Gilroy-SemiBold",
+                        fontSize: screenHeight * 0.025,
+                        color: Colors.grey.shade800,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5,),
                   Expanded(
                       child: ListView(
                         children: [

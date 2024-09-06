@@ -15,10 +15,10 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
         sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
     String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
     print('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}');
-    PostHog.capture(
-      'fetchBarcodeData',
+    Posthog().capture(
+      eventName: 'fetchBarcodeData',
       properties: {
-        'code': code,
+        'code': code!,
         'userId': userId,
       },
     );

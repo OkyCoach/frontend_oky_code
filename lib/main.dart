@@ -3,7 +3,7 @@ import 'package:frontend_oky_code/pages/home.dart';
 import 'package:frontend_oky_code/pages/profile.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
-import 'package:frontend_oky_code/pages/history.dart';
+import 'package:frontend_oky_code/pages/history/history.dart';
 import 'package:frontend_oky_code/pages/favorites.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
@@ -62,7 +62,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   void updateIndex(int newIndex) {
     setState(() {
