@@ -110,7 +110,7 @@ flutter:
     - lib/assets/naturalidad.png
     - lib/assets/azucares.png
     - lib/assets/calorias.png
-    - lib/assets/grasas.png
+    - lib/assets/grasas_totales.png
     - lib/assets/proteinas.png
     - lib/assets/sodio.png
     - lib/assets/fibra.png
