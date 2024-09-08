@@ -107,6 +107,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                       ready: ready,
                       scanning: widget.scanning,
                       controlScan: widget.controlScan,
+                      cameFromScan: true,
                     ),
                 ),
               ],

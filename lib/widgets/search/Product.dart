@@ -46,7 +46,8 @@ class _ProductState extends State<Product> {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child:Row(
+            child:  Expanded(
+              child:  Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 widget.product["photoUrl"] != null
@@ -70,7 +71,8 @@ class _ProductState extends State<Product> {
                       width: screenHeight * 0.1,
                     ),
                 SizedBox(width: 10,),
-                Column(
+                Expanded(
+                child:  Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -104,7 +106,9 @@ class _ProductState extends State<Product> {
                     ),
                   ],
                 )
+                )
               ],
+            )
             )
           )
       )

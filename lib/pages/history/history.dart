@@ -10,7 +10,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryState extends State<HistoryPage> {
-  final _filterController = TextEditingController();
   List<dynamic> _products = [];
   bool _isLoading = true;
 

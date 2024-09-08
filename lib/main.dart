@@ -4,7 +4,7 @@ import 'package:frontend_oky_code/pages/profile.dart';
 import 'package:frontend_oky_code/pages/search.dart';
 import 'package:frontend_oky_code/pages/nutricoach.dart';
 import 'package:frontend_oky_code/pages/history/history.dart';
-import 'package:frontend_oky_code/pages/favorites.dart';
+import 'package:frontend_oky_code/pages/favorites/favorites.dart';
 import 'package:frontend_oky_code/widgets/navigation_bar.dart';
 import 'package:frontend_oky_code/pages/tutorial_1.dart';
 import 'package:frontend_oky_code/pages/user/sign_in.dart';

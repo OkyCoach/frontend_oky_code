@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
 import 'package:frontend_oky_code/widgets/dummy_products.dart';
+import 'package:frontend_oky_code/widgets/history/product_detail_sheet.dart';
+
 
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
   final bool ready;
   final bool scanning;
   final ValueChanged<bool> controlScan;
+  final bool cameFromScan;
 
   Recommended({
     Key? key,
@@ -15,6 +18,7 @@ class Recommended extends StatefulWidget {
     required this.ready,
     required this.scanning,
     required this.controlScan,
+    required this.cameFromScan
   }) : super(key: key);
 
   @override
@@ -39,7 +43,28 @@ class _RecommendedState extends State<Recommended> {
       },
     );
   }
-  
+
+  void _showProductSheet(BuildContext context, dynamic product) {
+    Navigator.pop(context);
+
+    var _productData = {
+      "barcode": product["product"]["barcode"],
+      "name": product["product"]["name"],
+      "photoUrl": product["product"]["photoUrl"],
+      "brand": (product["product"]?["brands"]?.isNotEmpty ?? false)
+                  ? product["product"]["brands"][0]["name"] ?? 'not_found'
+                  : 'not_found'
+    };
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return ProductDetailSheet(product: _productData);
+      },
+      isScrollControlled: true,
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +74,7 @@ class _RecommendedState extends State<Recommended> {
 
     return Container(
       width: screenWidth,
-      color: const Color(0xFFF9F9FA), // Fondo blanco
+      color: const Color(0xFFF9F9FA),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         child: Column(
@@ -118,7 +143,11 @@ class _RecommendedState extends State<Recommended> {
         width: screenWidth / 3,
         child: GestureDetector(
             onTap: () {
-              _showProductDetails(context, product);
+              if(widget.cameFromScan) {
+                _showProductDetails(context, product);
+              } else {
+                _showProductSheet(context, product);
+              }
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),

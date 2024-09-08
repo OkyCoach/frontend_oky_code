@@ -3,13 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
-
+    <true/>
     <key>com.posthog.posthog.API_KEY</key>
 	<string>phc_RXh1lT5WLjCvJvwsERRuWOcQczXIAs7ckXnfkzisNpd</string>
 	<key>com.posthog.posthog.POSTHOG_HOST</key>
 	<string>https://us.i.posthog.com</string>
 	<key>com.posthog.posthog.CAPTURE_APPLICATION_LIFECYCLE_EVENTS</key>
-
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

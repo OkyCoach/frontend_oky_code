@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/search/Product.dart';
-import 'package:frontend_oky_code/widgets/search/Searchbar.dart';
+import 'package:frontend_oky_code/helpers/fetch_data.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -10,7 +10,28 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  final _filterController = TextEditingController();
+  List<dynamic> _products = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoritesProducts();
+  }
+
+  Future<void> _loadFavoritesProducts() async {
+    try {
+      List<dynamic> products = await favoritesProducts();
+      setState(() {
+        _products = products;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +57,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ),
                   ),
                   SizedBox(height: 5,),
-                  Expanded(
-                      child: ListView(
-                        children: [
-                          Product(product: {}),
-                          Product(product: {}),
-                          Product(product: {})
-                        ],
-                      )
-                  )
+                  _isLoading
+                      ? Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: _products.length,
+                            itemBuilder: (context, index) {
+                              return Product(product: _products[index]);
+                            },
+                          ),
+                        )
                 ],
               ),
             ),
