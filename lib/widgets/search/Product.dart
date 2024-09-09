@@ -14,6 +14,7 @@ class Product extends StatefulWidget {
 class _ProductState extends State<Product> {
 
   void _showProductDetailSheet(BuildContext context, dynamic product) {
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -35,44 +36,41 @@ class _ProductState extends State<Product> {
         .height;
     return GestureDetector(
         onTap: () => _showProductDetailSheet(context, widget.product),
-        child:Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey.shade300,
-                width: 1.0,
-              ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.shade300,
+              width: 1.0,
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child:  Expanded(
-              child:  Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                widget.product["photoUrl"] != null
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child: Row( // Asegúrate de que el Expanded esté dentro de un Row o Column
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              widget.product["photoUrl"] != null
                   ? Image.network(
-                      widget.product["photoUrl"],
-                      height: screenHeight * 0.1,
-                      width: screenHeight * 0.1,
-                      errorBuilder: (BuildContext context,
-                          Object error,
-                          StackTrace? stackTrace) {
-                        return Image.asset(
-                          'lib/assets/image_not_found.png',
-                          height: screenHeight * 0.1,
-                          width: screenHeight * 0.1,
-                        );
-                      },
-                    )
+                widget.product["photoUrl"],
+                height: screenHeight * 0.1,
+                width: screenHeight * 0.1,
+                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                  return Image.asset(
+                    'lib/assets/image_not_found.png',
+                    height: screenHeight * 0.1,
+                    width: screenHeight * 0.1,
+                  );
+                },
+              )
                   : Image.asset(
-                      'lib/assets/image_not_found.png',
-                      height: screenHeight * 0.1,
-                      width: screenHeight * 0.1,
-                    ),
-                SizedBox(width: 10,),
-                Expanded(
-                child:  Column(
+                'lib/assets/image_not_found.png',
+                height: screenHeight * 0.1,
+                width: screenHeight * 0.1,
+              ),
+              SizedBox(width: 10,),
+              Expanded( // Mueve el Expanded aquí dentro del Row
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,13 +103,12 @@ class _ProductState extends State<Product> {
                       maxLines: 1,
                     ),
                   ],
-                )
-                )
-              ],
-            )
-            )
-          )
-      )
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

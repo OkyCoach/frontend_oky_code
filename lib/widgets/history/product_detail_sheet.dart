@@ -54,9 +54,10 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
   }
 
   Future<void> fetchProductEvaluation(String barcode) async {
-    var productData = await fetchBarcodeData(barcode);
+    var productData = await fetchBarcodeData(barcode, false);
     var evaluation = await fetchEvaluationData(barcode);
     var recommendedProducts = await fetchRecommendedProducts(barcode);
+    if (!mounted) return;
     setState(() {
       _productData = productData;
       _evaluation = evaluation;

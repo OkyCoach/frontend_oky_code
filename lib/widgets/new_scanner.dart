@@ -17,7 +17,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   bool scanning = false;
 
   Future<Map<String, dynamic>> _didScan(String? barcode) async {
-    var product = await fetchBarcodeData(barcode);
+    var product = await fetchBarcodeData(barcode, true);
     var evaluation = await fetchEvaluationData(barcode);
     return {'product': product, 'evaluation': evaluation};
   }

@@ -16,7 +16,7 @@ final Map<String, dynamic> stringDisplay = { //display 1 significa que invierte 
 };
 
 class TableEvaluation extends StatelessWidget {
-  final dynamic evaluation; // Objeto con atributos variables
+  final dynamic evaluation;
 
   const TableEvaluation({
     Key? key,
@@ -38,7 +38,7 @@ class TableEvaluation extends StatelessWidget {
             return buildRow(
               title: category['campo'],
               value: category["valor"]
-                  .toInt(), // Ajusta según la estructura real de tus datos
+                  .toInt(),
               screenHeight: screenHeight,
             );
           }).toList()
