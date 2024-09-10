@@ -27,6 +27,7 @@ class ProductTabsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     double margins = 0.04;
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -39,20 +40,32 @@ class ProductTabsContent extends StatelessWidget {
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                    minHeight: minHeight,
                   ),
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-                    child: TableEvaluation(evaluation: evaluation),
+                    child: evaluation["puntos_totales"] != null
+                              ? TableEvaluation(evaluation: evaluation)
+                              : Center(
+                                  child:  Text(
+                                    "Producto sin evaluación",
+                                    style: TextStyle(
+                                      fontSize: screenHeight * 0.02,
+                                      fontFamily: "Gilroy-Medium",
+                                      color: Color(0xFF201547),
+                                    ),
+                                  ),
+                                )
                   ),
                 ),
-                Recommended(
-                  recommendedProducts: recommendedProducts,
-                  ready: ready,
-                  scanning: scanning,
-                  controlScan: controlScan,
-                  cameFromScan: cameFromScan,
-                ),
+                if(evaluation["puntos_totales"] != null)
+                  Recommended(
+                    recommendedProducts: recommendedProducts,
+                    ready: ready,
+                    scanning: scanning,
+                    controlScan: controlScan,
+                    cameFromScan: cameFromScan,
+                  ),
               ],
             ),
             ListView(

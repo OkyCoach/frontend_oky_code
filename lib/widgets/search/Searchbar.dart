@@ -29,7 +29,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             controller: widget.controller,
             style: const TextStyle(
               fontFamily: "Gilroy-Medium",
-              fontSize: 14,
+              fontSize: 16,
               color: Color(0xFF201547),
             ),
             decoration: InputDecoration(
