@@ -14,14 +14,23 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
     Map<String, dynamic> userInfo =
         sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
     String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
-
-    Posthog().capture(
-      eventName: 'fetchBarcodeData',
-      properties: {
-        'code': code!,
-        'userId': userId,
-      },
-    );
+    if(isScan) {
+      Posthog().capture(
+        eventName: 'fetchBarcodeData',
+        properties: {
+          'code': code!,
+          'userId': userId,
+        },
+      );
+    } else {
+      Posthog().capture(
+        eventName: 'previouslyScannedProduct',
+        properties: {
+          'code': code!,
+          'userId': userId,
+        },
+      );
+    }
     final response = await http
         .get(Uri.parse(
             '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}&isScan=$isScan'))
