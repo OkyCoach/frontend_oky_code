@@ -151,13 +151,22 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                                 children: [
                                   if (isLoading)
                                     LoadingBlock(width: screenWidth * 0.35, height: 25)
-                                  else
+                                  else if(_evaluation["puntos_totales"] != null)
                                     StarsWidget(
                                       maxScore: _evaluation["puntos_totales"],
                                       actualScore: _evaluation["puntos_obtenidos"],
                                       height: 0.03,
+                                    )
+                                    else if (!isLoading)
+                                      Text(
+                                      "Sin evaluación",
+                                      style: TextStyle(
+                                        fontSize: screenHeight * 0.015,
+                                        fontFamily: "Gilroy-Medium",
+                                        color: Color(0xFF201547),
+                                      ),
                                     ),
-                                  if (!isLoading) SizedBox(width: 10), // Añadir espacio entre el StarsWidget y el texto, si es necesario
+                                    if (!isLoading) SizedBox(width: 10),
                                 ],
                               ),
                             ],
@@ -174,15 +183,16 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                         ),
                       )
                     : Expanded(
-                        child: ProductTabsContent(
-                          product: _productData,
-                          evaluation: _evaluation,
-                          recommendedProducts: _recommendedProducts,
-                          ready: !isLoading,
-                          scanning: false,
-                          controlScan: (newValue){},
-                          cameFromScan: false,
-                        ),
+                        child:
+                          ProductTabsContent(
+                            product: _productData,
+                            evaluation: _evaluation,
+                            recommendedProducts: _recommendedProducts,
+                            ready: !isLoading,
+                            scanning: false,
+                            controlScan: (newValue){},
+                            cameFromScan: false,
+                          ),
                       ),
                 ],
               ),
