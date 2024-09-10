@@ -189,8 +189,6 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                             evaluation: _evaluation,
                             recommendedProducts: _recommendedProducts,
                             ready: !isLoading,
-                            scanning: false,
-                            controlScan: (newValue){},
                             cameFromScan: false,
                           ),
                       ),

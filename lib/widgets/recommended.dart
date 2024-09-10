@@ -8,16 +8,12 @@ import 'package:frontend_oky_code/widgets/history/product_detail_sheet.dart';
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
   final bool ready;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
   final bool cameFromScan;
 
   Recommended({
     Key? key,
     required this.recommendedProducts,
     required this.ready,
-    required this.scanning,
-    required this.controlScan,
     required this.cameFromScan
   }) : super(key: key);
 
@@ -28,6 +24,7 @@ class Recommended extends StatefulWidget {
 class _RecommendedState extends State<Recommended> {
   
   void _showProductDetails(BuildContext context, dynamic product) {
+    /*
     Navigator.pop(context);
     showDialog(
       barrierDismissible: false,
@@ -42,6 +39,8 @@ class _RecommendedState extends State<Recommended> {
         );
       },
     );
+
+     */
   }
 
   void _showProductSheet(BuildContext context, dynamic product) {

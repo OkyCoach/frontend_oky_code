@@ -7,6 +7,7 @@ import 'package:frontend_oky_code/widgets/bad_connection_popup.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:vibration/vibration.dart';
 import 'package:frontend_oky_code/helpers/barcode_handler.dart';
+import 'package:frontend_oky_code/widgets/v3_product_detail.dart';
 
 class MyScannerWidget extends StatefulWidget {
   @override
@@ -15,93 +16,67 @@ class MyScannerWidget extends StatefulWidget {
 
 class _MyScannerWidgetState extends State<MyScannerWidget> {
   bool scanning = false;
+  dynamic product = {};
+  dynamic evaluation = {};
+  bool showDetail = false;
 
-  Future<Map<String, dynamic>> _didScan(String? barcode) async {
-    var product = await fetchBarcodeData(barcode, true);
-    var evaluation = await fetchEvaluationData(barcode);
-    return {'product': product, 'evaluation': evaluation};
+  Future<bool> _didScan(String? barcode) async {
+    var _product = await fetchBarcodeData(barcode, true);
+    var _evaluation = await fetchEvaluationData(barcode);
+    setState(() {
+      evaluation = _evaluation;
+      product = _product;
+    });
+    return _product["barcode"] != null && _evaluation["puntos_totales"] != null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: MobileScanner(
-          fit: BoxFit.fill, // Para que el escáner llene el contenedor
-          controller: MobileScannerController(
-            // facing: CameraFacing.back,
-            // torchEnabled: false,
-            returnImage: false,
-          ),
-          onDetect: (capture) async {
-            if (!scanning) {
-              setState(() {
-                scanning = true;
-              });
-
-              final List<Barcode> barcodes = capture.barcodes;
-              bool? hasVibrator = await Vibration.hasVibrator();
-
-              // Realizar vibración leve si el dispositivo tiene vibrador
-              if (hasVibrator == true) {
-                // Verifica que hasVibrator sea true, no nulo
-                Vibration.vibrate(duration: 100);
-              }
-              var barcode = barcodeHandler(barcodes[0]);
-              var scanResult = await _didScan(barcode);
-
-              showDialog(
-                  barrierDismissible: false,
-                  barrierColor: Colors.white.withOpacity(0),
-                  context: context,
-                  builder: (_) {
-                    if (scanResult["product"].containsKey('timeout') ||
-                        scanResult["evaluation"].containsKey('timeout')) {
-                      return BadConnetionPopup(
-                          scanning: scanning,
-                          controlScan: (newValue) {
-                            setState(() {
-                              scanning = newValue;
-                            });
-                          });
-                    } else if (scanResult["product"]["barcode"] != null &&
-                        scanResult["evaluation"]["puntos_obtenidos"] != null) {
-                      return ProductPopup(
-                          product: scanResult["product"],
-                          evaluation: scanResult["evaluation"],
-                          scanning: scanning,
-                          controlScan: (newValue) {
-                            setState(() {
-                              scanning = newValue;
-                            });
-                          });
-                    } else if (scanResult["product"]["barcode"] != null &&
-                        scanResult["evaluation"]["puntos_obtenidos"] == null) {
-                      return NoEvaluationPopup(
-                          product: scanResult["product"],
-                          scanning: scanning,
-                          controlScan: (newValue) {
-                            setState(() {
-                              scanning = newValue;
-                            });
-                          });
-                    } else {
-                      return NotFoundPopup(
-                          barcode: barcode,
-                          scanning: scanning,
-                          controlScan: (newValue) {
-                            setState(() {
-                              scanning = newValue;
-                            });
-                          });
-                    }
+      body: Stack(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: MobileScanner(
+              fit: BoxFit.fill,
+              controller: MobileScannerController(
+                returnImage: false,
+              ),
+              onDetect: (capture) async {
+                if (!scanning) {
+                  setState(() {
+                    scanning = true;
                   });
-            }
-          },
-        ),
+
+                  final List<Barcode> barcodes = capture.barcodes;
+                  bool? hasVibrator = await Vibration.hasVibrator();
+
+                  if (hasVibrator == true) {
+                    Vibration.vibrate(duration: 100);
+                  }
+                  var barcode = barcodeHandler(barcodes[0]);
+                  var result = await _didScan(barcode);
+                  if (result == true) {
+                    setState(() {
+                      showDetail = true;
+                    });
+                  }
+                }
+              },
+            ),
+          ),
+          if(showDetail)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ProductDetailV3(
+                product: product,
+                evaluation: evaluation,
+              ),
+            ),
+        ],
       ),
     );
   }
+
 }

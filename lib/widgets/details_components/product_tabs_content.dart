@@ -8,8 +8,6 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
   final cameFromScan;
 
   ProductTabsContent({
@@ -18,8 +16,6 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
-    required this.scanning,
-    required this.controlScan,
     required this.cameFromScan
   }) : super(key: key);
 
@@ -43,7 +39,6 @@ class ProductTabsContent extends StatelessWidget {
                     minHeight: minHeight,
                   ),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
                     child: evaluation["puntos_totales"] != null
                               ? TableEvaluation(evaluation: evaluation)
                               : Center(
@@ -62,8 +57,6 @@ class ProductTabsContent extends StatelessWidget {
                   Recommended(
                     recommendedProducts: recommendedProducts,
                     ready: ready,
-                    scanning: scanning,
-                    controlScan: controlScan,
                     cameFromScan: cameFromScan,
                   ),
               ],
@@ -73,7 +66,7 @@ class ProductTabsContent extends StatelessWidget {
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                    minHeight: minHeight,
                   ),
                   child: OkyTips(
                     product: product,

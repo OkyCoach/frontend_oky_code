@@ -268,8 +268,6 @@ class _ProductPopupState extends State<ProductPopup> {
           Recommended(
             recommendedProducts: recommendedProducts,
             ready: ready,
-            scanning: widget.scanning,
-            controlScan: widget.controlScan,
             cameFromScan: true,
           )
         ],

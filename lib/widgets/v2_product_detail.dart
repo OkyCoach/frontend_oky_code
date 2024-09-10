@@ -57,7 +57,7 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
     return DefaultTabController(
       length: 2,
       child: Dialog(
-          backgroundColor: Colors.transparent, // Fondo azul
+          backgroundColor: Colors.transparent,
           insetPadding: EdgeInsets.only(bottom: screenHeight * 0.07),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
@@ -105,8 +105,6 @@ class _ProductDetailV2State extends State<ProductDetailV2> {
                       evaluation: widget.evaluation,
                       recommendedProducts: recommendedProducts,
                       ready: ready,
-                      scanning: widget.scanning,
-                      controlScan: widget.controlScan,
                       cameFromScan: true,
                     ),
                 ),
