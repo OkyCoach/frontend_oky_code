@@ -278,3 +278,26 @@ Future<List<dynamic>> favoritesProducts() async {
     return [];
   }
 }
+
+Future<List<dynamic>> searchProducts(String query) async {
+  try {
+    print(query);
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/search?search=$query';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data as List;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    return [];
+  }
+}

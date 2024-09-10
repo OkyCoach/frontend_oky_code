@@ -108,10 +108,13 @@ class _OkyTipsState extends State<OkyTips> {
                         )),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [ 
+                      children: [
+                        if(okyTipId != "")
                         Padding(
                           padding:  const EdgeInsets.only(bottom: 5),
-                          child: Row(
+                          child:
+
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
