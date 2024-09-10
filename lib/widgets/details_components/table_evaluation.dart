@@ -3,18 +3,20 @@ import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
 
-final Map<String, dynamic> stringDisplay = {
+final Map<String, dynamic> stringDisplay = { //display 1 significa que invierte los puntos ya que mayor valor es peor.
   "proteinas": {"text": "Proteínas", "display": 0},
   "fibra": {"text": "Fibra", "display": 0},
   "hidratos": {"text": "Hidratos", "display": 1},
   "sodio": {"text": "Sodio", "display": 1},
   "azucares": {"text": "Azúcares", "display": 1},
   "calorias": {"text": "Calorías", "display": 1},
-  "grasas": {"text": "Grasas", "display": 1},
+  "grasas_totales": {"text": "Grasas", "display": 1},
+  "grasas_saturadas": {"text": "Grasas saturadas", "display": 1},
+  "colesterol": {"text": "Colesterol", "display": 1},
 };
 
 class TableEvaluation extends StatelessWidget {
-  final dynamic evaluation; // Objeto con atributos variables
+  final dynamic evaluation;
 
   const TableEvaluation({
     Key? key,
@@ -30,11 +32,13 @@ class TableEvaluation extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
-          children: (evaluation["resultado"] as List).map<Widget>((category) {
+          children: (evaluation["resultado"] as List)
+              .where((category) => stringDisplay.containsKey(category['campo']))
+              .map<Widget>((category) {
             return buildRow(
               title: category['campo'],
               value: category["valor"]
-                  .toInt(), // Ajusta según la estructura real de tus datos
+                  .toInt(),
               screenHeight: screenHeight,
             );
           }).toList()
@@ -87,7 +91,7 @@ class TableEvaluation extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          stringDisplay[title]["text"],
+                          stringDisplay[title]["text"] ?? "Desconocido",
                           style: TextStyle(
                             fontFamily: "Gilroy-Bold",
                             fontSize: screenHeight * 0.022,

@@ -17,7 +17,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   bool scanning = false;
 
   Future<Map<String, dynamic>> _didScan(String? barcode) async {
-    var product = await fetchBarcodeData(barcode);
+    var product = await fetchBarcodeData(barcode, true);
     var evaluation = await fetchEvaluationData(barcode);
     return {'product': product, 'evaluation': evaluation};
   }
@@ -26,8 +26,8 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-        width: double.infinity, // Ocupa todo el ancho de la pantalla
-        height: double.infinity, // Ocupa todo el alto de la pantalla
+        width: double.infinity,
+        height: double.infinity,
         child: MobileScanner(
           fit: BoxFit.fill, // Para que el escáner llene el contenedor
           controller: MobileScannerController(

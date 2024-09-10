@@ -10,6 +10,7 @@ class ProductTabsContent extends StatelessWidget {
   final bool ready;
   final bool scanning;
   final ValueChanged<bool> controlScan;
+  final cameFromScan;
 
   ProductTabsContent({
     Key? key,
@@ -19,6 +20,7 @@ class ProductTabsContent extends StatelessWidget {
     required this.ready,
     required this.scanning,
     required this.controlScan,
+    required this.cameFromScan
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class ProductTabsContent extends StatelessWidget {
                   ready: ready,
                   scanning: scanning,
                   controlScan: controlScan,
+                  cameFromScan: cameFromScan,
                 ),
               ],
             ),

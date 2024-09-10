@@ -3,8 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend_oky_code/helpers/image_converter.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
-Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
+Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
   const url =
       'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/info_producto/';
   try {
@@ -13,10 +14,26 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code) async {
     Map<String, dynamic> userInfo =
         sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
     String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
-    print('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}');
+    if(isScan) {
+      Posthog().capture(
+        eventName: 'fetchBarcodeData',
+        properties: {
+          'code': code!,
+          'userId': userId,
+        },
+      );
+    } else {
+      Posthog().capture(
+        eventName: 'previouslyScannedProduct',
+        properties: {
+          'code': code!,
+          'userId': userId,
+        },
+      );
+    }
     final response = await http
         .get(Uri.parse(
-            '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}'))
+            '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}&isScan=$isScan'))
         .timeout(const Duration(seconds: 5));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -206,5 +223,58 @@ Future<String> likeOkytip(
     }
   } catch (error) {
     return "Error al buscar los datos: $error";
+  }
+}
+
+Future<List<dynamic>> scannedProductsHistory() async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/product-history/$userId?limit=30';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data as List;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    return [];
+  }
+}
+
+Future<List<dynamic>> favoritesProducts() async {
+  try {
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
+    String userId = userInfo["sub"];
+    var url =
+        'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/all_product_like/$userId';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data as List;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    return [];
   }
 }
