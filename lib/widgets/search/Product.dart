@@ -47,7 +47,7 @@ class _ProductState extends State<Product> {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          child: Row( // Asegúrate de que el Expanded esté dentro de un Row o Column
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               widget.product["photoUrl"] != null
