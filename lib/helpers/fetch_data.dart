@@ -281,7 +281,6 @@ Future<List<dynamic>> favoritesProducts() async {
 
 Future<List<dynamic>> searchProducts(String query) async {
   try {
-    print(query);
     var url =
         'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/search?search=$query';
 
@@ -293,6 +292,7 @@ Future<List<dynamic>> searchProducts(String query) async {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data);
       return data as List;
     } else {
       return [];

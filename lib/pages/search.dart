@@ -16,14 +16,17 @@ class _ProfileState extends State<SearchPage> {
   bool isLoading = false;
 
   void _onSearch() async {
-    setState(() {
-      isLoading = true;
-    });
-    var result = await searchProducts(_filterController.text);
-    setState(() {
-      products = result;
-      isLoading = false;
-    });
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      var result = await searchProducts(_filterController.text);
+      setState(() {
+        products = result;
+        isLoading = false;
+      });
+    }catch(e) {
+    }
   }
 
   @override
@@ -80,6 +83,7 @@ class _ProfileState extends State<SearchPage> {
                                 var product = products[index];
                                 return Product(
                                   product: product,
+                                  liked: false,
                                 );
                               },
                             ),

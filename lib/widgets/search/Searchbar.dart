@@ -27,6 +27,13 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           width: screenWidth * 0.7,
           child: TextField(
             controller: widget.controller,
+            textInputAction: TextInputAction.search,
+            onSubmitted: (value) {
+              FocusScope.of(context).unfocus();
+              if (widget.onSearch != null) {
+                widget.onSearch!();
+              }
+            },
             style: const TextStyle(
               fontFamily: "Gilroy-Medium",
               fontSize: 16,
@@ -52,7 +59,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   bottomLeft: Radius.circular(10),
                 ),
                 borderSide: const BorderSide(
-                  color: Color(0xFF8A2BE2),
+                  color: Color(0xFF7448ED),
                   width: 1.0,
                 ),
               ),
@@ -66,13 +73,19 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   width: 1.0,
                 ),
               ),
+
             ),
           ),
         ),
         SizedBox(
           height: 36,
           child: ElevatedButton(
-            onPressed: widget.onSearch, // Usar la función de callback
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              if (widget.onSearch != null) {
+                widget.onSearch!();
+              }
+            }, // Usar la función de callback
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF7448ED),
               shape: const RoundedRectangleBorder(

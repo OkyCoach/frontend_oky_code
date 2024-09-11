@@ -87,7 +87,6 @@ class _OkyTipsState extends State<OkyTips> {
 
     return Container(
         color: const Color(0xFFE8E4F4),
-        margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
         padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,

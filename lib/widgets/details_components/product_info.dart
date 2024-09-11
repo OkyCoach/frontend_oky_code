@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
+import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 
 class ProductInfoRow extends StatelessWidget {
   final dynamic product;
   final dynamic evaluation;
+  final bool isLiked;
+  final ValueChanged<bool> changeLike;
 
   const ProductInfoRow({
     Key? key,
     required this.product,
     required this.evaluation,
+    required this.isLiked,
+    required this.changeLike,
   }) : super(key: key);
 
   @override
@@ -87,6 +92,11 @@ class ProductInfoRow extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          LikeButton(
+            isLiked: isLiked,
+            changeLike: changeLike,
+            productId: product["_id"]
           )
         ],
       ),

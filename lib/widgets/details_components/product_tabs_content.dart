@@ -9,6 +9,7 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic recommendedProducts;
   final bool ready;
   final cameFromScan;
+  final Future<bool> Function(dynamic)? changeProduct;
 
   ProductTabsContent({
     Key? key,
@@ -16,13 +17,12 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
-    required this.cameFromScan
+    required this.cameFromScan,
+    this.changeProduct,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double margins = 0.04;
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return LayoutBuilder(
@@ -32,6 +32,7 @@ class ProductTabsContent extends StatelessWidget {
         return TabBarView(
           children: [
             ListView(
+              padding: EdgeInsets.only(top: 10),
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
@@ -58,10 +59,12 @@ class ProductTabsContent extends StatelessWidget {
                     recommendedProducts: recommendedProducts,
                     ready: ready,
                     cameFromScan: cameFromScan,
+                    changeProduct: changeProduct,
                   ),
               ],
             ),
             ListView(
+              padding: EdgeInsets.zero,
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
