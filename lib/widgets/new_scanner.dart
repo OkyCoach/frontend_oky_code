@@ -34,6 +34,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
       var _product = await fetchBarcodeData(barcode, true);
       var _evaluation = await fetchEvaluationData(barcode);
       setState(() {
+        ready = false;
         evaluation = _evaluation;
         product = _product;
         productBarcode = barcode;
@@ -76,7 +77,6 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
         product = newProduct["product"];
         isLiked =  newProduct["product"]["liked"] ?? false;
         likes =  newProduct["product"]["totalLikes"] ?? 0;
-        ready = false;
       });
       List<dynamic> products = await fetchRecommendedProducts(newProduct["product"]?["barcode"]);
       setState(() {
