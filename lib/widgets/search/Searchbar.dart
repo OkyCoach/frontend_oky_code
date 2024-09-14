@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final TextEditingController controller;
@@ -32,6 +33,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               FocusScope.of(context).unfocus();
               if (widget.onSearch != null) {
                 widget.onSearch!();
+                Posthog().capture(
+                  eventName: 'searchKeyboardPress',
+                  properties: {
+                    'search': widget.controller.text,
+                  },
+                );
               }
             },
             style: const TextStyle(
@@ -84,6 +91,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               FocusScope.of(context).unfocus();
               if (widget.onSearch != null) {
                 widget.onSearch!();
+                Posthog().capture(
+                  eventName: 'searchButtonPress',
+                  properties: {
+                    'search': widget.controller.text,
+                  },
+                );
               }
             }, // Usar la función de callback
             style: ElevatedButton.styleFrom(

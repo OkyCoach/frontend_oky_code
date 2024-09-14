@@ -71,6 +71,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                               return Product(
                                 product: _products[index],
                                 liked: true,
+                                showLike: true,
                               );
                             },
                           ),

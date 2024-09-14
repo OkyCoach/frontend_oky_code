@@ -72,7 +72,13 @@ Future<List<dynamic>> fetchRecommendedProducts(String? code) async {
   const url =
       'https://5bc1g1a22j.execute-api.us-east-1.amazonaws.com/qa/recomendacion/';
   try {
-    final response = await http.get(Uri.parse('$url$code'));
+    AuthManager authManager = AuthManager();
+    Map<String, String> sessionData = await authManager.getSession();
+    Map<String, dynamic> userInfo =
+    sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
+    String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
+    final response = await http.get(Uri.parse('$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}'));
+
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;

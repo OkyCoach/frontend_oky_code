@@ -5,10 +5,12 @@ import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 class Product extends StatefulWidget {
   final dynamic product;
   final bool liked;
+  final showLike;
   Product({
     Key? key,
     required this.product,
-    required this.liked
+    required this.liked,
+    required this.showLike,
   }) : super(key: key);
 
   @override
@@ -115,17 +117,18 @@ class _ProductState extends State<Product> {
                 ),
               ),
               SizedBox(width: 2,),
-              LikeButton(
-                isLiked: isLiked,
-                changeLike: (newValue){
-                  setState(() {
-                    isLiked = newValue;
-                  });
-                },
-                productId: widget.product.containsKey("product_id")
-                    ? widget.product["product_id"]
-                    : widget.product["_id"],
-              )
+              if(widget.showLike)
+                LikeButton(
+                  isLiked: isLiked,
+                  changeLike: (newValue){
+                    setState(() {
+                      isLiked = newValue;
+                    });
+                  },
+                  productId: widget.product.containsKey("product_id")
+                      ? widget.product["product_id"]
+                      : widget.product["_id"],
+                )
             ],
           ),
         ),

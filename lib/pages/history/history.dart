@@ -71,7 +71,8 @@ class _HistoryState extends State<HistoryPage> {
                         itemBuilder: (context, index) {
                           return Product(
                             product: _products[index],
-                            liked: false
+                            liked: _products[index]?["liked"],
+                            showLike: false,
                           );
                         },
                       ),
