@@ -5,6 +5,7 @@ import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs_content.dart';
+import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 
 class ProductDetailSheet extends StatefulWidget {
   final dynamic product;
@@ -24,6 +25,7 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
   dynamic _productData = {};
   List<dynamic> _recommendedProducts = [];
   bool isLoading = true;
+  late bool isLiked = false;
 
   @override
   void initState() {
@@ -64,6 +66,7 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
       _evaluation = evaluation;
       _recommendedProducts = recommendedProducts;
       isLoading = false;
+      isLiked = productData["liked"] ?? false;
     });
   }
 
@@ -100,15 +103,15 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                 children: [
                   const DismissibleBar(width: 40),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    padding: EdgeInsets.only(top: 20, left: 20, right: 10, bottom: 15),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         widget.product["photoUrl"] != null
                             ? Image.network(
                           widget.product["photoUrl"],
-                          height: screenHeight * 0.1,
-                          width: screenHeight * 0.1,
+                          height: screenHeight * 0.13,
+                          width: screenHeight * 0.13,
                           errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                             return Image.asset(
                               'lib/assets/image_not_found.png',
@@ -172,6 +175,17 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                             ],
                           ),
                         ),
+                        SizedBox(width: 2,),
+                        if(_productData["_id"] != null)
+                          LikeButton(
+                            isLiked: isLiked,
+                            changeLike: (newValue){
+                              setState(() {
+                                isLiked = newValue;
+                              });
+                            },
+                            productId: _productData["_id"],
+                          )
                       ],
                     ),
                   ),
@@ -189,8 +203,6 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                             evaluation: _evaluation,
                             recommendedProducts: _recommendedProducts,
                             ready: !isLoading,
-                            scanning: false,
-                            controlScan: (newValue){},
                             cameFromScan: false,
                           ),
                       ),

@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/history/product_detail_sheet.dart';
+import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 
 class Product extends StatefulWidget {
   final dynamic product;
+  final bool liked;
+  final showLike;
   Product({
     Key? key,
-    required this.product
+    required this.product,
+    required this.liked,
+    required this.showLike,
   }) : super(key: key);
 
   @override
   _ProductState createState() => _ProductState();
 }
 class _ProductState extends State<Product> {
+  late bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.liked;
+  }
 
   void _showProductDetailSheet(BuildContext context, dynamic product) {
-
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -69,7 +80,7 @@ class _ProductState extends State<Product> {
                 width: screenHeight * 0.1,
               ),
               SizedBox(width: 10,),
-              Expanded( // Mueve el Expanded aquí dentro del Row
+              Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +116,19 @@ class _ProductState extends State<Product> {
                   ],
                 ),
               ),
+              SizedBox(width: 2,),
+              if(widget.showLike)
+                LikeButton(
+                  isLiked: isLiked,
+                  changeLike: (newValue){
+                    setState(() {
+                      isLiked = newValue;
+                    });
+                  },
+                  productId: widget.product.containsKey("product_id")
+                      ? widget.product["product_id"]
+                      : widget.product["_id"],
+                )
             ],
           ),
         ),

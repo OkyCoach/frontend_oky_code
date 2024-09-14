@@ -16,14 +16,17 @@ class _ProfileState extends State<SearchPage> {
   bool isLoading = false;
 
   void _onSearch() async {
-    setState(() {
-      isLoading = true;
-    });
-    var result = await searchProducts(_filterController.text);
-    setState(() {
-      products = result;
-      isLoading = false;
-    });
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      var result = await searchProducts(_filterController.text);
+      setState(() {
+        products = result;
+        isLoading = false;
+      });
+    }catch(e) {
+    }
   }
 
   @override
@@ -53,16 +56,23 @@ class _ProfileState extends State<SearchPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Agregar imagen
-                                  Image.asset(
-                                    'lib/assets/lupa.png', // Ruta de la imagen
-                                    height: 120, // Tamaño ajustado
-                                    color: Colors.grey.shade300, // El color que quieres aplicar a la imagen
-                                    colorBlendMode: BlendMode.srcIn,
+                                  _filterController.text.isEmpty
+                                  ? Image.asset(
+                                      'lib/assets/lupa.png',
+                                      height: 120, //
+                                      color: Colors.grey.shade300,
+                                      colorBlendMode: BlendMode.srcIn,
+                                    )
+                                  : Icon(
+                                    Icons.help_outline,
+                                    size: 120,
+                                    color: Colors.grey.shade300,
                                   ),
-                                  const SizedBox(height: 20), // Espacio entre imagen y texto
-                                  const Text(
-                                    "Puedes buscar productos por nombre, marca o código de barras.",
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    _filterController.text.isEmpty
+                                        ? "Puedes buscar productos por nombre, marca o código de barras."
+                                        : "No se encontraron productos para tu búsqueda.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       letterSpacing: 1,
@@ -80,6 +90,8 @@ class _ProfileState extends State<SearchPage> {
                                 var product = products[index];
                                 return Product(
                                   product: product,
+                                  liked: false,
+                                  showLike: false,
                                 );
                               },
                             ),

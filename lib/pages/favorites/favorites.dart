@@ -68,7 +68,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           child: ListView.builder(
                             itemCount: _products.length,
                             itemBuilder: (context, index) {
-                              return Product(product: _products[index]);
+                              return Product(
+                                product: _products[index],
+                                liked: true,
+                                showLike: true,
+                              );
                             },
                           ),
                         )

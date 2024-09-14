@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
-import 'package:frontend_oky_code/widgets/v2_product_detail.dart';
 import 'package:frontend_oky_code/widgets/dummy_products.dart';
 import 'package:frontend_oky_code/widgets/history/product_detail_sheet.dart';
 
@@ -8,17 +7,17 @@ import 'package:frontend_oky_code/widgets/history/product_detail_sheet.dart';
 class Recommended extends StatefulWidget {
   final List<dynamic> recommendedProducts;
   final bool ready;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
   final bool cameFromScan;
+  final ValueChanged<bool>? showDetails;
+  final Future<bool> Function(dynamic)? changeProduct;
 
   Recommended({
     Key? key,
     required this.recommendedProducts,
     required this.ready,
-    required this.scanning,
-    required this.controlScan,
-    required this.cameFromScan
+    required this.cameFromScan,
+    this.showDetails,
+    this.changeProduct,
   }) : super(key: key);
 
   @override
@@ -28,6 +27,7 @@ class Recommended extends StatefulWidget {
 class _RecommendedState extends State<Recommended> {
   
   void _showProductDetails(BuildContext context, dynamic product) {
+    /*
     Navigator.pop(context);
     showDialog(
       barrierDismissible: false,
@@ -42,6 +42,8 @@ class _RecommendedState extends State<Recommended> {
         );
       },
     );
+
+     */
   }
 
   void _showProductSheet(BuildContext context, dynamic product) {
@@ -78,6 +80,7 @@ class _RecommendedState extends State<Recommended> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -99,8 +102,8 @@ class _RecommendedState extends State<Recommended> {
                           return buildProduct(product, context);
                         }).toList(),
                       ))),
-            if (widget.ready && !widget.recommendedProducts.isNotEmpty)
-              SizedBox(
+            if (widget.ready && widget.recommendedProducts.isEmpty)
+              Container(
                   width: screenWidth,
                   height: 100,
                   child: const Align(
@@ -144,7 +147,10 @@ class _RecommendedState extends State<Recommended> {
         child: GestureDetector(
             onTap: () {
               if(widget.cameFromScan) {
-                _showProductDetails(context, product);
+                widget.changeProduct!(product);
+                if(widget.showDetails != null) {
+                  widget.showDetails!(true);
+                }
               } else {
                 _showProductSheet(context, product);
               }

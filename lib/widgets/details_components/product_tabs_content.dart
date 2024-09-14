@@ -8,9 +8,8 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
   final cameFromScan;
+  final Future<bool> Function(dynamic)? changeProduct;
 
   ProductTabsContent({
     Key? key,
@@ -18,15 +17,12 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
-    required this.scanning,
-    required this.controlScan,
-    required this.cameFromScan
+    required this.cameFromScan,
+    this.changeProduct,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double margins = 0.04;
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return LayoutBuilder(
@@ -36,6 +32,7 @@ class ProductTabsContent extends StatelessWidget {
         return TabBarView(
           children: [
             ListView(
+              padding: EdgeInsets.only(top: 10),
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
@@ -43,7 +40,6 @@ class ProductTabsContent extends StatelessWidget {
                     minHeight: minHeight,
                   ),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
                     child: evaluation["puntos_totales"] != null
                               ? TableEvaluation(evaluation: evaluation)
                               : Center(
@@ -62,18 +58,18 @@ class ProductTabsContent extends StatelessWidget {
                   Recommended(
                     recommendedProducts: recommendedProducts,
                     ready: ready,
-                    scanning: scanning,
-                    controlScan: controlScan,
                     cameFromScan: cameFromScan,
+                    changeProduct: changeProduct,
                   ),
               ],
             ),
             ListView(
+              padding: EdgeInsets.zero,
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                    minHeight: minHeight,
                   ),
                   child: OkyTips(
                     product: product,

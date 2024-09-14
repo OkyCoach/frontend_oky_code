@@ -69,7 +69,11 @@ class _HistoryState extends State<HistoryPage> {
                       child: ListView.builder(
                         itemCount: _products.length,
                         itemBuilder: (context, index) {
-                          return Product(product: _products[index]);
+                          return Product(
+                            product: _products[index],
+                            liked: _products[index]?["liked"],
+                            showLike: false,
+                          );
                         },
                       ),
                   ),

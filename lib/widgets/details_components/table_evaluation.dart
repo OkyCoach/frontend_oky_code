@@ -29,9 +29,11 @@ class TableEvaluation extends StatelessWidget {
 
     return Container(
       color: const Color(0xFFFFFFFF),
+
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 0.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: (evaluation["resultado"] as List)
               .where((category) => stringDisplay.containsKey(category['campo']))
               .map<Widget>((category) {
@@ -66,12 +68,15 @@ class TableEvaluation extends StatelessWidget {
       required int value,
       required double screenHeight}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0, left: 30.0, right: 30.0),
+      padding: const EdgeInsets.only(bottom: 10.0, left: 25.0, right: 25.0),
       child: Container(
         decoration: const BoxDecoration(
           border: Border(
-              bottom: BorderSide(
-                  color: Color.fromARGB(255, 207, 206, 206), width: 2.0)),
+            bottom: BorderSide(
+              color: Color.fromARGB(255, 207, 206, 206),
+              width: 2.0
+            ),
+          ),
         ),
         child: Column(
           children: [
