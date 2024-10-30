@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/pages/add_product/new_product.dart';
 
 class NotFoundPopup extends StatelessWidget {
-  final String barcode;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
-
+  final String? barcode;
+  final ValueChanged<bool> showNotFound;
+  final ValueChanged<bool> scanning;
   const NotFoundPopup({
     Key? key,
     required this.barcode,
+    required this.showNotFound,
     required this.scanning,
-    required this.controlScan,
   }) : super(key: key);
 
   void _addProduct(BuildContext context) {
-    Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,
@@ -27,7 +25,7 @@ class NotFoundPopup extends StatelessWidget {
           const curve = Curves.easeInOutQuart;
 
           var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
           var offsetAnimation = animation.drive(tween);
 
@@ -39,7 +37,8 @@ class NotFoundPopup extends StatelessWidget {
 
   void _notifyMissing(BuildContext context) async {
     //notifyMissingProduct(barcode);
-    Navigator.pop(context);
+    showNotFound(false);
+    scanning(true);
   }
 
   @override
@@ -48,12 +47,13 @@ class NotFoundPopup extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double logoWidth = 70;
 
-    return Dialog(
-      shape: RoundedRectangleBorder(
+    return Container(
+      width: screenWidth * 0.95,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
-      insetPadding: const EdgeInsets.only(left: 15, right: 15),
-      elevation: 1,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +68,7 @@ class NotFoundPopup extends StatelessWidget {
                 color: Colors.white,
                 border: Border.all(
                   color: Colors.white,
-                  width: 4.0, // Ancho del borde blanco
+                  width: 4.0,
                 ),
               ),
               child: Image.asset(
@@ -102,30 +102,28 @@ class NotFoundPopup extends StatelessWidget {
           InkWell(
             onTap: () {
               _addProduct(context);
-              controlScan(false);
             },
             child: Image.asset(
-              'lib/assets/botones/oky.png', // Ruta de tu imagen
+              'lib/assets/botones/oky.png',
               width: screenWidth * 0.25,
             ),
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 15),
-              child: InkWell(
-                onTap: () {
-                  controlScan(false);
-                  _notifyMissing(context);
-                },
-                child: Text(
-                  "No gracias",
-                  style: TextStyle(
-                      fontFamily: "Gilroy-Medium",
-                      fontSize: screenWidth*0.04,
-                      color: const Color(0xFF97999B)),
-                ),
-              )),
-        ],
-      ),
+            padding: const EdgeInsets.only(top: 5, bottom: 15),
+            child: InkWell(
+              onTap: () {
+                _notifyMissing(context);
+              },
+              child: Text(
+                "No gracias",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenWidth*0.04,
+                  color: const Color(0xFF97999B)),
+              ),
+            )),
+        ]
+      )
     );
   }
 }

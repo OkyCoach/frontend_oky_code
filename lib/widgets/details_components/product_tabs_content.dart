@@ -8,8 +8,8 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
-  final bool scanning;
-  final ValueChanged<bool> controlScan;
+  final cameFromScan;
+  final Future<bool> Function(dynamic)? changeProduct;
 
   ProductTabsContent({
     Key? key,
@@ -17,14 +17,13 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
-    required this.scanning,
-    required this.controlScan,
+    required this.cameFromScan,
+    this.changeProduct,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double margins = 0.04;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -33,31 +32,44 @@ class ProductTabsContent extends StatelessWidget {
         return TabBarView(
           children: [
             ListView(
+              padding: EdgeInsets.only(top: 10),
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                    minHeight: minHeight,
                   ),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: screenWidth * margins),
-                    child: TableEvaluation(evaluation: evaluation),
+                    child: evaluation["puntos_totales"] != null
+                              ? TableEvaluation(evaluation: evaluation)
+                              : Center(
+                                  child:  Text(
+                                    "Producto sin evaluación",
+                                    style: TextStyle(
+                                      fontSize: screenHeight * 0.02,
+                                      fontFamily: "Gilroy-Medium",
+                                      color: Color(0xFF201547),
+                                    ),
+                                  ),
+                                )
                   ),
                 ),
-                Recommended(
-                  recommendedProducts: recommendedProducts,
-                  ready: ready,
-                  scanning: scanning,
-                  controlScan: controlScan,
-                ),
+                if(evaluation["puntos_totales"] != null)
+                  Recommended(
+                    recommendedProducts: recommendedProducts,
+                    ready: ready,
+                    cameFromScan: cameFromScan,
+                    changeProduct: changeProduct,
+                  ),
               ],
             ),
             ListView(
+              padding: EdgeInsets.zero,
               physics: const ClampingScrollPhysics(),
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: minHeight, // Establece la altura mínima al espacio disponible
+                    minHeight: minHeight,
                   ),
                   child: OkyTips(
                     product: product,

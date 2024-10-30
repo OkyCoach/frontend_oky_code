@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BadConnetionPopup extends StatelessWidget {
+class BadConnectionPopup extends StatelessWidget {
   final bool scanning;
-  final ValueChanged<bool> controlScan;
+  final ValueChanged<bool> showBadConnection;
 
-  const BadConnetionPopup({
+  const BadConnectionPopup({
     Key? key,
     required this.scanning,
-    required this.controlScan,
+    required this.showBadConnection,
   }) : super(key: key);
 
   @override
@@ -15,12 +15,13 @@ class BadConnetionPopup extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double logoWidth = 70;
 
-    return Dialog(
-      shape: RoundedRectangleBorder(
+    return Container(
+      width: screenWidth * 0.95,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
-      insetPadding: const EdgeInsets.symmetric(horizontal: 15),
-      elevation: 1,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +36,7 @@ class BadConnetionPopup extends StatelessWidget {
                 color: Colors.white,
                 border: Border.all(
                   color: Colors.white,
-                  width: 4.0, // Ancho del borde blanco
+                  width: 4.0,
                 ),
               ),
               child: Image.asset(
@@ -70,11 +71,10 @@ class BadConnetionPopup extends StatelessWidget {
             padding: const EdgeInsets.only(top: 5, bottom: 15),
             child: InkWell(
               onTap: () {
-                controlScan(false);
-                Navigator.pop(context);
+                showBadConnection(false);
               },
               child: Image.asset(
-                'lib/assets/botones/oky.png', // Ruta de tu imagen
+                'lib/assets/botones/oky.png',
                 width: screenWidth * 0.25,
               ),
             ),
