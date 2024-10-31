@@ -308,19 +308,22 @@ Future<List<dynamic>> referredTransaction(String referredCode) async {
     var url =
         '${dotenv.env['API_URL']}/transactions';
 
-    final response = await http.get(
+    final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
       },
+      body: jsonEncode({'event_type': "REFERRAL", 'referral_code': referredCode}),
     );
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return data as List;
+      print("HOLA");
+      return [];
     } else {
+      print("CHAO");
       return [];
     }
   } catch (error) {
+    print(error);
     return [];
   }
 }

@@ -54,6 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
             builder: (context) => MailConfirmationPage(
               mail: email,
               password: password,
+              referredCode: referredCode,
               )));
       }
     } on CognitoClientException catch (e) {
