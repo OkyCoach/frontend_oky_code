@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/main.dart';
 import 'package:frontend_oky_code/widgets/loading_button.dart';
 
 class MailConfirmationPage extends StatefulWidget {
   final String mail;
   final String password;
+  final String referredCode;
   const MailConfirmationPage({
     super.key, 
     required this.mail, 
-    required this.password
+    required this.password,
+    required this.referredCode
   });
 
   @override
@@ -36,6 +39,7 @@ class _MailConfirmationPageState extends State<MailConfirmationPage> {
           widget.password
         );
         if (result.verified) {
+          referredTransaction(widget.referredCode);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const MainPage()));
         } else {

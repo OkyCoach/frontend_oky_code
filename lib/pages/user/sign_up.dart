@@ -18,6 +18,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final _familyNameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  final _referredCodeController = TextEditingController();
+
   bool _obscureText = true;
 
   bool _hasUppercase = false;
@@ -34,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final familyName = _familyNameController.text.trim();
     final password = _passwordController.text.trim();
     final email = _emailController.text.trim();
+    final referredCode = _referredCodeController.text.trim();
 
     try {
       final signUpResult = await userPool.signUp(
@@ -42,6 +45,8 @@ class _SignUpPageState extends State<SignUpPage> {
         userAttributes: [
           AttributeArg(name: 'name', value: name),
           AttributeArg(name: 'family_name', value: familyName),
+          AttributeArg(name: 'custom:referrer_code', value: referredCode),
+          AttributeArg(name: 'custom:platform', value: "app"),
         ],
       );
 
@@ -50,6 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
             builder: (context) => MailConfirmationPage(
               mail: email,
               password: password,
+              referredCode: referredCode,
               )));
       }
     } on CognitoClientException catch (e) {
@@ -209,7 +215,33 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                "Código de referido (opcional)",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 40, // Ajusta la altura del SizedBox según tus necesidades
+              child: TextField(
+                obscureText: false,
+                controller: _referredCodeController,
+                style: const TextStyle(
+                  fontFamily: "Gilroy-Medium",
+                  fontSize: 16,
+                  color: Color(0xFF201547),
+                ),
+                decoration: const InputDecoration(
+                  contentPadding:
+                  EdgeInsets.only(bottom: 16.0, left: 10, right: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
               child: Text(
                 "Contraseña",
                 style: TextStyle(
