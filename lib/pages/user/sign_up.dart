@@ -46,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
           AttributeArg(name: 'name', value: name),
           AttributeArg(name: 'family_name', value: familyName),
           AttributeArg(name: 'custom:referrer_code', value: referredCode),
+          AttributeArg(name: 'custom:platform', value: "app"),
         ],
       );
 
