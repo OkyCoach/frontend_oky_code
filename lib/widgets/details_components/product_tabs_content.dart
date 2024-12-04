@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/table_evaluation.dart';
 import 'package:frontend_oky_code/widgets/details_components/okytips.dart';
+import 'package:frontend_oky_code/widgets/details_components/recipes.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class ProductTabsContent extends StatelessWidget {
@@ -72,6 +73,20 @@ class ProductTabsContent extends StatelessWidget {
                     minHeight: minHeight,
                   ),
                   child: OkyTips(
+                    product: product,
+                  ),
+                ),
+              ]
+            ),
+            ListView(
+              padding: EdgeInsets.zero,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: minHeight,
+                  ),
+                  child: Recipes(
                     product: product,
                   ),
                 ),

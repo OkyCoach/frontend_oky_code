@@ -49,7 +49,7 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return DefaultTabController(
-          length: 2,
+          length: 3,
           child: Dismissible(
             direction: DismissDirection.down,
             dismissThresholds: const {DismissDirection.down: 0.25},
@@ -59,8 +59,8 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
               widget.scanning(true)
             },
             child:  Container(
-              width: screenWidth * 0.97,
-              height: screenHeight*0.8,
+              width: screenWidth,
+              height: screenHeight*0.85,
               padding: const EdgeInsets.only(top: 10),
               decoration: const BoxDecoration(
                 color: Colors.white,

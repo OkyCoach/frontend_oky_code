@@ -53,6 +53,18 @@ class ProductTabs extends StatelessWidget {
               ),
             ),
           ),
+          Tab(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "Recetas",
+                style: TextStyle(
+                  fontFamily: "Gilroy-Bold",
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
