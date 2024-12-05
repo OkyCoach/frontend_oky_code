@@ -32,7 +32,7 @@ class _RecipesState extends State<Recipes> {
 
     return Container(
       color: const Color(0xFFE8E4F4),
-      padding: const EdgeInsets.only(top: 16, bottom: 16,  left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 20, bottom: 16,  left: 10, right: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -68,9 +68,9 @@ class _RecipesState extends State<Recipes> {
                   imageUrl: "https://img-global.cpcdn.com/recipes/105771a9e774923b/1200x630cq70/photo.jpg",
                   link: "https://comermejor.agrosuper.cl/receta/pollo-arvejado-con-ensalada-de-pepino-y-tomate/",
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 20,),
                 NutritionalValues(values: ["Calorías","Carbohidratos","Grasas", "Proteína"]),
-                SizedBox(height: 10,),
+                SizedBox(height: 20,),
                 Ingredients(ingredients: [1, 2, 3, 4])
               ],
             ),

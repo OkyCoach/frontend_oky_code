@@ -11,22 +11,16 @@ class ProductTabs extends StatelessWidget {
 
     return Container(
       height: 35,
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(color: Color(0xFF7448ED)),
-          bottom: BorderSide(color: Color(0xFF7448ED)),
-        ),
-      ),
+
       child: TabBar(
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: const BoxDecoration(
-          color: Color(0xFF76FDB1),
+
           border: Border(
-            left: BorderSide(color: Color(0xFF7448ED)),
-            right: BorderSide(color: Color(0xFF7448ED)),
+            bottom: BorderSide(color: Color(0xFF7448ED), width: 4),
           ),
         ),
-        labelColor: Colors.black,
+        labelColor: Color(0xFF7448ED),
         unselectedLabelColor: Colors.black,
         tabs: [
           Tab(
@@ -35,7 +29,7 @@ class ProductTabs extends StatelessWidget {
               child: Text(
                 "Evaluación Nutri",
                 style: TextStyle(
-                  fontFamily: "Gilroy-Bold",
+                  fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
                 ),
               ),
@@ -47,7 +41,7 @@ class ProductTabs extends StatelessWidget {
               child: Text(
                 "OkyTips",
                 style: TextStyle(
-                  fontFamily: "Gilroy-Bold",
+                  fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
                 ),
               ),
@@ -59,7 +53,7 @@ class ProductTabs extends StatelessWidget {
               child: Text(
                 "Recetas",
                 style: TextStyle(
-                  fontFamily: "Gilroy-Bold",
+                  fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
                 ),
               ),

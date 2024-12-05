@@ -42,17 +42,17 @@ class ProductTabsContent extends StatelessWidget {
                   ),
                   child: Container(
                     child: evaluation["puntos_totales"] != null
-                              ? TableEvaluation(evaluation: evaluation)
-                              : Center(
-                                  child:  Text(
-                                    "Producto sin evaluación",
-                                    style: TextStyle(
-                                      fontSize: screenHeight * 0.02,
-                                      fontFamily: "Gilroy-Medium",
-                                      color: Color(0xFF201547),
-                                    ),
-                                  ),
-                                )
+                      ? TableEvaluation(evaluation: evaluation)
+                      : Center(
+                          child:  Text(
+                            "Producto sin evaluación",
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.02,
+                              fontFamily: "Gilroy-Medium",
+                              color: Color(0xFF201547),
+                            ),
+                          ),
+                        )
                   ),
                 ),
                 if(evaluation["puntos_totales"] != null)

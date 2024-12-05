@@ -21,11 +21,10 @@ class DotsWidget extends StatelessWidget {
     for (var range in ranges) {
       if (range["max"] == 1000) {
         maxValue = range["min"];
-        // Termina el bucle al encontrar el rango con max 1000
       }
       if (range["min"] == 0) {
         minValue =
-            range["max"]; // Termina el bucle al encontrar el rango con max 1000
+            range["max"];
       }
     }
     return [minValue, maxValue];
