@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:frontend_oky_code/widgets/details_components/dots_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final Map<String, dynamic> stringDisplay = { //display 1 significa que invierte los puntos ya que mayor valor es peor.
   "proteinas": {"text": "Proteínas", "display": 0},
@@ -46,16 +47,30 @@ class TableEvaluation extends StatelessWidget {
           }).toList()
           ..add(
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child:  Text(
-                "Nota: Información de Productos proporcionada por Ok to Shop SpA o proveedores.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "Gilroy-Medium",
-                  fontSize: screenHeight * 0.015,
-                  color: const Color(0xFF201547),
-                ),
-              ),  
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'lib/assets/logos/logo_ok_to_shop.svg',
+                    height: 30,
+                    width: 30,
+                  ),
+                  SizedBox(width: 10,),
+                  Flexible(
+                    child: Text(
+                      "Información obtenida de www.okto.shop",
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontFamily: "Gilroy-Bold",
+                        fontSize: screenHeight * 0.015,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ),
+                ]
+              )
             )
           )
         ),
