@@ -9,6 +9,7 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
+  final bool showRecipes;
   final cameFromScan;
   final Future<bool> Function(dynamic)? changeProduct;
 
@@ -18,6 +19,7 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
+    required this.showRecipes,
     required this.cameFromScan,
     this.changeProduct,
   }) : super(key: key);
@@ -78,20 +80,21 @@ class ProductTabsContent extends StatelessWidget {
                 ),
               ]
             ),
-            ListView(
-              padding: EdgeInsets.zero,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: minHeight,
+            if(showRecipes)
+              ListView(
+                padding: EdgeInsets.zero,
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: minHeight,
+                    ),
+                    child: Recipes(
+                      recipe: product["recipes"][0],
+                    ),
                   ),
-                  child: Recipes(
-                    product: product,
-                  ),
-                ),
-              ]
-            )
+                ]
+              )
           ],
         );
       },

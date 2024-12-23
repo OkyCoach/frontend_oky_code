@@ -37,7 +37,7 @@ class Ingredients extends StatelessWidget {
 
           // Lista de ingredientes
           ...ingredients.map((ingredient) {
-            String name = "- 2 Porotos";
+
 
             return Container(
               padding: EdgeInsets.symmetric(vertical: 5),
@@ -53,7 +53,9 @@ class Ingredients extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      name,
+                      "- ${ingredient["quantity"]} "
+                          "${ingredient["unit"] != "unidad" ? ingredient["unit"] + " de" : ""} "
+                      "${ingredient["name"]}",
                       style: TextStyle(
                         fontFamily: "Gilroy-Regular",
                         fontSize: screenHeight * 0.016,

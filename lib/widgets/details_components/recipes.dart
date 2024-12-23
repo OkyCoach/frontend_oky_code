@@ -6,10 +6,10 @@ import 'package:frontend_oky_code/widgets/details_components/recipes-components/
 import 'package:frontend_oky_code/widgets/details_components/recipes-components/nutritional.dart';
 
 class Recipes extends StatefulWidget {
-  final dynamic product;
+  final dynamic recipe;
   const Recipes({
     Key? key,
-    required this.product,
+    required this.recipe,
   }) : super(key: key);
 
   @override
@@ -20,10 +20,7 @@ class _RecipesState extends State<Recipes> {
   @override
   void initState() {
     super.initState();
-    _getRecipe();
   }
-
-  void _getRecipe() {}
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,7 @@ class _RecipesState extends State<Recipes> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Pollo arvejado con ensalada de pepino y tomate",
+                  widget.recipe["title"] ?? "Not found",
                   style: TextStyle(
                     fontFamily: "Gilroy-Bold",
                     fontSize: screenHeight * 0.023,
@@ -54,7 +51,7 @@ class _RecipesState extends State<Recipes> {
                   maxLines: 2,
                 ),
                 Text(
-                  "Porciones: 4",
+                  "Porciones: ${widget.recipe["portions"] ?? "-"}",
                   style: TextStyle(
                     fontFamily: "Gilroy-Regular",
                     fontSize: screenHeight * 0.018,
@@ -65,13 +62,13 @@ class _RecipesState extends State<Recipes> {
                   maxLines: 2,
                 ),
                 ClickableImage(
-                  imageUrl: "https://img-global.cpcdn.com/recipes/105771a9e774923b/1200x630cq70/photo.jpg",
-                  link: "https://comermejor.agrosuper.cl/receta/pollo-arvejado-con-ensalada-de-pepino-y-tomate/",
+                  imageUrl: widget.recipe["imgUrl"],
+                  link: widget.recipe["recipeLink"],
                 ),
                 SizedBox(height: 20,),
-                NutritionalValues(values: ["Calorías","Carbohidratos","Grasas", "Proteína"]),
+                NutritionalValues(values: widget.recipe["nutritionalFacts"]),
                 SizedBox(height: 20,),
-                Ingredients(ingredients: [1, 2, 3, 4])
+                Ingredients(ingredients: widget.recipe["ingredients"])
               ],
             ),
           ),

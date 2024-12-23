@@ -47,9 +47,10 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    int tabCount = widget.product["recipes"]?.length > 0 ? 3 : 2;
 
     return DefaultTabController(
-          length: 3,
+          length: tabCount,
           child: Dismissible(
             direction: DismissDirection.down,
             dismissThresholds: const {DismissDirection.down: 0.25},
@@ -78,13 +79,16 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
                     isLiked: widget.isLiked,
                     changeLike: widget.changeLike,
                   ),
-                  const ProductTabs(),
+                  ProductTabs(
+                    showRecipes: tabCount > 2,
+                  ),
                   Expanded(
                     child: ProductTabsContent(
                       product: widget.product,
                       evaluation: widget.evaluation,
                       recommendedProducts: widget.recommendedProducts,
                       ready: widget.ready,
+                      showRecipes: tabCount > 2,
                       cameFromScan: true,
                       changeProduct: widget.changeProduct,
                     ),

@@ -74,9 +74,11 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    int tabCount = (_productData["recipes"]?.length ?? 0) > 0 ? 3 : 2;
+
 
     return DefaultTabController(
-      length: 2,
+      length: tabCount,
       child: SlideTransition(
         position: Tween<Offset>(
           begin: Offset(0, 1),
@@ -189,7 +191,9 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                       ],
                     ),
                   ),
-                  const ProductTabs(),
+                  ProductTabs(
+                    showRecipes: tabCount > 2,
+                  ),
                   isLoading
                     ? Expanded(
                         child: Center(
@@ -203,6 +207,7 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                             evaluation: _evaluation,
                             recommendedProducts: _recommendedProducts,
                             ready: !isLoading,
+                            showRecipes: tabCount > 2,
                             cameFromScan: false,
                           ),
                       ),

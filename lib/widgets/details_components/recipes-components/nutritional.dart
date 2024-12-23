@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NutritionalValues extends StatelessWidget {
-  final List<dynamic> values;
+  final Map<String, dynamic> values;
+
 
   const NutritionalValues({
     Key? key,
@@ -17,12 +18,12 @@ class NutritionalValues extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: NutritionalItem(value: "16 gr", label: "Proteínas", image: "proteinas",)
+              child: NutritionalItem(value: "${values["protein"]} gr", label: "Proteínas", image: "proteinas",)
             ),
             SizedBox(width: 5,),
             Expanded(
               child: Expanded(
-                  child: NutritionalItem(value: "4 kcal", label: "Calorías", image: "calorias",)
+                  child: NutritionalItem(value: "${values["carbohydrates"]} kcal", label: "Calorías", image: "calorias",)
               ),
             ),
           ],
@@ -32,13 +33,13 @@ class NutritionalValues extends StatelessWidget {
           children: [
             Expanded(
               child: Expanded(
-                  child: NutritionalItem(value: "89 gr", label: "Grasas", image: "grasas_totales",)
+                  child: NutritionalItem(value: "${values["fat"]} gr", label: "Grasas", image: "grasas_totales",)
               ),
             ),
             SizedBox(width: 5,),
             Expanded(
               child: Expanded(
-                  child: NutritionalItem(value: "59 gr", label: "Carbohidratos", image: "hidratos",)
+                  child: NutritionalItem(value: "${values["calories"]} gr", label: "Carbohidratos", image: "hidratos",)
               ),
             ),
           ],
