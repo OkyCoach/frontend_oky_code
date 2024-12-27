@@ -11,6 +11,7 @@ class NutritionalValues extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,6 +45,16 @@ class NutritionalValues extends StatelessWidget {
             ),
           ],
         ),
+        Text(
+            "*Aportes por porción.",
+          style: TextStyle(
+            fontFamily: "Gilroy-Regular",
+            fontSize: screenHeight * 0.015,
+            color: Colors.grey[800],
+            height: 1.8,
+          ),
+
+        )
       ],
     );
   }

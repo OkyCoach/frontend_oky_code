@@ -86,6 +86,7 @@ flutter:
     - lib/assets/logos/logo_degrade.png
     - lib/assets/logos/full_logo.png
     - lib/assets/logos/logo_borde_morado.png
+    - lib/assets/logos/logo_luckyplay.png
     - lib/assets/logos/mano_oky.png
     - lib/assets/logos/logo_ok_to_shop.svg
     

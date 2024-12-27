@@ -54,7 +54,7 @@ class Ingredients extends StatelessWidget {
                   Expanded(
                     child: Text(
                       "- ${ingredient["quantity"]} "
-                          "${ingredient["unit"] != "unidad" ? ingredient["unit"] + " de" : ""} "
+                          "${ingredient["unit"] != "un" ? ingredient["unit"] + " de" : ""} "
                       "${ingredient["name"]}",
                       style: TextStyle(
                         fontFamily: "Gilroy-Regular",

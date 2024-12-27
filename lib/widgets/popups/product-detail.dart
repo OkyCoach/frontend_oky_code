@@ -15,6 +15,7 @@ class ProductDetailV3 extends StatefulWidget {
   final ValueChanged<bool> showDetails;
   final ValueChanged<bool> scanning;
   final Future<bool> Function(dynamic)? changeProduct;
+  final VoidCallback? onCheckGiveaway;
 
   const ProductDetailV3({
     Key? key,
@@ -27,6 +28,7 @@ class ProductDetailV3 extends StatefulWidget {
     required this.showDetails,
     required this.scanning,
     this.changeProduct,
+    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -91,6 +93,7 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
                       showRecipes: tabCount > 2,
                       cameFromScan: true,
                       changeProduct: widget.changeProduct,
+                      onCheckGiveaway: widget.onCheckGiveaway,
                     ),
                   ),
                 ],

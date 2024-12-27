@@ -6,9 +6,11 @@ import 'package:frontend_oky_code/widgets/details_components/okytips-components/
 
 class OkyTips extends StatefulWidget {
   final dynamic product;
+  final VoidCallback? onCheckGiveaway;
   const OkyTips({
     Key? key,
     required this.product,
+    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -71,13 +73,17 @@ class _OkyTipsState extends State<OkyTips> {
     }
   }
 
-  void _toggleLike() {
+  void _toggleLike() async {
     setState(() {
       likeOkytip(widget.product["_id"], okyTipId, isLiked);
       isLiked = !isLiked;
       isLiked ? likes += 1 : likes -= 1;
       widget.product["oky_tips"][currentTipIndex!]["liked"] = isLiked;
       widget.product["oky_tips"][currentTipIndex!]["totalLikes"] = likes;
+      if(isLiked){
+
+        widget.onCheckGiveaway!();
+      }
     });
   }
 

@@ -28,7 +28,7 @@ class ProductTabs extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                "Evaluación Nutri",
+                "Evaluación",
                 style: TextStyle(
                   fontFamily: "Gilroy-Medium",
                   fontSize: screenHeight * 0.02,
