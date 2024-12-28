@@ -93,6 +93,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   }
 
   void checkGiveaway() async {
+    /*
     try {
       var canPlay = await checkUserOportunities(product["barcode"]);
       setState(() {
@@ -103,6 +104,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
         showGiveaway = false;
       });
     }
+    */
   }
 
   @override
@@ -253,11 +255,11 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
             ),
           if(showGiveaway)
             LuckyplayGiveawayPopup(
-              contestUrl: "https://www.luckyplay.cl/",
+              contestUrl: "https://d32f73sag9hjhx.cloudfront.net/",
               canParticipate: true,
               onClose: () {
                 setState(() {
-                  showGiveaway = false; // Actualiza el estado
+                  showGiveaway = false;
                 });
               },
             ),
