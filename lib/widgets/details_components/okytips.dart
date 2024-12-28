@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
+import 'package:frontend_oky_code/widgets/details_components/okytips-components/okytip.dart';
+import 'package:frontend_oky_code/widgets/details_components/okytips-components/sabias-que.dart';
 
 class OkyTips extends StatefulWidget {
   final dynamic product;
+  final VoidCallback? onCheckGiveaway;
   const OkyTips({
     Key? key,
     required this.product,
+    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -69,13 +73,17 @@ class _OkyTipsState extends State<OkyTips> {
     }
   }
 
-  void _toggleLike() {
+  void _toggleLike() async {
     setState(() {
       likeOkytip(widget.product["_id"], okyTipId, isLiked);
       isLiked = !isLiked;
       isLiked ? likes += 1 : likes -= 1;
       widget.product["oky_tips"][currentTipIndex!]["liked"] = isLiked;
       widget.product["oky_tips"][currentTipIndex!]["totalLikes"] = likes;
+      if(isLiked){
+
+        widget.onCheckGiveaway!();
+      }
     });
   }
 
@@ -96,167 +104,36 @@ class _OkyTipsState extends State<OkyTips> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start, 
                     children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(
-                          color: const Color(0xFF7448ED),
-                          width: 2.0,
-                        )),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if(okyTipId != "")
-                        Padding(
-                          padding:  const EdgeInsets.only(bottom: 5),
-                          child:
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Text(
-                                  '$likes',
-                                  style: const TextStyle(
-                                    fontFamily: "Gilroy-Bold",
-                                    ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  _toggleLike();
-                                },
-                                child: ClipOval(
-                                  child: ColorFiltered(
-                                    colorFilter: ColorFilter.mode(
-                                      (isLiked)
-                                          ? Colors.transparent
-                                          : Color(0xFFE8E4F4),
-                                      BlendMode.color,
-                                    ),
-                                    child: Image.asset(
-                                      (isLiked)
-                                          ? 'lib/assets/me_gusta.png'
-                                          : 'lib/assets/no_me_gusta.png',
-                                      height: screenHeight * 0.04,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ), 
-                        ), 
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              const TextSpan(
-                                text: 'OkyTip: ',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: "Gilroy-Bold",
-                                  color: Color(0xFF7448ED),
-                                ),
-                              ),
-                              TextSpan(
-                                text: okyTip,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: "Gilroy-Medium",
-                                  color: Color(0xFF201547),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if(okyTipId != "")
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 5),
-                            child: Text(
-                              nutricionista,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: "Gilroy-Normal",
-                                color: Color(0xFF7448ED),
-                              ),
-                            ),
-                          ), 
-                      ],
-                    )),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: Transform.translate(
-                        offset: const Offset(-30, -2),
-                        child: TriangleWidget())),
-                const SizedBox(height: 20),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: screenWidth * 0.55,
-                        padding: const EdgeInsets.all(8.0),
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              color: const Color(0xFF7448ED),
-                              width: 2.0,
-                            )),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "¿Sabías que?...",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: "Gilroy-Bold",
-                                color: Color(0xFF7448ED),
-                              ),
-                            ),
-                            Text(
-                              showFullText
-                                  ? sabiasQue
-                                  : sabiasQue.length > 100
-                                      ? '${sabiasQue.substring(0, 100)}...'
-                                      : sabiasQue,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: "Gilroy-Medium",
-                                color: Color(0xFF201547),
-                              ),
-                            ),
-                            if (sabiasQue.length > 100)
-                              TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    showFullText = !showFullText;
-                                  });
-                                },
-                                child: Text(
-                                  showFullText ? "Ver menos" : "Ver más",
-                                  style: const TextStyle(
-                                    color: Color(0xFF7448ED),
-                                    fontFamily: "Gilroy-Bold",
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
+                      OkyTipCard(
+                        okyTipId: okyTipId,
+                        okyTip: okyTip,
+                        nutricionista: nutricionista,
+                        likes: likes,
+                        isLiked: isLiked,
+                        onToggleLike: _toggleLike
                       ),
                       Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          'lib/assets/nutria_2_sin_cola.png',
-                          height: screenWidth * 0.8,
-                        ),
+                        alignment: Alignment.bottomRight,
+                        child: Transform.translate(
+                          offset: const Offset(-30, -2),
+                          child: TriangleWidget()
+                        )
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SabiasQueCard(sabiasQue: sabiasQue),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Image.asset(
+                              'lib/assets/nutria_recortada.png',
+                              height: screenWidth * 0.6,
+                            ),
+                          )
+                        ]
                       )
-                    ])
               ]),
             )
           ],
@@ -275,7 +152,7 @@ class TrianglePainter extends CustomPainter {
       ..color = const Color(
           0xFF7448ED) // Cambia este color al que desees para los bordes
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0; // Cambia este valor al grosor del borde deseado
+      ..strokeWidth = 1.0; // Cambia este valor al grosor del borde deseado
 
     final path = Path();
     path.moveTo(0, 0); // Mueve el lápiz al punto superior izquierdo

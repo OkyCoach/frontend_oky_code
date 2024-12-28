@@ -15,6 +15,7 @@ class ProductDetailV3 extends StatefulWidget {
   final ValueChanged<bool> showDetails;
   final ValueChanged<bool> scanning;
   final Future<bool> Function(dynamic)? changeProduct;
+  final VoidCallback? onCheckGiveaway;
 
   const ProductDetailV3({
     Key? key,
@@ -27,6 +28,7 @@ class ProductDetailV3 extends StatefulWidget {
     required this.showDetails,
     required this.scanning,
     this.changeProduct,
+    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -47,9 +49,10 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    int tabCount = widget.product["recipes"]?.length > 0 ? 3 : 2;
 
     return DefaultTabController(
-          length: 2,
+          length: tabCount,
           child: Dismissible(
             direction: DismissDirection.down,
             dismissThresholds: const {DismissDirection.down: 0.25},
@@ -59,8 +62,8 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
               widget.scanning(true)
             },
             child:  Container(
-              width: screenWidth * 0.97,
-              height: screenHeight*0.8,
+              width: screenWidth,
+              height: screenHeight*0.85,
               padding: const EdgeInsets.only(top: 10),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -78,15 +81,19 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
                     isLiked: widget.isLiked,
                     changeLike: widget.changeLike,
                   ),
-                  const ProductTabs(),
+                  ProductTabs(
+                    showRecipes: tabCount > 2,
+                  ),
                   Expanded(
                     child: ProductTabsContent(
                       product: widget.product,
                       evaluation: widget.evaluation,
                       recommendedProducts: widget.recommendedProducts,
                       ready: widget.ready,
+                      showRecipes: tabCount > 2,
                       cameFromScan: true,
                       changeProduct: widget.changeProduct,
+                      onCheckGiveaway: widget.onCheckGiveaway,
                     ),
                   ),
                 ],

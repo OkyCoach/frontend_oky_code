@@ -49,6 +49,7 @@ dependencies:
   image: ^4.1.7
   crop_image: ^1.0.12
   posthog_flutter: ^4.0.0
+  flutter_svg: ^2.0.16
   
 
 dev_dependencies:
@@ -85,7 +86,9 @@ flutter:
     - lib/assets/logos/logo_degrade.png
     - lib/assets/logos/full_logo.png
     - lib/assets/logos/logo_borde_morado.png
+    - lib/assets/logos/logo_luckyplay.png
     - lib/assets/logos/mano_oky.png
+    - lib/assets/logos/logo_ok_to_shop.svg
     
     - lib/assets/lupa.png
     - lib/assets/perfil.png

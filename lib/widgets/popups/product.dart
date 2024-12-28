@@ -71,7 +71,7 @@ class _ProductPopupState extends State<ProductPopup> {
         ),
         Container(
           width: screenWidth * 0.95,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(25),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_oky_code/widgets/details_components/table_evaluation.dart';
 import 'package:frontend_oky_code/widgets/details_components/okytips.dart';
+import 'package:frontend_oky_code/widgets/details_components/recipes.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
 
 class ProductTabsContent extends StatelessWidget {
@@ -8,8 +9,10 @@ class ProductTabsContent extends StatelessWidget {
   final dynamic evaluation;
   final dynamic recommendedProducts;
   final bool ready;
+  final bool showRecipes;
   final cameFromScan;
   final Future<bool> Function(dynamic)? changeProduct;
+  final VoidCallback? onCheckGiveaway;
 
   ProductTabsContent({
     Key? key,
@@ -17,8 +20,10 @@ class ProductTabsContent extends StatelessWidget {
     required this.evaluation,
     required this.recommendedProducts,
     required this.ready,
+    required this.showRecipes,
     required this.cameFromScan,
     this.changeProduct,
+    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -41,17 +46,17 @@ class ProductTabsContent extends StatelessWidget {
                   ),
                   child: Container(
                     child: evaluation["puntos_totales"] != null
-                              ? TableEvaluation(evaluation: evaluation)
-                              : Center(
-                                  child:  Text(
-                                    "Producto sin evaluación",
-                                    style: TextStyle(
-                                      fontSize: screenHeight * 0.02,
-                                      fontFamily: "Gilroy-Medium",
-                                      color: Color(0xFF201547),
-                                    ),
-                                  ),
-                                )
+                      ? TableEvaluation(evaluation: evaluation)
+                      : Center(
+                          child:  Text(
+                            "Producto sin evaluación",
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.02,
+                              fontFamily: "Gilroy-Medium",
+                              color: Color(0xFF201547),
+                            ),
+                          ),
+                        )
                   ),
                 ),
                 if(evaluation["puntos_totales"] != null)
@@ -73,10 +78,26 @@ class ProductTabsContent extends StatelessWidget {
                   ),
                   child: OkyTips(
                     product: product,
+                    onCheckGiveaway: onCheckGiveaway,
                   ),
                 ),
               ]
-            )
+            ),
+            if(showRecipes)
+              ListView(
+                padding: EdgeInsets.zero,
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: minHeight,
+                    ),
+                    child: Recipes(
+                      recipe: product["recipes"][0],
+                    ),
+                  ),
+                ]
+              )
           ],
         );
       },

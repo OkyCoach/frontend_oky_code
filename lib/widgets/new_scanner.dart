@@ -4,10 +4,12 @@ import 'package:frontend_oky_code/widgets/popups/product.dart';
 import 'package:frontend_oky_code/widgets/popups/not-found.dart';
 import 'package:frontend_oky_code/widgets/popups/no-evaluation.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
+import 'package:frontend_oky_code/helpers/luckyplay.dart';
 import 'package:vibration/vibration.dart';
 import 'package:frontend_oky_code/helpers/barcode_handler.dart';
 import 'package:frontend_oky_code/widgets/popups/product-detail.dart';
 import 'package:frontend_oky_code/widgets/recommended.dart';
+import 'package:frontend_oky_code/widgets/popups/luckyplay-giveaway.dart';
 
 class MyScannerWidget extends StatefulWidget {
   @override
@@ -28,6 +30,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
   bool showNotFound = false;
   bool showNotEvaluated= false;
   bool showBadConnection= false;
+  bool showGiveaway= false;
 
   Future<bool> _didScan(String? barcode) async {
     try {
@@ -89,6 +92,21 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
     }
   }
 
+  void checkGiveaway() async {
+    /*
+    try {
+      var canPlay = await checkUserOportunities(product["barcode"]);
+      setState(() {
+        showGiveaway = canPlay;
+      });
+    } catch (error) {
+      setState(() {
+        showGiveaway = false;
+      });
+    }
+    */
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +144,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
               },
             ),
           ),
+
           if(showNotFound)
             Align(
               alignment: Alignment.center,
@@ -216,6 +235,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
                       }
                     });
                   });
+
                 },
                 recommendedProducts: recommendedProducts,
                 ready: ready,
@@ -230,7 +250,18 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
                     scanning = newValue;
                   });
                 },
+                onCheckGiveaway: checkGiveaway,
               ),
+            ),
+          if(showGiveaway)
+            LuckyplayGiveawayPopup(
+              contestUrl: "https://d32f73sag9hjhx.cloudfront.net/",
+              canParticipate: true,
+              onClose: () {
+                setState(() {
+                  showGiveaway = false;
+                });
+              },
             ),
           if(showProductPopup)
             Align(
