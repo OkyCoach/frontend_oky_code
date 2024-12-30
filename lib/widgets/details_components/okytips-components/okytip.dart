@@ -30,7 +30,7 @@ class OkyTipCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: const Color(0xFF7448ED),
-          width: 1.0,
+          width: 2.0,
         ),
       ),
       child: Column(

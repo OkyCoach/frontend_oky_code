@@ -102,7 +102,7 @@ class _OkyTipsState extends State<OkyTips> {
             Expanded(
               child:
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start, 
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       OkyTipCard(
                         okyTipId: okyTipId,
@@ -122,14 +122,14 @@ class _OkyTipsState extends State<OkyTips> {
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SabiasQueCard(sabiasQue: sabiasQue),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Image.asset(
-                              'lib/assets/nutria_recortada.png',
-                              height: screenWidth * 0.6,
+                              'lib/assets/nutria_2_sin_cola.png',
+                              height: screenWidth * 0.8,
                             ),
                           )
                         ]
@@ -152,7 +152,7 @@ class TrianglePainter extends CustomPainter {
       ..color = const Color(
           0xFF7448ED) // Cambia este color al que desees para los bordes
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0; // Cambia este valor al grosor del borde deseado
+      ..strokeWidth = 2.0; // Cambia este valor al grosor del borde deseado
 
     final path = Path();
     path.moveTo(0, 0); // Mueve el lápiz al punto superior izquierdo

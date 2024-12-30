@@ -21,14 +21,14 @@ class _SabiasQueCardState extends State<SabiasQueCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       width: screenWidth * 0.55,
-      padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: const Color(0xFF7448ED),
-          width: 1.0,
+          width: 2.0,
         ),
       ),
       child: Column(
