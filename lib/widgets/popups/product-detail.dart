@@ -63,7 +63,7 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
             },
             child:  Container(
               width: screenWidth,
-              height: screenHeight*0.85,
+              height: screenHeight*0.8,
               padding: const EdgeInsets.only(top: 10),
               decoration: const BoxDecoration(
                 color: Colors.white,
