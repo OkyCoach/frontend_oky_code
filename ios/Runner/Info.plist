@@ -36,6 +36,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Necesitamos usar tu cámara para escanear productos.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Necesitamos tu ubicación para mostrarte resultados relevantes.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

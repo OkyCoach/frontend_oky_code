@@ -3,7 +3,7 @@ import 'package:frontend_oky_code/widgets/dismissible_bar.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_info.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs.dart';
 import 'package:frontend_oky_code/widgets/details_components/product_tabs_content.dart';
-
+import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 
 class ProductDetailV3 extends StatefulWidget {
   final dynamic product;
@@ -74,7 +74,36 @@ class _ProductDetailV3State extends State<ProductDetailV3> {
               ),
               child: Column(
                 children: [
-                  const DismissibleBar(width: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: screenHeight * 0.042,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: DismissibleBar(width: 40),
+                            ),
+                          ),
+
+                          Positioned(
+                            right: 0,
+                            child: widget.product["_id"] != null
+                                ? LikeButton(
+                                  isLiked: widget.isLiked,
+                                  changeLike: widget.changeLike,
+                                  productId: widget.product["_id"],
+                                )
+                                : SizedBox(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   ProductInfoRow(
                     product: widget.product,
                     evaluation: widget.evaluation,

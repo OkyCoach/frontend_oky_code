@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:frontend_oky_code/helpers/user_location.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend_oky_code/helpers/image_converter.dart';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:geolocator/geolocator.dart';
 
 Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
   final url =
@@ -15,6 +17,8 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
     Map<String, dynamic> userInfo =
         sessionData.isNotEmpty ? jsonDecode(sessionData['userInfo']!) : {};
     String userId = userInfo.containsKey("sub") ? userInfo["sub"] : "";
+
+    registerScanningLocation();
     if(isScan) {
       Posthog().capture(
         eventName: 'fetchBarcodeData',
@@ -325,5 +329,22 @@ Future<List<dynamic>> referredTransaction(String referredCode) async {
   } catch (error) {
     print(error);
     return [];
+  }
+}
+
+Future<void> registerScanningLocation() async {
+  try {
+    var url =
+        '${dotenv.env['API_URL']}/location';
+    Position? position = await getCurrentLocation();
+    await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({'lat': position?.latitude, 'lon': position?.longitude}),
+
+    );
+  } catch (error) {
   }
 }

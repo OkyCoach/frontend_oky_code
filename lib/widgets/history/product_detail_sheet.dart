@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/details_components/oky_badge.dart';
 import 'package:frontend_oky_code/widgets/dismissible_bar.dart';
 import 'package:frontend_oky_code/widgets/loading_block.dart';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
@@ -103,9 +104,43 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
               padding: EdgeInsets.only(top: 10),
               child: Column(
                 children: [
-                  const DismissibleBar(width: 40),
                   Padding(
-                    padding: EdgeInsets.only(top: 20, left: 20, right: 10, bottom: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: screenHeight * 0.042,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: DismissibleBar(width: 40),
+                            ),
+                          ),
+
+                          Positioned(
+                            right: 0,
+                            child: _productData["_id"] != null
+                              ? LikeButton(
+                                  isLiked: isLiked,
+                                  changeLike: (newValue) {
+                                    setState(() {
+                                      isLiked = newValue;
+                                    });
+                                  },
+                                  productId: _productData["_id"],
+                                )
+                              : SizedBox(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 2, left: 20, right: 10, bottom: 15),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -156,6 +191,8 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                                 children: [
                                   if (isLoading)
                                     LoadingBlock(width: screenWidth * 0.35, height: 25)
+                                  else if(_productData["score"] != null)
+                                    OkyBadge(score: _productData["score"],)
                                   else if(_evaluation["puntos_totales"] != null)
                                     StarsWidget(
                                       maxScore: _evaluation["puntos_totales"],
@@ -178,16 +215,7 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                           ),
                         ),
                         SizedBox(width: 2,),
-                        if(_productData["_id"] != null)
-                          LikeButton(
-                            isLiked: isLiked,
-                            changeLike: (newValue){
-                              setState(() {
-                                isLiked = newValue;
-                              });
-                            },
-                            productId: _productData["_id"],
-                          )
+
                       ],
                     ),
                   ),

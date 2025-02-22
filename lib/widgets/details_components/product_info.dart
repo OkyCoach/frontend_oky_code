@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_oky_code/widgets/details_components/oky_badge.dart';
 import 'package:frontend_oky_code/widgets/details_components/stars_widget.dart';
 import 'package:frontend_oky_code/widgets/details_components/like-button.dart';
 
@@ -82,22 +83,21 @@ class ProductInfoRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StarsWidget(
-                        maxScore: evaluation["puntos_totales"],
-                        actualScore: evaluation["puntos_obtenidos"],
-                        height: 0.03,
-                      ),
+                      if(product["score"] != null)
+                        OkyBadge(score: product["score"])
+                      else
+                        StarsWidget(
+                          maxScore: evaluation["puntos_totales"],
+                          actualScore: evaluation["puntos_obtenidos"],
+                          height: 0.03,
+                        ),
                     ],
                   )
                 ],
               ),
             ),
           ),
-          LikeButton(
-            isLiked: isLiked,
-            changeLike: changeLike,
-            productId: product["_id"]
-          )
+
         ],
       ),
     );

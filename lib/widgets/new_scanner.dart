@@ -36,7 +36,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
     try {
 
       var _product = await fetchBarcodeData(barcode, true);
-      print(product);
+      print(_product);
       var _evaluation = await fetchEvaluationData(barcode);
       setState(() {
         ready = false;
@@ -66,6 +66,10 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
       } else if(_product.containsKey('timeout') || _evaluation.containsKey('timeout')){
         setState(() {
           showBadConnection = true;
+        });
+      } else if(!_product.containsKey('error') && !_evaluation.containsKey('error')){
+        setState(() {
+          showNotFound = true;
         });
       }
       return true;
