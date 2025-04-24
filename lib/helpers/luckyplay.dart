@@ -2,15 +2,18 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:frontend_oky_code/helpers/auth_manager.dart';
+import 'package:frontend_oky_code/helpers/user_location.dart';
+import 'package:geolocator/geolocator.dart';
 
-Future<bool> checkUserOportunities(String barcode) async {
+Future<Map<String, dynamic>?> checkUserOportunities(String barcode) async {
   try {
     AuthManager authManager = AuthManager();
     Map<String, String> sessionData = await authManager.getSession();
     Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
     String userId = userInfo["sub"];
+    Position? position = await getCurrentLocation();
     var url =
-        'http://localhost:3000/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1';
+        'https://api.okylife.lygamification.cl/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1&lat=${position?.latitude}&lng=${position?.longitude}';
 
     final response = await http.get(
       Uri.parse(url),
@@ -21,11 +24,21 @@ Future<bool> checkUserOportunities(String barcode) async {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      return data["puedeJugar"];
+      return {
+        "canPlay": data["puedeJugar"], 
+        "stackId": data["stackVigenteId"], 
+        "userId": userId,
+        "lat": position?.latitude,
+        "lon": position?.longitude
+      };
     } else {
-      return false;
+      return {
+        "canPlay": false,
+      };
     }
   } catch (error) {
-    return false;
+    return {
+      "canPlay": false,
+    };
   }
 }

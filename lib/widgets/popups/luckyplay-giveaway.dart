@@ -3,12 +3,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LuckyplayGiveawayPopup extends StatelessWidget {
   final String contestUrl;
-  final bool canParticipate;
   final VoidCallback onClose;
 
   const LuckyplayGiveawayPopup({
     required this.contestUrl,
-    required this.canParticipate,
     required this.onClose,
   });
 
@@ -41,14 +39,15 @@ class LuckyplayGiveawayPopup extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0, right: 30, top: 5, bottom: 10),
+          padding: const EdgeInsets.only(left: 30.0, right: 30, top: 15, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'lib/assets/logos/logo_luckyplay.png', // Asegúrate de que la ruta sea correcta
+                'lib/assets/logos/logo_ly.jpeg', // Asegúrate de que la ruta sea correcta
                 height: screenHeight * 0.1, // Ajusta el tamaño de la imagen
               ),
+              SizedBox(height: 20,),
               Text(
                 '¡Participa en nuestro concurso junto a LuckyPlay!',
                 textAlign: TextAlign.center,

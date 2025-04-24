@@ -88,24 +88,26 @@ class _OkyTipsState extends State<OkyTips> {
   }
 
   void checkGiveaway(String barcode) async {
-    try {
-      var canPlay = await checkUserOportunities(barcode);
-      if (canPlay) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return LuckyplayGiveawayPopup(
-              contestUrl: "https://d32f73sag9hjhx.cloudfront.net/",
-              canParticipate: true,
-              onClose: () {
-                Navigator.of(context).pop();
-              },
-            );
-          },
-        );
-      }
-    } catch (error) {}
+  try {
+    final result = await checkUserOportunities(barcode);
+    if (result != null && result['canPlay'] == true) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return LuckyplayGiveawayPopup(
+            contestUrl: 'https://okylife.lygamification.cl/?userId=${result["userId"]}&barcode=$barcode&stackId=${result["stackId"]}&lat=${result["lat"]}&lng=${result["lon"]}',
+            onClose: () {
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      );
+    }
+  } catch (error) {
+    // Aquí puedes agregar logs si quieres ver qué pasó
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
