@@ -3,14 +3,15 @@ import 'dart:math';
 import 'package:frontend_oky_code/helpers/fetch_data.dart';
 import 'package:frontend_oky_code/widgets/details_components/okytips-components/okytip.dart';
 import 'package:frontend_oky_code/widgets/details_components/okytips-components/sabias-que.dart';
+import 'package:frontend_oky_code/helpers/luckyplay.dart';
+import 'package:frontend_oky_code/widgets/popups/luckyplay-giveaway.dart';
 
 class OkyTips extends StatefulWidget {
   final dynamic product;
-  final VoidCallback? onCheckGiveaway;
+
   const OkyTips({
     Key? key,
     required this.product,
-    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -43,13 +44,13 @@ class _OkyTipsState extends State<OkyTips> {
         int randomIndex = random.nextInt(tips.length);
         okyTip =
             tips[randomIndex]["oky_tip"] ?? "Ocurrió un problema inesperado";
-        
+
         currentTipIndex = randomIndex;
-        
+
         likes = tips[randomIndex]["totalLikes"] ?? 0;
         isLiked = tips[randomIndex]["liked"] ?? false;
         okyTipId = tips[randomIndex]["oky_tip_id"] ?? "";
-        
+
         nutricionista =
             'Nutri ${tips[randomIndex]["nutritionist_name"] ?? "undefined"}';
       } else {
@@ -80,11 +81,30 @@ class _OkyTipsState extends State<OkyTips> {
       isLiked ? likes += 1 : likes -= 1;
       widget.product["oky_tips"][currentTipIndex!]["liked"] = isLiked;
       widget.product["oky_tips"][currentTipIndex!]["totalLikes"] = likes;
-      if(isLiked){
-
-        widget.onCheckGiveaway!();
+      if (isLiked) {
+        checkGiveaway(widget.product["barcode"]);
       }
     });
+  }
+
+  void checkGiveaway(String barcode) async {
+    try {
+      var canPlay = await checkUserOportunities(barcode);
+      if (canPlay) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return LuckyplayGiveawayPopup(
+              contestUrl: "https://d32f73sag9hjhx.cloudfront.net/",
+              canParticipate: true,
+              onClose: () {
+                Navigator.of(context).pop();
+              },
+            );
+          },
+        );
+      }
+    } catch (error) {}
   }
 
   @override
@@ -101,39 +121,33 @@ class _OkyTipsState extends State<OkyTips> {
           children: [
             Expanded(
               child:
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                OkyTipCard(
+                    okyTipId: okyTipId,
+                    okyTip: okyTip,
+                    nutricionista: nutricionista,
+                    likes: likes,
+                    isLiked: isLiked,
+                    onToggleLike: _toggleLike),
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: Transform.translate(
+                        offset: const Offset(-30, -2),
+                        child: TriangleWidget())),
+                const SizedBox(height: 20),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      OkyTipCard(
-                        okyTipId: okyTipId,
-                        okyTip: okyTip,
-                        nutricionista: nutricionista,
-                        likes: likes,
-                        isLiked: isLiked,
-                        onToggleLike: _toggleLike
-                      ),
+                      SabiasQueCard(sabiasQue: sabiasQue),
                       Align(
-                        alignment: Alignment.bottomRight,
-                        child: Transform.translate(
-                          offset: const Offset(-30, -2),
-                          child: TriangleWidget()
-                        )
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SabiasQueCard(sabiasQue: sabiasQue),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Image.asset(
-                              'lib/assets/nutria_2_sin_cola.png',
-                              height: screenWidth * 0.8,
-                            ),
-                          )
-                        ]
+                        alignment: Alignment.bottomCenter,
+                        child: Image.asset(
+                          'lib/assets/nutria_2_sin_cola.png',
+                          height: screenWidth * 0.8,
+                        ),
                       )
+                    ])
               ]),
             )
           ],

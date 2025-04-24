@@ -10,7 +10,7 @@ Future<bool> checkUserOportunities(String barcode) async {
     Map<String, dynamic> userInfo = jsonDecode(sessionData['userInfo']!);
     String userId = userInfo["sub"];
     var url =
-        'http://ec2-98-80-51-102.compute-1.amazonaws.com:3000/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1';
+        'http://localhost:3000/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1';
 
     final response = await http.get(
       Uri.parse(url),

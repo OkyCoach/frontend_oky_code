@@ -98,20 +98,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
     }
   }
 
-  void checkGiveaway() async {
-    /*
-    try {
-      var canPlay = await checkUserOportunities(product["barcode"]);
-      setState(() {
-        showGiveaway = canPlay;
-      });
-    } catch (error) {
-      setState(() {
-        showGiveaway = false;
-      });
-    }
-    */
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -256,18 +243,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
                     scanning = newValue;
                   });
                 },
-                onCheckGiveaway: checkGiveaway,
               ),
-            ),
-          if(showGiveaway)
-            LuckyplayGiveawayPopup(
-              contestUrl: "https://d32f73sag9hjhx.cloudfront.net/",
-              canParticipate: true,
-              onClose: () {
-                setState(() {
-                  showGiveaway = false;
-                });
-              },
             ),
           if(showProductPopup)
             Align(

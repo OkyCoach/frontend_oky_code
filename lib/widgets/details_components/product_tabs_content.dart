@@ -12,7 +12,6 @@ class ProductTabsContent extends StatelessWidget {
   final bool showRecipes;
   final cameFromScan;
   final Future<bool> Function(dynamic)? changeProduct;
-  final VoidCallback? onCheckGiveaway;
 
   ProductTabsContent({
     Key? key,
@@ -23,7 +22,6 @@ class ProductTabsContent extends StatelessWidget {
     required this.showRecipes,
     required this.cameFromScan,
     this.changeProduct,
-    this.onCheckGiveaway,
   }) : super(key: key);
 
   @override
@@ -78,7 +76,6 @@ class ProductTabsContent extends StatelessWidget {
                   ),
                   child: OkyTips(
                     product: product,
-                    onCheckGiveaway: onCheckGiveaway,
                   ),
                 ),
               ]
