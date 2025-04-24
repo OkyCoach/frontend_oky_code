@@ -25,8 +25,8 @@ Future<Map<String, dynamic>?> checkUserOportunities(String barcode) async {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return {
-        "canPlay": data["puedeJugar"], 
-        "stackId": data["stackVigenteId"], 
+        "canPlay": data["puedeJugar"],
+        "stackId": data["stackVigenteId"],
         "userId": userId,
         "lat": position?.latitude,
         "lon": position?.longitude
