@@ -83,8 +83,8 @@ class ProductInfoRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if(product["score"] != null)
-                        OkyBadge(score: product["score"])
+                      if(product["selloOky"] != null)
+                        OkyBadge(score: product["selloOky"])
                       else
                         StarsWidget(
                           maxScore: evaluation["puntos_totales"],
