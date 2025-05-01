@@ -191,8 +191,8 @@ class _ProductDetailSheetState extends State<ProductDetailSheet>
                                 children: [
                                   if (isLoading)
                                     LoadingBlock(width: screenWidth * 0.35, height: 25)
-                                  else if(_productData["score"] != null)
-                                    OkyBadge(score: _productData["score"],)
+                                  else if(_productData["selloOky"] != null)
+                                    OkyBadge(score: _productData["selloOky"],)
                                   else if(_evaluation["puntos_totales"] != null)
                                     StarsWidget(
                                       maxScore: _evaluation["puntos_totales"],

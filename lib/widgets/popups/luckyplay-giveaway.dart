@@ -84,7 +84,8 @@ class LuckyplayGiveawayPopup extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (await canLaunchUrl(Uri.parse(contestUrl))) {
-                          launchUrl(Uri.parse(contestUrl));
+                          await launchUrl(Uri.parse(contestUrl));
+                          Navigator.of(context).pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('No se pudo abrir el enlace.')),
