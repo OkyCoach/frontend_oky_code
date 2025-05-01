@@ -13,7 +13,7 @@ Future<Map<String, dynamic>?> checkUserOportunities(String barcode) async {
     String userId = userInfo["sub"];
     Position? position = await getCurrentLocation();
     var url =
-        'https://api.okylife.lygamification.cl/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1&lat=${position?.latitude}&lng=${position?.longitude}';
+        'https://nicjppaet3.execute-api.us-east-1.amazonaws.com/producto/verificar?user_id=$userId&barcode=$barcode&marcaId=1&lat=${position?.latitude}&lng=${position?.longitude}';
 
     final response = await http.get(
       Uri.parse(url),
