@@ -38,7 +38,7 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
     }
     final response = await http
         .get(Uri.parse(
-            '$url$code${userId.isNotEmpty ? '?user_id=$userId' : ''}&isScan=$isScan'))
+            '$url$code?isScan=$isScan${userId.isNotEmpty ? '&user_id=$userId' : ''}'))
         .timeout(const Duration(seconds: 5));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -49,6 +49,7 @@ Future<Map<String, dynamic>> fetchBarcodeData(String? code, bool isScan) async {
   } on TimeoutException catch (_) {
     return {"timeout": "La solicitud ha tardado demasiado tiempo en responder"};
   } catch (error) {
+
     return {"error": "Ocurrió un error al buscar los datos"};
   }
 }

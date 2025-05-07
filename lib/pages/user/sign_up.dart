@@ -93,7 +93,6 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
             child: Container(
       width: screenWidth,
-      height: screenHeight,
       decoration: const BoxDecoration(
         color: Color(0xFFF9F9FA),
       ),
