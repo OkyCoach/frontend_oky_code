@@ -34,9 +34,7 @@ class _MyScannerWidgetState extends State<MyScannerWidget> {
 
   Future<bool> _didScan(String? barcode) async {
     try {
-
       var _product = await fetchBarcodeData(barcode, true);
-      print(_product);
       var _evaluation = await fetchEvaluationData(barcode);
       setState(() {
         ready = false;
